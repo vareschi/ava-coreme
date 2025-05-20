@@ -1,3 +1,4 @@
+<!-- Header -->
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -9,7 +10,7 @@
     <!-- theme meta -->
     <meta name="theme-name" content="sleek" />
     
-    <title>Ecommerce - Sleek Admin Dashboard Template</title>
+    <title>AVA - Coreme</title>
     
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet" />
