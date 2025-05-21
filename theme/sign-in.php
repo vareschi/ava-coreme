@@ -52,7 +52,7 @@
                 <div class="alert alert-danger">E-mail ou senha inválidos.</div>
               <?php endif; ?>
               
-              <form action="/index.html">
+              <form method="POST" action="auth.php">
                 <div class="row">
                   <div class="form-group col-md-12 mb-4">
                     <input type="email" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="Username">
@@ -74,7 +74,7 @@
                       <p class="mt-4">Esqueceu sua senha? <a class="text-blue" href="#">Recuperar</a></p>
                     </div>
 
-                    <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Login</button>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Entrar</button>
 
                     <p>Não tem uma conta?
                       <a class="text-blue" href="sign-up.html">Cadastrar-se</a>
