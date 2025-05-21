@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . 'includes/config.php'; // Conexão PDO
+require_once __DIR__ . '/includes/config.php'; // Conexão PDO
 
 $email = $_POST['email'] ?? '';
 $senha = $_POST['senha'] ?? '';

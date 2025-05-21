@@ -100,7 +100,6 @@
     <script src="assets/plugins/jquery/jquery.min.js"></script>
     <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/sleek.js"></script>
-  <link href="assets/options/optionswitch.css" rel="stylesheet">
-<script src="assets/options/optionswitcher.js"></script>
+  
 </body>
 </html>
