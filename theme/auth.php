@@ -7,7 +7,7 @@ $senha = $_POST['senha'] ?? '';
 
 // 1. Verifica se os campos foram preenchidos
 if (empty($email) || empty($senha)) {
-    header("Location: login.php?erro=1");
+    header("Location: sign-in.php?erro=1");
     exit;
 }
 
