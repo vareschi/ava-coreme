@@ -14,10 +14,10 @@
     <link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
 
     <!-- SLEEK CSS -->
-    <link id="sleek-css" rel="stylesheet" href="/assets/css/sleek.css" />
+    <link id="sleek-css" rel="stylesheet" href="assets/css/sleek.css" />
 
     <!-- FAVICON -->
-    <link href="/assets/img/favicon.png" rel="shortcut icon" />
+    <link href="assets/img/favicon.png" rel="shortcut icon" />
 
     <!--
       HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
@@ -28,7 +28,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script src="/assets/plugins/nprogress/nprogress.js"></script>
+    <script src="assets/plugins/nprogress/nprogress.js"></script>
   </head>
 
   <body class="" id="body">
@@ -39,7 +39,7 @@
             <div class="card-header bg-primary">
               <div class="app-brand">
                 <a href="#">
-                  <img src="/assets/img/logo-coreme.png" alt="Logo" style="max-height:40px;" />
+                  <img src="assets/img/logo-coreme.png" alt="Logo" style="max-height:40px;" />
                   <span class="brand-name text-white">AVA Coreme</span>
                 </a>
               </div>
@@ -81,10 +81,10 @@
     </script> -->
 
     <!-- Javascript -->
-    <script src="/assets/plugins/jquery/jquery.min.js"></script>
-    <script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/js/sleek.js"></script>
-  <link href="/assets/options/optionswitch.css" rel="stylesheet">
-<script src="/assets/options/optionswitcher.js"></script>
+    <script src="assets/plugins/jquery/jquery.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/sleek.js"></script>
+  <link href="assets/options/optionswitch.css" rel="stylesheet">
+<script src="assets/options/optionswitcher.js"></script>
 </body>
 </html>
