@@ -77,7 +77,7 @@
                     <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Entrar</button>
 
                     <p>Não tem uma conta?
-                      <a class="text-blue" href="sign-up.html">Cadastrar-se</a>
+                      <a class="text-blue" href="sign-up.php">Cadastrar-se</a>
                     </p>
                   </div>
                 </div>
