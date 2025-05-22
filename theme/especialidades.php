@@ -54,19 +54,54 @@ if ($editar_id) {
         </thead>
         <tbody>
           <?php foreach ($especialidades as $esp): ?>
-            <tr>
-              <td><?= htmlspecialchars($esp['nome']) ?></td>
-              <td><?= htmlspecialchars($esp['duracao_anos']) ?></td>
-              <td class="text-right">
-                <a href="especialidades.php?editar=<?= $esp['id'] ?>" class="mr-2 text-primary"><i class="mdi mdi-pencil"></i></a>
-                <a href="actions/excluir_especialidade.php?id=<?= $esp['id'] ?>" onclick="return confirm('Deseja excluir esta especialidade?')" class="text-danger"><i class="mdi mdi-delete"></i></a>
-              </td>
-            </tr>
+            <tr id="linha-<?= $esp['id'] ?>">
+                <form method="POST" action="actions/salvar_especialidade.php" class="form-especialidade">
+                    <input type="hidden" name="id" value="<?= $esp['id'] ?>">
+
+                    <td>
+                    <input type="text" name="nome" class="form-control-plaintext" value="<?= htmlspecialchars($esp['nome']) ?>"
+                            readonly id="nome-<?= $esp['id'] ?>">
+                    </td>
+
+                    <td>
+                    <input type="number" name="duracao" class="form-control-plaintext" value="<?= $esp['duracao_anos'] ?>"
+                            readonly id="duracao-<?= $esp['id'] ?>">
+                    </td>
+
+                    <td class="text-right">
+                    <button type="button" class="btn btn-sm btn-link text-primary" onclick="habilitarEdicao(<?= $esp['id'] ?>)">
+                        <i class="mdi mdi-pencil" id="icon-<?= $esp['id'] ?>"></i>
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-link text-success d-none" id="btn-salvar-<?= $esp['id'] ?>">
+                        <i class="mdi mdi-content-save"></i>
+                    </button>
+                    <a href="actions/excluir_especialidade.php?id=<?= $esp['id'] ?>" onclick="return confirm('Excluir?')" class="text-danger">
+                        <i class="mdi mdi-delete"></i>
+                    </a>
+                    </td>
+                </form>
+                </tr>
+
           <?php endforeach; ?>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
+<script>
+function habilitarEdicao(id) {
+  document.getElementById("nome-" + id).readOnly = false;
+  document.getElementById("duracao-" + id).readOnly = false;
+  document.getElementById("nome-" + id).classList.remove('form-control-plaintext');
+  document.getElementById("duracao-" + id).classList.remove('form-control-plaintext');
+
+  document.getElementById("btn-salvar-" + id).classList.remove('d-none');
+  document.getElementById("icon-" + id).classList.replace('mdi-pencil', 'mdi-close');
+
+  // Desabilita botão de edição para outras linhas se necessário
+}
+</script>
+
 
 <?php include 'includes/footer.php'; ?>
