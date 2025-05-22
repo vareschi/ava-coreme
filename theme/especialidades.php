@@ -15,7 +15,7 @@ $especialidades = $pdo->query("SELECT * FROM especialidades ORDER BY nome ASC")-
     <div class="card-body">
       <h4 class="card-title d-flex justify-content-between align-items-center">
         Especialidades
-        <form class="form-inline" method="POST" action="salvar_especialidade.php">
+        <form class="form-inline" method="POST" action="actions/salvar_especialidade.php">
           <input type="text" name="nome" class="form-control mr-2" placeholder="Digite uma especialidade..." required>
           <input type="number" name="duracao" class="form-control mr-2" placeholder="Duração (anos)" min="1" required>
           <button type="submit" class="btn btn-primary">Cadastrar</button>
