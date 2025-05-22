@@ -44,7 +44,7 @@ if ($editar_id) {
 
   <div class="card">
     <div class="card-body">
-      <table class="table">
+      <table id="hoverable-data-table" class="table table-hover nowrap" style="width:100%">
         <thead>
           <tr>
             <th>Especialidade</th>
@@ -101,7 +101,18 @@ function habilitarEdicao(id) {
 
   // Desabilita botão de edição para outras linhas se necessário
 }
+
+jQuery(document).ready(function() {
+  jQuery('#hoverable-data-table').DataTable({
+   "aLengthMenu": [[20, 30, 50, 75, -1], [20, 30, 50, 75, "All"]],
+   "pageLength": 20,
+   "dom": '<"row justify-content-between top-information"lf>rt<"row justify-content-between bottom-information"ip><"clear">'
+  });
+ });
 </script>
+
+<script src="assets/plugins/data-tables/jquery.datatables.min.js"></script>
+<script src="assets/plugins/data-tables/datatables.bootstrap4.min.js"></script>
 
 
 <?php include 'includes/footer.php'; ?>
