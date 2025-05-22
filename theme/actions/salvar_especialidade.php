@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/config.php';
+require_once '../includes/config.php';
 
 $nome = trim($_POST['nome'] ?? '');
 $duracao = intval($_POST['duracao'] ?? 0);
