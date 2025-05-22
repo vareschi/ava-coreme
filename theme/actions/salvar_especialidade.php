@@ -10,5 +10,5 @@ if ($nome && $duracao > 0) {
     $stmt->execute([$nome, $duracao]);
 }
 
-header('Location: especialidades.php');
+header('Location: ../especialidades.php');
 exit;

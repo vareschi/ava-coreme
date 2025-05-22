@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/config.php';
+require_once '../includes/config.php';
 
 $id = intval($_GET['id'] ?? 0);
 
@@ -9,5 +9,5 @@ if ($id > 0) {
     $stmt->execute([$id]);
 }
 
-header('Location: especialidades.php');
+header('Location: ../especialidades.php');
 exit;
