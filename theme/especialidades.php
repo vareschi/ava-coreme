@@ -58,7 +58,7 @@ if ($editar_id) {
               <td><?= htmlspecialchars($esp['nome']) ?></td>
               <td><?= htmlspecialchars($esp['duracao_anos']) ?></td>
               <td class="text-right">
-                <a href="actions/especialidades.php?editar=<?= $esp['id'] ?>" class="mr-2 text-primary"><i class="mdi mdi-pencil"></i></a>
+                <a href="especialidades.php?editar=<?= $esp['id'] ?>" class="mr-2 text-primary"><i class="mdi mdi-pencil"></i></a>
                 <a href="actions/excluir_especialidade.php?id=<?= $esp['id'] ?>" onclick="return confirm('Deseja excluir esta especialidade?')" class="text-danger"><i class="mdi mdi-delete"></i></a>
               </td>
             </tr>
