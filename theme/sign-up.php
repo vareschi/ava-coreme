@@ -60,7 +60,7 @@
                   </div>
 
                   <div class="form-group col-md-12 mb-4">
-                    <input type="email" name="email" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="Username">
+                    <input type="email" name="email" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="Email">
                   </div>
 
                   <div class="form-group col-md-12 ">
