@@ -28,18 +28,25 @@
 
                   <ul class="collapse show" id="dashboard" data-parent="#sidebar-menu">
                     <div class="sub-menu">
-                      <li class="active">
-                        <a class="sidenav-item-link" href="index.html">
-                          <span class="nav-text">Ecommerce</span>
-                        </a>
-                      </li>
+                        <li class="active">
+                            <a class="sidenav-item-link" href="index.html">
+                            <span class="nav-text">Ecommerce</span>
+                            </a>
+                        </li>
 
-                      <li class="">
+                        <li class="">
                         <a class="sidenav-item-link" href="analytics.html">
-                          <span class="nav-text">Analytics</span>
-                          <span class="badge badge-success">new</span>
+                            <span class="nav-text">Analytics</span>
+                            <span class="badge badge-success">new</span>
                         </a>
-                      </li>
+                        </li>
+
+                        <li class="">
+                        <a class="sidenav-item-link" href="especialidades.php">
+                            <span class="nav-text">Especialidades</span>
+                            <span class="badge badge-success">new</span>
+                        </a>
+                        </li>
                     </div>
                   </ul>
                 </li>
