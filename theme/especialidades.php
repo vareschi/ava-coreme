@@ -74,15 +74,21 @@ if ($editar_id) {
                     </td>
 
                     <td class="text-right">
-                        <button type="button" class="btn btn-sm btn-link text-primary" onclick="habilitarEdicao(<?= $esp['id'] ?>)">
-                            <i class="mdi mdi-pencil" id="icon-<?= $esp['id'] ?>"></i>
-                        </button>
-                        <button type="submit" class="btn btn-sm btn-link text-success d-none" id="btn-salvar-<?= $esp['id'] ?>">
-                            <i class="mdi mdi-content-save"></i>
-                        </button>
-                        <a href="actions/excluir_especialidade.php?id=<?= $esp['id'] ?>" onclick="return confirm('Excluir?')" class="text-danger">
-                            <i class="mdi mdi-delete"></i>
-                        </a>
+                        <!-- botão cancelar -->
+                    <button type="button" class="btn btn-sm btn-link text-secondary d-none" id="btn-cancelar-<?= $esp['id'] ?>"
+                            onclick="cancelarEdicao(<?= $esp['id'] ?>)">
+                    <i class="mdi mdi-close"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-sm btn-link text-primary" onclick="habilitarEdicao(<?= $esp['id'] ?>)">
+                        <i class="mdi mdi-pencil" id="icon-<?= $esp['id'] ?>"></i>
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-link text-success d-none" id="btn-salvar-<?= $esp['id'] ?>">
+                        <i class="mdi mdi-content-save"></i>
+                    </button>
+                    <a href="actions/excluir_especialidade.php?id=<?= $esp['id'] ?>" onclick="return confirm('Excluir?')" class="text-danger">
+                        <i class="mdi mdi-delete"></i>
+                    </a>
                     </td>
                 </form>
                 </tr>
