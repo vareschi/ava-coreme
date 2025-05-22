@@ -74,6 +74,12 @@ if ($editar_id) {
                     </td>
 
                     <td class="text-right">
+                        <!-- botão cancelar -->
+                    <button type="button" class="btn btn-sm btn-link text-secondary d-none" id="btn-cancelar-<?= $esp['id'] ?>"
+                            onclick="cancelarEdicao(<?= $esp['id'] ?>)">
+                    <i class="mdi mdi-close"></i>
+                    </button>
+
                     <button type="button" class="btn btn-sm btn-link text-primary" onclick="habilitarEdicao(<?= $esp['id'] ?>)">
                         <i class="mdi mdi-pencil" id="icon-<?= $esp['id'] ?>"></i>
                     </button>
