@@ -19,7 +19,8 @@ if ($editar_id) {
 <?php include 'includes/sidebar.php'; ?>
 <?php include 'includes/topbar.php'; ?>
 
-
+<script src="assets/plugins/data-tables/jquery.datatables.min.js"></script>
+<script src="assets/plugins/data-tables/datatables.bootstrap4.min.js"></script>
 
 <div class="content">
   <div class="card">
@@ -142,9 +143,5 @@ jQuery(document).ready(function() {
   icon.parentNode.setAttribute("onclick", `habilitarEdicao(${id})`);
 }
 </script>
-
-<script src="assets/plugins/data-tables/jquery.datatables.min.js"></script>
-<script src="assets/plugins/data-tables/datatables.bootstrap4.min.js"></script>
-
 
 <?php include 'includes/footer.php'; ?>
