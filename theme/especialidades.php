@@ -102,20 +102,38 @@ if ($editar_id) {
 
 <script>
 function habilitarEdicao(id) {
-  document.getElementById("nome-" + id).readOnly = false;
-  document.getElementById("duracao-" + id).readOnly = false;
-  document.getElementById("nome-" + id).classList.remove('form-control-plaintext');
-  document.getElementById("duracao-" + id).classList.remove('form-control-plaintext');
+  const nome = document.getElementById("nome-" + id);
+  const duracao = document.getElementById("duracao-" + id);
+  const icon = document.getElementById("icon-" + id);
+  const btnSalvar = document.getElementById("btn-salvar-" + id);
+  const btnCancelar = document.getElementById("btn-cancelar-" + id);
 
-  document.getElementById("btn-salvar-" + id).classList.remove('d-none');
-  document.getElementById("icon-" + id).classList.replace('mdi-pencil', 'mdi-close');
+  nome.readOnly = false;
+  duracao.readOnly = false;
 
-  // Desabilita botão de edição para outras linhas se necessário
+  nome.classList.remove('form-control-plaintext');
+  nome.classList.add('form-control');
+  duracao.classList.remove('form-control-plaintext');
+  duracao.classList.add('form-control');
+
+  btnSalvar.classList.remove("d-none");
+  btnCancelar.classList.remove("d-none");
+
+  // Muda ícone lápis para "X"
+  icon.classList.remove("mdi-pencil");
+  icon.classList.add("mdi-close");
+
+  // Troca onclick do botão lápis para cancelar
+  icon.parentNode.setAttribute("onclick", `cancelarEdicao(${id})`);
 }
+
 
 function cancelarEdicao(id) {
   const nome = document.getElementById("nome-" + id);
   const duracao = document.getElementById("duracao-" + id);
+  const icon = document.getElementById("icon-" + id);
+  const btnSalvar = document.getElementById("btn-salvar-" + id);
+  const btnCancelar = document.getElementById("btn-cancelar-" + id);
 
   nome.value = nome.getAttribute("data-original");
   duracao.value = duracao.getAttribute("data-original");
@@ -128,18 +146,15 @@ function cancelarEdicao(id) {
   duracao.classList.remove("form-control");
   duracao.classList.add("form-control-plaintext");
 
-  // esconde botões
-  document.getElementById("btn-salvar-" + id).classList.add("d-none");
-  document.getElementById("btn-cancelar-" + id).classList.add("d-none");
+  btnSalvar.classList.add("d-none");
+  btnCancelar.classList.add("d-none");
 
-  // troca ícone de volta para lápis
-  const icon = document.getElementById("icon-" + id);
   icon.classList.remove("mdi-close");
   icon.classList.add("mdi-pencil");
 
-  // volta o onclick do botão para habilitar edição
   icon.parentNode.setAttribute("onclick", `habilitarEdicao(${id})`);
 }
+
 </script>
 
 <?php include 'includes/footer.php'; ?>
