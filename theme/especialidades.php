@@ -107,15 +107,7 @@ function habilitarEdicao(id) {
   // Desabilita botão de edição para outras linhas se necessário
 }
 
-jQuery(document).ready(function() {
-  jQuery('#hoverable-data-table').DataTable({
-   "aLengthMenu": [[20, 30, 50, 75, -1], [20, 30, 50, 75, "All"]],
-   "pageLength": 20,
-   "dom": '<"row justify-content-between top-information"lf>rt<"row justify-content-between bottom-information"ip><"clear">'
-  });
- });
-
- function cancelarEdicao(id) {
+function cancelarEdicao(id) {
   const nome = document.getElementById("nome-" + id);
   const duracao = document.getElementById("duracao-" + id);
 
