@@ -74,21 +74,27 @@ if ($editar_id) {
                     </td>
 
                     <td class="text-right">
-                        <!-- botão cancelar -->
-                    <button type="button" class="btn btn-sm btn-link text-secondary d-none" id="btn-cancelar-<?= $esp['id'] ?>"
-                            onclick="cancelarEdicao(<?= $esp['id'] ?>)">
-                    <i class="mdi mdi-close"></i>
-                    </button>
+                         <!-- botão de editar -->
+                        <button type="button" class="btn btn-sm btn-link text-primary" id="btn-editar-<?= $esp['id'] ?>"
+                                onclick="habilitarEdicao(<?= $esp['id'] ?>)">
+                            <i class="mdi mdi-pencil"></i>
+                        </button>
 
-                    <button type="button" class="btn btn-sm btn-link text-primary" onclick="habilitarEdicao(<?= $esp['id'] ?>)">
-                        <i class="mdi mdi-pencil" id="icon-<?= $esp['id'] ?>"></i>
-                    </button>
-                    <button type="submit" class="btn btn-sm btn-link text-success d-none" id="btn-salvar-<?= $esp['id'] ?>">
-                        <i class="mdi mdi-content-save"></i>
-                    </button>
-                    <a href="actions/excluir_especialidade.php?id=<?= $esp['id'] ?>" onclick="return confirm('Excluir?')" class="text-danger">
-                        <i class="mdi mdi-delete"></i>
-                    </a>
+                        <!-- botão de salvar -->
+                        <button type="submit" class="btn btn-sm btn-link text-success d-none" id="btn-salvar-<?= $esp['id'] ?>">
+                            <i class="mdi mdi-content-save"></i>
+                        </button>
+
+                        <!-- botão de cancelar -->
+                        <button type="button" class="btn btn-sm btn-link text-secondary d-none" id="btn-cancelar-<?= $esp['id'] ?>"
+                                onclick="cancelarEdicao(<?= $esp['id'] ?>)">
+                            <i class="mdi mdi-close"></i>
+                        </button>
+
+                        <!-- botão de excluir -->
+                        <a href="actions/excluir_especialidade.php?id=<?= $esp['id'] ?>" class="text-danger" onclick="return confirm('Excluir?')">
+                            <i class="mdi mdi-delete"></i>
+                        </a>
                     </td>
                 </form>
                 </tr>
@@ -104,36 +110,26 @@ if ($editar_id) {
 function habilitarEdicao(id) {
   const nome = document.getElementById("nome-" + id);
   const duracao = document.getElementById("duracao-" + id);
-  const icon = document.getElementById("icon-" + id);
-  const btnSalvar = document.getElementById("btn-salvar-" + id);
-  const btnCancelar = document.getElementById("btn-cancelar-" + id);
 
   nome.readOnly = false;
   duracao.readOnly = false;
 
-  nome.classList.remove('form-control-plaintext');
-  nome.classList.add('form-control');
-  duracao.classList.remove('form-control-plaintext');
-  duracao.classList.add('form-control');
+  nome.classList.remove("form-control-plaintext");
+  nome.classList.add("form-control");
+  duracao.classList.remove("form-control-plaintext");
+  duracao.classList.add("form-control");
 
-  btnSalvar.classList.remove("d-none");
-  btnCancelar.classList.remove("d-none");
+  // mostrar botões salvar e cancelar
+  document.getElementById("btn-salvar-" + id).classList.remove("d-none");
+  document.getElementById("btn-cancelar-" + id).classList.remove("d-none");
 
-  // Muda ícone lápis para "X"
-  icon.classList.remove("mdi-pencil");
-  icon.classList.add("mdi-close");
-
-  // Troca onclick do botão lápis para cancelar
-  icon.parentNode.setAttribute("onclick", `cancelarEdicao(${id})`);
+  // esconder botão de editar
+  document.getElementById("btn-editar-" + id).classList.add("d-none");
 }
-
 
 function cancelarEdicao(id) {
   const nome = document.getElementById("nome-" + id);
   const duracao = document.getElementById("duracao-" + id);
-  const icon = document.getElementById("icon-" + id);
-  const btnSalvar = document.getElementById("btn-salvar-" + id);
-  const btnCancelar = document.getElementById("btn-cancelar-" + id);
 
   nome.value = nome.getAttribute("data-original");
   duracao.value = duracao.getAttribute("data-original");
@@ -146,13 +142,12 @@ function cancelarEdicao(id) {
   duracao.classList.remove("form-control");
   duracao.classList.add("form-control-plaintext");
 
-  btnSalvar.classList.add("d-none");
-  btnCancelar.classList.add("d-none");
+  // esconder salvar e cancelar
+  document.getElementById("btn-salvar-" + id).classList.add("d-none");
+  document.getElementById("btn-cancelar-" + id).classList.add("d-none");
 
-  icon.classList.remove("mdi-close");
-  icon.classList.add("mdi-pencil");
-
-  icon.parentNode.setAttribute("onclick", `habilitarEdicao(${id})`);
+  // mostrar botão de editar de novo
+  document.getElementById("btn-editar-" + id).classList.remove("d-none");
 }
 
 </script>
