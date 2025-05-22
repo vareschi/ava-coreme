@@ -59,13 +59,17 @@ if ($editar_id) {
                     <input type="hidden" name="id" value="<?= $esp['id'] ?>">
 
                     <td>
-                    <input type="text" name="nome" class="form-control-plaintext" value="<?= htmlspecialchars($esp['nome']) ?>"
-                            readonly id="nome-<?= $esp['id'] ?>">
+                    <input type="text" name="nome" class="form-control-plaintext" 
+                        value="<?= htmlspecialchars($esp['nome']) ?>"
+                        readonly id="nome-<?= $esp['id'] ?>" 
+                        data-original="<?= htmlspecialchars($esp['nome']) ?>">
                     </td>
 
                     <td>
-                    <input type="number" name="duracao" class="form-control-plaintext" value="<?= $esp['duracao_anos'] ?>"
-                            readonly id="duracao-<?= $esp['id'] ?>">
+                    <input type="number" name="duracao" class="form-control-plaintext"
+                        value="<?= $esp['duracao_anos'] ?>"
+                        readonly id="duracao-<?= $esp['id'] ?>" 
+                        data-original="<?= $esp['duracao_anos'] ?>">
                     </td>
 
                     <td class="text-right">
@@ -109,6 +113,34 @@ jQuery(document).ready(function() {
    "dom": '<"row justify-content-between top-information"lf>rt<"row justify-content-between bottom-information"ip><"clear">'
   });
  });
+
+ function cancelarEdicao(id) {
+  const nome = document.getElementById("nome-" + id);
+  const duracao = document.getElementById("duracao-" + id);
+
+  nome.value = nome.getAttribute("data-original");
+  duracao.value = duracao.getAttribute("data-original");
+
+  nome.readOnly = true;
+  duracao.readOnly = true;
+
+  nome.classList.remove("form-control");
+  nome.classList.add("form-control-plaintext");
+  duracao.classList.remove("form-control");
+  duracao.classList.add("form-control-plaintext");
+
+  // esconde botões
+  document.getElementById("btn-salvar-" + id).classList.add("d-none");
+  document.getElementById("btn-cancelar-" + id).classList.add("d-none");
+
+  // troca ícone de volta para lápis
+  const icon = document.getElementById("icon-" + id);
+  icon.classList.remove("mdi-close");
+  icon.classList.add("mdi-pencil");
+
+  // volta o onclick do botão para habilitar edição
+  icon.parentNode.setAttribute("onclick", `habilitarEdicao(${id})`);
+}
 </script>
 
 <script src="assets/plugins/data-tables/jquery.datatables.min.js"></script>
