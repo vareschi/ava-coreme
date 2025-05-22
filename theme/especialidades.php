@@ -4,11 +4,22 @@ require_once 'includes/config.php';
 
 $pdo = getPDO();
 $especialidades = $pdo->query("SELECT * FROM especialidades ORDER BY nome ASC")->fetchAll();
+
+$editar_id = isset($_GET['editar']) ? (int)$_GET['editar'] : null;
+$editar_especialidade = null;
+
+if ($editar_id) {
+    $stmt = $pdo->prepare("SELECT * FROM especialidades WHERE id = ?");
+    $stmt->execute([$editar_id]);
+    $editar_especialidade = $stmt->fetch();
+}
 ?>
 
 <?php include 'includes/header.php'; ?>
 <?php include 'includes/sidebar.php'; ?>
 <?php include 'includes/topbar.php'; ?>
+
+
 
 <div class="content">
   <div class="card">
@@ -16,9 +27,16 @@ $especialidades = $pdo->query("SELECT * FROM especialidades ORDER BY nome ASC")-
       <h4 class="card-title d-flex justify-content-between align-items-center">
         Especialidades
         <form class="form-inline" method="POST" action="actions/salvar_especialidade.php">
-          <input type="text" name="nome" class="form-control mr-2" placeholder="Digite uma especialidade..." required>
-          <input type="number" name="duracao" class="form-control mr-2" placeholder="Duração (anos)" min="1" required>
-          <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <input type="hidden" name="id" value="<?= $editar_especialidade['id'] ?? '' ?>">
+            <input type="text" name="nome" class="form-control mr-2"
+                    placeholder="Digite uma especialidade..."
+                    value="<?= htmlspecialchars($editar_especialidade['nome'] ?? '') ?>" required>
+            <input type="number" name="duracao" class="form-control mr-2"
+                    placeholder="Duração (anos)"
+                    value="<?= htmlspecialchars($editar_especialidade['duracao_anos'] ?? '') ?>" min="1" required>
+            <button type="submit" class="btn btn-<?= $editar_especialidade ? 'warning' : 'primary' ?>">
+                <?= $editar_especialidade ? 'Atualizar' : 'Cadastrar' ?>
+            </button>
         </form>
       </h4>
     </div>
