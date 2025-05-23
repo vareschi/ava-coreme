@@ -7,6 +7,9 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 
 require_once 'includes/config.php';
+require_once 'includes/funcoes.php';
+
+verificarAcessoRecurso('especialidades');
 
 $pdo = getPDO();
 $especialidades = $pdo->query("SELECT * FROM especialidades ORDER BY nome ASC")->fetchAll();
