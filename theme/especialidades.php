@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: sign-in.php");
+    exit;
+}
+
 require_once 'includes/config.php';
 
 $pdo = getPDO();

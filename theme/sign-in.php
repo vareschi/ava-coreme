@@ -40,7 +40,7 @@
               <div class="app-brand">
                 <a href="#">
                   <img src="assets/img/logo-coreme.png" alt="Logo" style="max-height:40px;" />
-                  <span class="brand-name text-white">AVA Coreme</span>
+                  <!--<span class="brand-name text-white">AVA Coreme</span>-->
                 </a>
               </div>
             </div>
