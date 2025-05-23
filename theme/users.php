@@ -131,8 +131,8 @@ verificarAcessoRecurso('usuarios');
         </div>
 
         <div class="modal-footer px-4">
-          <button type="button" class="btn btn-secondary btn-pill" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary btn-pill">Save Contact</button>
+          <button type="button" class="btn btn-secondary btn-pill" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary btn-pill">Salvar</button>
         </div>
       </form>
     </div>
@@ -140,14 +140,6 @@ verificarAcessoRecurso('usuarios');
 </div>
 
 
-
-
-
-
-
-
-
-<?php include __DIR__.'/includes/footer.php'; ?>
 
  <!-- Javascript -->
  <script src="assets/plugins/jquery/jquery.min.js"></script>
@@ -164,3 +156,10 @@ verificarAcessoRecurso('usuarios');
     <script src="assets/js/sleek.js"></script>
   <link href="assets/options/optionswitch.css" rel="stylesheet">
 <script src="assets/options/optionswitcher.js"></script>
+
+
+
+
+
+<?php include __DIR__.'/includes/footer.php'; ?>
+
