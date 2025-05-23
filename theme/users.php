@@ -44,36 +44,82 @@ verificarAcessoRecurso('usuarios');
   </div>
 </div>
 
+<form method="GET" class="form-inline mb-4">
+  <input type="text" name="nome" class="form-control mr-2" placeholder="Nome" value="<?= $_GET['nome'] ?? '' ?>">
+  <input type="email" name="email" class="form-control mr-2" placeholder="E-mail" value="<?= $_GET['email'] ?? '' ?>">
+  <select name="perfil" class="form-control mr-2">
+    <option value="">Todos os Perfis</option>
+    <option value="admin">Admin</option>
+    <option value="secretaria">Secretária</option>
+    <option value="residente">Residente</option>
+    <option value="preceptor">Preceptor</option>
+  </select>
+  <button type="submit" class="btn btn-outline-primary">Filtrar</button>
+</form>
+
+<?php
+$pdo = getPDO();
+
+$stmt = $pdo->query("
+  SELECT u.*, d.telefone, d.cidade, d.estado, d.imagem_perfil
+  FROM usuarios u
+  LEFT JOIN usuarios_dados d ON d.usuario_id = u.id
+  ORDER BY u.nome ASC
+");
+$usuarios = $stmt->fetchAll();
+
+// Busca os perfis de todos os usuários
+$perfisStmt = $pdo->query("
+  SELECT up.usuario_id, p.nome 
+  FROM usuario_perfis up 
+  JOIN perfis p ON p.id = up.perfil_id
+");
+$mapaPerfis = [];
+foreach ($perfisStmt as $linha) {
+  $mapaPerfis[$linha['usuario_id']][] = ucfirst($linha['nome']);
+}
+
+?>
+
 <div class="row">
-  <div class="col-lg-6 col-xl-4">
-    <div class="card card-default p-4">
-      <a href="javascript:0" class="media text-secondary" data-toggle="modal" data-target="#modal-contact">
-        <img src="assets/img/user/u-xl-1.jpg" class="mr-3 img-fluid rounded" alt="Avatar Image">
+  <?php foreach ($usuarios as $usuario): ?>
+    <div class="col-lg-6 col-xl-4">
+        <div class="card card-default p-4">
+            <a href="javascript:0" class="media text-secondary" data-toggle="modal" data-target="#modal-contact">
+            <img src="<?= $usuario['imagem_perfil'] ?: 'assets/img/user/u-xl-1.jpg' ?>" class="mr-3 img-fluid rounded" style="width:64px; height:64px;" alt="Avatar">
 
-        <div class="media-body">
-          <h5 class="mt-0 mb-2 text-dark">Derick</h5>
+            <div class="media-body">
+                <h5 class="mt-0 mb-2 text-dark"><?= htmlspecialchars($usuario['nome']) ?></h5>
 
-          <ul class="list-unstyled">
-            <li class="d-flex mb-1">
-              <i class="mdi mdi-map mr-1"></i>
-              <span>Nulla vel metus 15/178</span>
-            </li>
+                <ul class="list-unstyled">
+                <li class="d-flex mb-1">
+                    <i class="mdi mdi-account mr-1"></i>
+                    <span><?= implode(' - ', $mapaPerfis[$usuario['id']] ?? ['Sem perfil']) ?></span>
+                </li>
 
-            <li class="d-flex mb-1">
-              <i class="mdi mdi-email mr-1"></i>
-              <span>exmaple@email.com</span>
-            </li>
+                <li class="d-flex mb-1">
+                    <i class="mdi mdi-email mr-1"></i>
+                    <span><?= htmlspecialchars($usuario['email']) ?></span>
+                </li>
 
-            <li class="d-flex mb-1">
-              <i class="mdi mdi-phone mr-1"></i>
-              <span>(123) 888 777 632</span>
-            </li>
-          </ul>
+                <li class="d-flex mb-1">
+                    <i class="mdi mdi-phone mr-1"></i>
+                    <span><?= $usuario['telefone'] ?: '(telefone não informado)' ?></span>
+                </li>
+
+                <li class="d-flex mb-1">
+                    <i class="mdi mdi-map-marker mr-1"></i>
+                    <span><?= $usuario['cidade'] && $usuario['estado'] ? "{$usuario['cidade']}/{$usuario['estado']}" : '(local não informado)' ?></span>
+                </li>
+                </ul>
+            </div>
+            </a>
         </div>
-      </a>
     </div>
-  </div>
+
+  <?php endforeach; ?>
 </div>
+
 
 
 
