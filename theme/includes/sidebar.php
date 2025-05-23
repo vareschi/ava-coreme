@@ -47,6 +47,12 @@
                             <span class="badge badge-success">new</span>
                         </a>
                         </li>
+
+                        <li class="">
+                        <a class="sidenav-item-link" href="users.php">
+                            <span class="nav-text">Usuários</span>
+                        </a>
+                        </li>
                     </div>
                   </ul>
                 </li>

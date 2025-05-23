@@ -9,6 +9,10 @@ if (!isset($_SESSION['usuario_id'])) {
 require_once 'includes/config.php';
 require_once 'includes/funcoes.php';
 
+include 'includes/header.php';
+include 'includes/sidebar.php';
+include 'includes/topbar.php';
+
 verificarAcessoRecurso('especialidades');
 
 $pdo = getPDO();
@@ -23,10 +27,6 @@ if ($editar_id) {
     $editar_especialidade = $stmt->fetch();
 }
 ?>
-
-<?php include 'includes/header.php'; ?>
-<?php include 'includes/sidebar.php'; ?>
-<?php include 'includes/topbar.php'; ?>
 
 <script src="assets/plugins/data-tables/jquery.datatables.min.js"></script>
 <script src="assets/plugins/data-tables/datatables.bootstrap4.min.js"></script>
