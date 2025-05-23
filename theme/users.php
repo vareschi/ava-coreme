@@ -92,7 +92,7 @@ foreach ($perfisStmt as $linha) {
 
                 <ul class="list-unstyled">
                 <li class="d-flex mb-1">
-                <i class="mdi mdi-account mr-1"></i>
+                <i class="mdi mr-1"></i>
                 <span>
                     <?php foreach ($mapaPerfis[$usuario['id']] ?? [] as $perfil): ?>
                     <a href="<?= strtolower($perfil) ?>.php?usuario_id=<?= $usuario['id'] ?>" class="badge badge-info mr-1">
