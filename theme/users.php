@@ -103,21 +103,21 @@ verificarAcessoRecurso('usuarios');
             <div class="col-lg-6">
               <div class="form-group">
                 <label for="firstName">Primeiro nome</label>
-                <input type="text" class="form-control" id="firstName" value="Albrecht">
+                <input type="text" class="form-control" id="firstName" value="Emanoel">
               </div>
             </div>
 
             <div class="col-lg-6">
               <div class="form-group">
                 <label for="lastName">Sobrenome</label>
-                <input type="text" class="form-control" id="lastName" value="Straub">
+                <input type="text" class="form-control" id="lastName" value="Gomes">
               </div>
             </div>
 
             <div class="col-lg-6">
               <div class="form-group mb-4">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" value="albrecht.straub@gmail.com">
+                <input type="email" class="form-control" id="email" value="emanoel@gmail.com">
               </div>
             </div>
 
@@ -148,3 +148,19 @@ verificarAcessoRecurso('usuarios');
 
 
 <?php include __DIR__.'/includes/footer.php'; ?>
+
+ <!-- Javascript -->
+ <script src="assets/plugins/jquery/jquery.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/plugins/simplebar/simplebar.min.js"></script>
+ 
+    
+    
+
+    
+    
+    
+
+    <script src="assets/js/sleek.js"></script>
+  <link href="assets/options/optionswitch.css" rel="stylesheet">
+<script src="assets/options/optionswitcher.js"></script>
