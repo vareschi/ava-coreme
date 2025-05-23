@@ -85,7 +85,6 @@ foreach ($perfisStmt as $linha) {
   <?php foreach ($usuarios as $usuario): ?>
     <div class="col-lg-6 col-xl-4">
         <div class="card card-default p-4">
-            <a href="javascript:0" class="media text-secondary" data-toggle="modal" data-target="#modal-contact">
             <img src="<?= $usuario['imagem_perfil'] ?: 'assets/img/user/u-xl-1.jpg' ?>" class="mr-3 img-fluid rounded" style="width:64px; height:64px;" alt="Avatar">
 
             <div class="media-body">
@@ -93,9 +92,19 @@ foreach ($perfisStmt as $linha) {
 
                 <ul class="list-unstyled">
                 <li class="d-flex mb-1">
-                    <i class="mdi mdi-account mr-1"></i>
-                    <span><?= implode(' - ', $mapaPerfis[$usuario['id']] ?? ['Sem perfil']) ?></span>
+                <i class="mdi mdi-account mr-1"></i>
+                <span>
+                    <?php foreach ($mapaPerfis[$usuario['id']] ?? [] as $perfil): ?>
+                    <a href="<?= strtolower($perfil) ?>.php?usuario_id=<?= $usuario['id'] ?>" class="badge badge-info mr-1">
+                        <?= $perfil ?>
+                    </a>
+                    <?php endforeach; ?>
+                    <?php if (empty($mapaPerfis[$usuario['id']])): ?>
+                    <span class="badge badge-secondary">Sem perfil</span>
+                    <?php endif; ?>
+                </span>
                 </li>
+
 
                 <li class="d-flex mb-1">
                     <i class="mdi mdi-email mr-1"></i>
@@ -104,7 +113,7 @@ foreach ($perfisStmt as $linha) {
 
                 <li class="d-flex mb-1">
                     <i class="mdi mdi-phone mr-1"></i>
-                    <span><?= $usuario['telefone'] ?: '(telefone não informado)' ?></span>
+                    <span><?= $usuario['telefone'] ?: '(não informado)' ?></span>
                 </li>
 
                 <li class="d-flex mb-1">
@@ -113,7 +122,6 @@ foreach ($perfisStmt as $linha) {
                 </li>
                 </ul>
             </div>
-            </a>
         </div>
     </div>
 
