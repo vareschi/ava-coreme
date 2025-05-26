@@ -85,7 +85,7 @@ foreach ($perfisStmt as $linha) {
   <?php foreach ($usuarios as $usuario): ?>
     <div class="col-lg-6 col-xl-4">
         <div class="card card-default p-4">
-            <img src="<?= $usuario['imagem_perfil'] ?: 'assets/img/user/u-xl-1.jpg' ?>" class="mr-3 img-fluid rounded" style="width:64px; height:64px;" alt="Avatar">
+            <img src="<?= $usuario['imagem_perfil'] ?: 'assets/img/user/user.png' ?>" class="mr-3 img-fluid rounded" style="width:64px; height:64px;" alt="Avatar">
 
             <div class="media-body">
                 <h5 class="mt-0 mb-2 text-dark"><?= htmlspecialchars($usuario['nome']) ?></h5>
