@@ -167,6 +167,27 @@ foreach ($perfisStmt as $linha) {
               <input type="password" name="senha" class="form-control" required>
             </div>
 
+            <div class="col-lg-12 mt-3">
+                <label>Perfis</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="perfis[]" value="admin" id="perfilAdmin">
+                    <label class="form-check-label" for="perfilAdmin">Admin</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="perfis[]" value="secretaria" id="perfilSecretaria">
+                    <label class="form-check-label" for="perfilSecretaria">Secretária</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="perfis[]" value="residente" id="perfilResidente">
+                    <label class="form-check-label" for="perfilResidente">Residente</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="perfis[]" value="preceptor" id="perfilPreceptor">
+                    <label class="form-check-label" for="perfilPreceptor">Preceptor</label>
+                </div>
+            </div>
+
+
             <div class="col-lg-6 mt-3">
               <label>Data de nascimento</label>
               <input type="date" name="data_nascimento" class="form-control">
