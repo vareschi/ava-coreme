@@ -135,63 +135,94 @@ foreach ($perfisStmt as $linha) {
 <div class="modal fade" id="modal-add-contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
-      <form >
+      <form method="POST" action="actions/salvar_usuario.php" enctype="multipart/form-data">
         <div class="modal-header px-4">
-          <h5 class="modal-title" id="exampleModalCenterTitle">Criar Novo Usuário</h5>
+          <h5 class="modal-title">Criar Novo Usuário</h5>
         </div>
 
         <div class="modal-body px-4">
-          <div class="form-group row mb-6">
-            <label for="coverImage" class="col-sm-4 col-lg-2 col-form-label">Usuário Imagem</label>
-
-            <div class="col-sm-8 col-lg-10">
-              <div class="custom-file mb-1">
-                <input type="file" class="custom-file-input" id="coverImage" required>
-                <label class="custom-file-label" for="coverImage">Carregar Arquivo...</label>
-                <div class="invalid-feedback">Example invalid custom file feedback</div>
+          <div class="form-group row mb-3">
+            <label class="col-sm-3 col-form-label">Imagem de Perfil</label>
+            <div class="col-sm-9">
+              <div class="custom-file">
+                <input type="file" name="imagem_perfil" class="custom-file-input" id="imagem_perfil">
+                <label class="custom-file-label" for="imagem_perfil">Escolher imagem...</label>
               </div>
             </div>
           </div>
 
-          <div class="row mb-2">
+          <div class="row">
             <div class="col-lg-6">
-              <div class="form-group">
-                <label for="firstName">Primeiro nome</label>
-                <input type="text" class="form-control" id="firstName" value="Emanoel">
-              </div>
+              <label>Nome completo</label>
+              <input type="text" name="nome" class="form-control" required>
             </div>
 
             <div class="col-lg-6">
-              <div class="form-group">
-                <label for="lastName">Sobrenome</label>
-                <input type="text" class="form-control" id="lastName" value="Gomes">
-              </div>
+              <label>E-mail</label>
+              <input type="email" name="email" class="form-control" required>
             </div>
 
-            <div class="col-lg-6">
-              <div class="form-group mb-4">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" value="emanoel@gmail.com">
-              </div>
+            <div class="col-lg-6 mt-3">
+              <label>Senha</label>
+              <input type="password" name="senha" class="form-control" required>
             </div>
 
-            <div class="col-lg-6">
-              <div class="form-group mb-4">
-                <label for="Birthday">Nascimento</label>
-                <input type="text" class="form-control" id="Birthday" value="01-10-1993">
-              </div>
+            <div class="col-lg-6 mt-3">
+              <label>Data de nascimento</label>
+              <input type="date" name="data_nascimento" class="form-control">
+            </div>
+
+            <div class="col-lg-6 mt-3">
+              <label>Telefone</label>
+              <input type="text" name="telefone" class="form-control">
+            </div>
+
+            <div class="col-lg-6 mt-3">
+              <label>CPF</label>
+              <input type="text" name="cpf" class="form-control">
+            </div>
+
+            <div class="col-lg-6 mt-3">
+              <label>Sexo</label>
+              <select name="sexo" class="form-control">
+                <option value="">Selecione</option>
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </div>
+
+            <div class="col-lg-6 mt-3">
+              <label>CEP</label>
+              <input type="text" name="cep" class="form-control">
+            </div>
+
+            <div class="col-lg-6 mt-3">
+              <label>Cidade</label>
+              <input type="text" name="cidade" class="form-control">
+            </div>
+
+            <div class="col-lg-6 mt-3">
+              <label>Estado (UF)</label>
+              <input type="text" name="estado" maxlength="2" class="form-control">
+            </div>
+
+            <div class="col-lg-12 mt-3">
+              <label>Endereço</label>
+              <textarea name="endereco" class="form-control" rows="2"></textarea>
             </div>
           </div>
         </div>
 
         <div class="modal-footer px-4">
           <button type="button" class="btn btn-secondary btn-pill" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary btn-pill">Salvar</button>
+          <button type="submit" class="btn btn-primary btn-pill">Salvar</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
 
 
 
