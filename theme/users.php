@@ -79,14 +79,15 @@ foreach ($perfisStmt as $linha) {
   $mapaPerfis[$linha['usuario_id']][] = ucfirst($linha['nome']);
 }
 
-$imagem = $usuario['imagem_perfil'] 
-    ? 'assets/img/user/' . $usuario['imagem_perfil'] 
-    : 'assets/img/user/u-xl-1.jpg';
-
 ?>
 
 <div class="row">
-  <?php foreach ($usuarios as $usuario): ?>
+  <?php foreach ($usuarios as $usuario): 
+    
+    $imagem = $usuario['imagem_perfil'] 
+    ? 'assets/img/user/' . $usuario['imagem_perfil'] 
+    : 'assets/img/user/u-xl-1.jpg';
+    ?>
     <div class="col-lg-6 col-xl-4">
         <div class="card card-default p-4">
             <img src="<?= $imagem ?>" class="mr-3 img-fluid rounded" style="width:64px; height:64px;" alt="Avatar">
