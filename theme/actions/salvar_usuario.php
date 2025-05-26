@@ -25,7 +25,7 @@ if (!empty($_FILES['imagem_perfil']['name'])) {
     $destino = '../assets/img/user/' . $imagem_nome;
     move_uploaded_file($_FILES['imagem_perfil']['tmp_name'], $destino);
 } else {
-    $imagem_nome = 'u-xl-1.jpg'; // imagem padrão
+    $imagem_nome = 'user.png'; // imagem padrão
 }
 
 // Validação básica

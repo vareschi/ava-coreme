@@ -79,13 +79,18 @@ foreach ($perfisStmt as $linha) {
   $mapaPerfis[$linha['usuario_id']][] = ucfirst($linha['nome']);
 }
 
+$imagem = $usuario['imagem_perfil'] 
+    ? 'assets/img/user/' . $usuario['imagem_perfil'] 
+    : 'assets/img/user/u-xl-1.jpg';
+
 ?>
 
 <div class="row">
   <?php foreach ($usuarios as $usuario): ?>
     <div class="col-lg-6 col-xl-4">
         <div class="card card-default p-4">
-            <img src="<?= $usuario['imagem_perfil'] ?: 'assets/img/user/user.png' ?>" class="mr-3 img-fluid rounded" style="width:64px; height:64px;" alt="Avatar">
+            <img src="<?= $imagem ?>" class="mr-3 img-fluid rounded" style="width:64px; height:64px;" alt="Avatar">
+
 
             <div class="media-body">
                 <h5 class="mt-0 mb-2 text-dark"><?= htmlspecialchars($usuario['nome']) ?></h5>
