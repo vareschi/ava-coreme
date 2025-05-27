@@ -1,3 +1,4 @@
+<link href="assets/options/optionswitch.css" rel="stylesheet">
 <?php
 session_start();
 
@@ -90,6 +91,16 @@ foreach ($perfisStmt as $linha) {
     ?>
     <div class="col-lg-6 col-xl-4">
         <div class="card card-default p-4">
+        <div style="position: absolute; top: 10px; right: 10px;">
+            <button type="button"
+                    class="btn btn-sm btn-light"
+                    data-toggle="modal"
+                    data-target="#modal-add-contact"
+                    onclick='preencherModalUsuario(<?= json_encode($usuario, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP) ?>)'>
+                <i class="mdi mdi-pencil"></i>
+            </button>
+        </div>
+
             <img src="<?= $imagem ?>" class="mr-3 img-fluid rounded" style="width:64px; height:64px;" alt="Avatar">
 
 
@@ -255,19 +266,32 @@ foreach ($perfisStmt as $linha) {
 
  <!-- Javascript -->
  <script src="assets/plugins/jquery/jquery.min.js"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/plugins/simplebar/simplebar.min.js"></script>
- 
-    
-    
+ <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+ <script src="assets/plugins/simplebar/simplebar.min.js"></script>
+ <script src="assets/js/sleek.js"></script>
+ <script src="assets/options/optionswitcher.js"></script>
 
-    
-    
-    
+<script>
+    function preencherModalUsuario(usuario) {
+    // define action para salvar (edição)
+    document.querySelector('#modal-add-contact form').action = "actions/salvar_usuario.php";
 
-    <script src="assets/js/sleek.js"></script>
-  <link href="assets/options/optionswitch.css" rel="stylesheet">
-<script src="assets/options/optionswitcher.js"></script>
+    document.querySelector('#modal-add-contact input[name=nome]').value = usuario.nome || '';
+    document.querySelector('#modal-add-contact input[name=email]').value = usuario.email || '';
+    document.querySelector('#modal-add-contact input[name=telefone]').value = usuario.telefone || '';
+    document.querySelector('#modal-add-contact input[name=data_nascimento]').value = usuario.data_nascimento || '';
+    document.querySelector('#modal-add-contact input[name=cpf]').value = usuario.cpf || '';
+    document.querySelector('#modal-add-contact select[name=sexo]').value = usuario.sexo || '';
+    document.querySelector('#modal-add-contact input[name=cep]').value = usuario.cep || '';
+    document.querySelector('#modal-add-contact input[name=cidade]').value = usuario.cidade || '';
+    document.querySelector('#modal-add-contact input[name=estado]').value = usuario.estado || '';
+    document.querySelector('#modal-add-contact textarea[name=endereco]').value = usuario.endereco || '';
+    
+    // (opcional) esconder campo senha durante edição
+    document.querySelector('#modal-add-contact input[name=senha]').value = '';
+    }
+</script>
+
 
 
 
