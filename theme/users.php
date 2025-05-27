@@ -170,10 +170,14 @@ foreach ($perfisStmt as $linha) {
           <div class="form-group row mb-3">
             <label class="col-sm-3 col-form-label">Imagem de Perfil</label>
             <div class="col-sm-9">
-              <div class="custom-file">
+              <!--<div class="custom-file">
                 <input type="file" name="imagem_perfil" class="form-control-file" id="imagem_perfil">
                 <label class="custom-file-label" for="imagem_perfil">Escolher imagem...</label>
-              </div>
+              </div>-->
+              <div class="form-group">
+						<label for="exampleFormControlFile1">Imagem de Perfilt</label>
+						<input type="file" name="imagem_perfil" class="form-control-file" id="imagem_perfil">
+					</div>
             </div>
           </div>
 
