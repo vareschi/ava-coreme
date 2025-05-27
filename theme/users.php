@@ -285,12 +285,12 @@ foreach ($perfisStmt as $linha) {
 
 <script>
     function preencherModalUsuario(usuario) {
+    const form = document.querySelector('#modal-add-contact form');
+    const campoSenha = document.querySelector('#modal-add-contact input[name="senha"]');
+    const senhaWrapper = campoSenha.parentElement;
 
-      
     document.querySelector('#modal-add-contact input[name=usuario_id]').value = usuario.id;
-
-    // define action para salvar (edição)
-    document.querySelector('#modal-add-contact form').action = "actions/salvar_usuario.php";
+    form.action = "actions/salvar_usuario.php";
 
     document.querySelector('#modal-add-contact input[name=nome]').value = usuario.nome || '';
     document.querySelector('#modal-add-contact input[name=email]').value = usuario.email || '';
@@ -306,33 +306,30 @@ foreach ($perfisStmt as $linha) {
     // limpa perfis marcados
     document.querySelectorAll('#modal-add-contact input[name="perfis[]"]').forEach(el => el.checked = false);
 
-    // perfis atuais do usuário (passados no objeto)
+    // perfis atuais do usuário
     if (usuario.perfis && Array.isArray(usuario.perfis)) {
-    usuario.perfis.forEach(perfil => {
+        usuario.perfis.forEach(perfil => {
         const checkbox = document.querySelector('#modal-add-contact input[name="perfis[]"][value="' + perfil.toLowerCase() + '"]');
         if (checkbox) checkbox.checked = true;
-    });
+        });
     }
 
-    
-    // Esconder campo senha durante edição
+    // Esconder campo senha e remover required durante edição
     if (usuario.id) {
-    document.querySelector('#modal-add-contact input[name="senha"]').parentElement.style.display = 'none';
+        senhaWrapper.style.display = 'none';
+        campoSenha.required = false;
+        campoSenha.value = '';
+        document.querySelector('#modal-add-contact .modal-title').textContent = "Editar Usuário";
+        document.querySelector('#modal-add-contact button[type="submit"]').textContent = "Atualizar";
     } else {
-    document.querySelector('#modal-add-contact input[name="senha"]').parentElement.style.display = '';
+        senhaWrapper.style.display = '';
+        campoSenha.required = true;
+        campoSenha.value = '';
+        document.querySelector('#modal-add-contact .modal-title').textContent = "Criar Novo Usuário";
+        document.querySelector('#modal-add-contact button[type="submit"]').textContent = "Salvar";
     }
+}
 
-
-    //Altera Novo Usuário para Atualizar
-    if (usuario.id) {
-    document.querySelector('#modal-add-contact .modal-title').textContent = "Editar Usuário";
-    document.querySelector('#modal-add-contact button[type="submit"]').textContent = "Atualizar";
-    } else {
-    document.querySelector('#modal-add-contact .modal-title').textContent = "Criar Novo Usuário";
-    document.querySelector('#modal-add-contact button[type="submit"]').textContent = "Salvar";
-    }
-
-    }
 </script>
 
 
