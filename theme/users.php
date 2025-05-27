@@ -62,7 +62,10 @@ verificarAcessoRecurso('usuarios');
 $pdo = getPDO();
 
 $stmt = $pdo->query("
-  SELECT u.*, d.telefone, d.cidade, d.estado, d.imagem_perfil
+  SELECT 
+    u.*, 
+    d.telefone, d.cidade, d.estado, d.imagem_perfil,
+    d.data_nascimento, d.cpf, d.sexo, d.cep, d.endereco
   FROM usuarios u
   LEFT JOIN usuarios_dados d ON d.usuario_id = u.id
   ORDER BY u.nome ASC
