@@ -249,6 +249,9 @@ foreach ($perfisStmt as $linha) {
               <label>Endereço</label>
               <textarea name="endereco" class="form-control" rows="2"></textarea>
             </div>
+
+            <input type="hidden" name="usuario_id" value="">
+
           </div>
         </div>
 
@@ -273,6 +276,9 @@ foreach ($perfisStmt as $linha) {
 
 <script>
     function preencherModalUsuario(usuario) {
+
+    document.querySelector('#modal-add-contact input[name=usuario_id]').value = usuario.id;
+
     // define action para salvar (edição)
     document.querySelector('#modal-add-contact form').action = "actions/salvar_usuario.php";
 
