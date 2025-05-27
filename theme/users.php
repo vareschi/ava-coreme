@@ -286,9 +286,7 @@ foreach ($perfisStmt as $linha) {
 <script>
     function preencherModalUsuario(usuario) {
 
-        console.log("Perfis recebidos:", usuario.perfis);
-
-
+      
     document.querySelector('#modal-add-contact input[name=usuario_id]').value = usuario.id;
 
     // define action para salvar (edição)
@@ -311,7 +309,7 @@ foreach ($perfisStmt as $linha) {
     // perfis atuais do usuário (passados no objeto)
     if (usuario.perfis && Array.isArray(usuario.perfis)) {
     usuario.perfis.forEach(perfil => {
-        const checkbox = document.querySelector('#modal-add-contact input[name="perfis[]"][value="' + perfil + '"]');
+        const checkbox = document.querySelector('#modal-add-contact input[name="perfis[]"][value="' + perfil.toLowerCase() + '"]');
         if (checkbox) checkbox.checked = true;
     });
     }
