@@ -91,15 +91,18 @@ foreach ($perfisStmt as $linha) {
     ?>
     <div class="col-lg-6 col-xl-4">
         <div class="card card-default p-4">
+
+        <?php
+            $usuario['perfis'] = $mapaPerfis[$usuario['id']] ?? [];
+            $jsonUsuario = htmlspecialchars(json_encode($usuario, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP), ENT_QUOTES, 'UTF-8');
+        ?>
+
         <div style="position: absolute; top: 10px; right: 10px;">
             <button type="button"
                     class="btn btn-sm btn-light"
                     data-toggle="modal"
                     data-target="#modal-add-contact"
-                    <?php
-                    $usuario['perfis'] = $mapaPerfis[$usuario['id']] ?? [];
-                    ?>
-                    onclick='preencherModalUsuario(<?= json_encode($usuario, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP) ?>)'
+                    onclick='preencherModalUsuario(<?= $jsonUsuario ?>)'>
                 <i class="mdi mdi-pencil"></i>
             </button>
         </div>
