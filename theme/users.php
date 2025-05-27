@@ -171,7 +171,7 @@ foreach ($perfisStmt as $linha) {
             <label class="col-sm-3 col-form-label">Imagem de Perfil</label>
             <div class="col-sm-9">
               <div class="custom-file">
-                <input type="file" name="imagem_perfil" class="custom-file-input" id="imagem_perfil">
+                <input type="file" name="imagem_perfil" class="form-control-file" id="imagem_perfil">
                 <label class="custom-file-label" for="imagem_perfil">Escolher imagem...</label>
               </div>
             </div>
