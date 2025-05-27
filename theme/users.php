@@ -96,7 +96,10 @@ foreach ($perfisStmt as $linha) {
                     class="btn btn-sm btn-light"
                     data-toggle="modal"
                     data-target="#modal-add-contact"
-                    onclick='preencherModalUsuario(<?= json_encode($usuario, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP) ?>)'>
+                    <?php
+                    $usuario['perfis'] = $mapaPerfis[$usuario['id']] ?? [];
+                    ?>
+                    onclick='preencherModalUsuario(<?= json_encode($usuario, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP) ?>)'
                 <i class="mdi mdi-pencil"></i>
             </button>
         </div>
@@ -292,9 +295,36 @@ foreach ($perfisStmt as $linha) {
     document.querySelector('#modal-add-contact input[name=cidade]').value = usuario.cidade || '';
     document.querySelector('#modal-add-contact input[name=estado]').value = usuario.estado || '';
     document.querySelector('#modal-add-contact textarea[name=endereco]').value = usuario.endereco || '';
+
+    // limpa perfis marcados
+    document.querySelectorAll('#modal-add-contact input[name="perfis[]"]').forEach(el => el.checked = false);
+
+    // perfis atuais do usuário (passados no objeto)
+    if (usuario.perfis && Array.isArray(usuario.perfis)) {
+    usuario.perfis.forEach(perfil => {
+        const checkbox = document.querySelector('#modal-add-contact input[name="perfis[]"][value="' + perfil + '"]');
+        if (checkbox) checkbox.checked = true;
+    });
+    }
+
     
-    // (opcional) esconder campo senha durante edição
-    document.querySelector('#modal-add-contact input[name=senha]').value = '';
+    // Esconder campo senha durante edição
+    if (usuario.id) {
+    document.querySelector('#modal-add-contact input[name="senha"]').parentElement.style.display = 'none';
+    } else {
+    document.querySelector('#modal-add-contact input[name="senha"]').parentElement.style.display = '';
+    }
+
+
+    //Altera Novo Usuário para Atualizar
+    if (usuario.id) {
+    document.querySelector('#modal-add-contact .modal-title').textContent = "Editar Usuário";
+    document.querySelector('#modal-add-contact button[type="submit"]').textContent = "Atualizar";
+    } else {
+    document.querySelector('#modal-add-contact .modal-title').textContent = "Criar Novo Usuário";
+    document.querySelector('#modal-add-contact button[type="submit"]').textContent = "Salvar";
+    }
+
     }
 </script>
 
