@@ -286,6 +286,9 @@ foreach ($perfisStmt as $linha) {
 <script>
     function preencherModalUsuario(usuario) {
 
+        console.log("Perfis recebidos:", usuario.perfis);
+
+
     document.querySelector('#modal-add-contact input[name=usuario_id]').value = usuario.id;
 
     // define action para salvar (edição)
