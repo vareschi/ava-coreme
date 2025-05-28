@@ -43,7 +43,7 @@ if ($id) {
 $especialidades = $pdo->query("SELECT * FROM especialidades ORDER BY nome")->fetchAll();
 
 $anexos = [];
-if ($editar_id) {
+if ($id) {
     $stmt = $pdo->prepare("SELECT * FROM edital_arquivos WHERE edital_id = ?");
     $stmt->execute([$editar_id]);
     $anexos = $stmt->fetchAll();
