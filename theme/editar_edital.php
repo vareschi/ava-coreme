@@ -41,6 +41,13 @@ if ($id) {
 }
 
 $especialidades = $pdo->query("SELECT * FROM especialidades ORDER BY nome")->fetchAll();
+
+$anexos = [];
+if ($editar_id) {
+    $stmt = $pdo->prepare("SELECT * FROM edital_arquivos WHERE edital_id = ?");
+    $stmt->execute([$editar_id]);
+    $anexos = $stmt->fetchAll();
+}
 ?>
 
 <div class="content">
@@ -103,6 +110,22 @@ $especialidades = $pdo->query("SELECT * FROM especialidades ORDER BY nome")->fet
           <label>Arquivos Anexos:</label>
           <input type="file" name="anexos[]" multiple class="form-control-file">
         </div>
+
+        <?php if (!empty($anexos)): ?>
+            <div class="mt-2">
+                <label><strong>Arquivos anexados:</strong></label>
+                <ul class="list-unstyled">
+                    <?php foreach ($anexos as $arquivo): ?>
+                        <li>
+                            <a href="<?= htmlspecialchars($arquivo['caminho']) ?>" target="_blank">
+                                <?= htmlspecialchars($arquivo['nome_arquivo']) ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
 
         <button type="submit" class="btn btn-primary">Salvar</button>
         <a href="editais.php" class="btn btn-secondary">Cancelar</a>
