@@ -28,7 +28,7 @@ $edital = [
     'tipo' => ''
 ];
 $especialidadesMarcadas = [];
-$tipos = ['Residência', 'Estágio', 'Processo Seletivo'];
+$tipos = ['Normal', 'Vagas Remanescentes'];
 
 if ($id) {
     $stmt = $pdo->prepare("SELECT * FROM editais WHERE id = ?");
