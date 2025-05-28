@@ -18,6 +18,12 @@ verificarAcessoRecurso('editais');
 $pdo = getPDO();
 
 $id = $_GET['id'] ?? null;
+
+if (!$id) {
+    die('ID do edital não informado');
+}
+
+
 $edital = [
     'id' => '',
     'nome' => '',
