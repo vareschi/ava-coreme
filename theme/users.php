@@ -40,7 +40,11 @@ verificarAcessoRecurso('usuarios');
   </div>
 
   <div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-contact"> Novo Usuário
+    <button type="button" class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#modal-add-contact"
+            onclick="abrirModalNovoUsuario()">
+    Novo Usuário
     </button>
   </div>
 </div>
@@ -170,10 +174,6 @@ foreach ($perfisStmt as $linha) {
           <div class="form-group row mb-3">
             <label class="col-sm-3 col-form-label">Imagem de Perfil</label>
             <div class="col-sm-9">
-              <!--<div class="custom-file">
-                <input type="file" name="imagem_perfil" class="form-control-file" id="imagem_perfil">
-                <label class="custom-file-label" for="imagem_perfil">Escolher imagem...</label>
-              </div>-->
                 <div class="form-group">
 				    <input type="file" name="imagem_perfil" class="form-control-file" id="imagem_perfil">
 			    </div>
@@ -288,50 +288,74 @@ foreach ($perfisStmt as $linha) {
 
 <script>
     function preencherModalUsuario(usuario) {
-    const form = document.querySelector('#modal-add-contact form');
-    const campoSenha = document.querySelector('#modal-add-contact input[name="senha"]');
-    const senhaWrapper = campoSenha.parentElement;
+        const form = document.querySelector('#modal-add-contact form');
+        const campoSenha = document.querySelector('#modal-add-contact input[name="senha"]');
+        const senhaWrapper = campoSenha.parentElement;
 
-    document.querySelector('#modal-add-contact input[name=usuario_id]').value = usuario.id;
-    form.action = "actions/salvar_usuario.php";
+        document.querySelector('#modal-add-contact input[name=usuario_id]').value = usuario.id;
+        form.action = "actions/salvar_usuario.php";
 
-    document.querySelector('#modal-add-contact input[name=nome]').value = usuario.nome || '';
-    document.querySelector('#modal-add-contact input[name=email]').value = usuario.email || '';
-    document.querySelector('#modal-add-contact input[name=telefone]').value = usuario.telefone || '';
-    document.querySelector('#modal-add-contact input[name=data_nascimento]').value = usuario.data_nascimento || '';
-    document.querySelector('#modal-add-contact input[name=cpf]').value = usuario.cpf || '';
-    document.querySelector('#modal-add-contact select[name=sexo]').value = usuario.sexo || '';
-    document.querySelector('#modal-add-contact input[name=cep]').value = usuario.cep || '';
-    document.querySelector('#modal-add-contact input[name=cidade]').value = usuario.cidade || '';
-    document.querySelector('#modal-add-contact input[name=estado]').value = usuario.estado || '';
-    document.querySelector('#modal-add-contact textarea[name=endereco]').value = usuario.endereco || '';
+        document.querySelector('#modal-add-contact input[name=nome]').value = usuario.nome || '';
+        document.querySelector('#modal-add-contact input[name=email]').value = usuario.email || '';
+        document.querySelector('#modal-add-contact input[name=telefone]').value = usuario.telefone || '';
+        document.querySelector('#modal-add-contact input[name=data_nascimento]').value = usuario.data_nascimento || '';
+        document.querySelector('#modal-add-contact input[name=cpf]').value = usuario.cpf || '';
+        document.querySelector('#modal-add-contact select[name=sexo]').value = usuario.sexo || '';
+        document.querySelector('#modal-add-contact input[name=cep]').value = usuario.cep || '';
+        document.querySelector('#modal-add-contact input[name=cidade]').value = usuario.cidade || '';
+        document.querySelector('#modal-add-contact input[name=estado]').value = usuario.estado || '';
+        document.querySelector('#modal-add-contact textarea[name=endereco]').value = usuario.endereco || '';
 
-    // limpa perfis marcados
-    document.querySelectorAll('#modal-add-contact input[name="perfis[]"]').forEach(el => el.checked = false);
+        // limpa perfis marcados
+        document.querySelectorAll('#modal-add-contact input[name="perfis[]"]').forEach(el => el.checked = false);
 
-    // perfis atuais do usuário
-    if (usuario.perfis && Array.isArray(usuario.perfis)) {
-        usuario.perfis.forEach(perfil => {
-        const checkbox = document.querySelector('#modal-add-contact input[name="perfis[]"][value="' + perfil.toLowerCase() + '"]');
-        if (checkbox) checkbox.checked = true;
-        });
+        // perfis atuais do usuário
+        if (usuario.perfis && Array.isArray(usuario.perfis)) {
+            usuario.perfis.forEach(perfil => {
+            const checkbox = document.querySelector('#modal-add-contact input[name="perfis[]"][value="' + perfil.toLowerCase() + '"]');
+            if (checkbox) checkbox.checked = true;
+            });
+        }
+
+        // Esconder campo senha e remover required durante edição
+        if (usuario.id) {
+            senhaWrapper.style.display = 'none';
+            campoSenha.required = false;
+            campoSenha.value = '';
+            document.querySelector('#modal-add-contact .modal-title').textContent = "Editar Usuário";
+            document.querySelector('#modal-add-contact button[type="submit"]').textContent = "Atualizar";
+        } else {
+            senhaWrapper.style.display = '';
+            campoSenha.required = true;
+            campoSenha.value = '';
+            document.querySelector('#modal-add-contact .modal-title').textContent = "Criar Novo Usuário";
+            document.querySelector('#modal-add-contact button[type="submit"]').textContent = "Salvar";
+        }
     }
+    function abrirModalNovoUsuario() {
+        const form = document.querySelector('#modal-add-contact form');
+        form.reset();
 
-    // Esconder campo senha e remover required durante edição
-    if (usuario.id) {
-        senhaWrapper.style.display = 'none';
-        campoSenha.required = false;
-        campoSenha.value = '';
-        document.querySelector('#modal-add-contact .modal-title').textContent = "Editar Usuário";
-        document.querySelector('#modal-add-contact button[type="submit"]').textContent = "Atualizar";
-    } else {
-        senhaWrapper.style.display = '';
+        // Zera campo hidden de ID
+        document.querySelector('#modal-add-contact input[name="usuario_id"]').value = '';
+
+        // Exibe campo senha e torna obrigatório
+        const campoSenha = document.querySelector('#modal-add-contact input[name="senha"]');
         campoSenha.required = true;
         campoSenha.value = '';
+        campoSenha.parentElement.style.display = '';
+
+        // Desmarca todos os perfis
+        document.querySelectorAll('#modal-add-contact input[name="perfis[]"]').forEach(el => el.checked = false);
+
+        // Título e botão
         document.querySelector('#modal-add-contact .modal-title').textContent = "Criar Novo Usuário";
         document.querySelector('#modal-add-contact button[type="submit"]').textContent = "Salvar";
+
+        // Limpa imagem (se quiser manipular visual)
+        document.querySelector('#modal-add-contact input[name="imagem_perfil"]').value = '';
     }
-}
+
 
 </script>
 
