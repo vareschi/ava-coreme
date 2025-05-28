@@ -19,11 +19,6 @@ $pdo = getPDO();
 
 $id = $_GET['id'] ?? null;
 
-if (!$id) {
-    die('ID do edital não informado');
-}
-
-
 $edital = [
     'id' => '',
     'nome' => '',
@@ -123,7 +118,7 @@ if ($id) {
                 <ul class="list-unstyled">
                     <?php foreach ($anexos as $arquivo): ?>
                         <li>
-                            <a href="<?= htmlspecialchars($arquivo['caminho']) ?>" target="_blank">
+                            <a href="<?= htmlspecialchars($arquivo['caminho_arquivo']) ?>" target="_blank">
                                 <?= htmlspecialchars($arquivo['nome_arquivo']) ?>
                             </a>
                         </li>
