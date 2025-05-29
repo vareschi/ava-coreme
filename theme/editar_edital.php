@@ -115,15 +115,32 @@ if ($id) {
         <?php if (!empty($anexos)): ?>
           <div class="mt-2">
               <label><strong>Arquivos anexados:</strong></label>
-              <ul class="list-unstyled">
+                <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Arquivo</th>
+                    <th class="text-right">Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
                   <?php foreach ($anexos as $arquivo): ?>
-                      <li>
-                          <a href="<?= htmlspecialchars($arquivo['caminho_arquivo']) ?>" target="_blank">
-                              <?= htmlspecialchars($arquivo['nome_arquivo']) ?>
-                          </a>
-                      </li>
+                    <tr>
+                      <td>
+                        <a href="<?= htmlspecialchars($arquivo['caminho_arquivo']) ?>" target="_blank">
+                          <?= htmlspecialchars($arquivo['nome_arquivo']) ?>
+                        </a>
+                      </td>
+                      <td class="text-right">
+                        <a href="actions/excluir_anexo.php?id=<?= $arquivo['id'] ?>&edital_id=<?= $id ?>"
+                          onclick="return confirm('Tem certeza que deseja excluir este anexo?')"
+                          class="btn btn-sm btn-link text-danger">
+                          <i class="mdi mdi-delete"></i> Excluir
+                        </a>
+                      </td>
+                    </tr>
                   <?php endforeach; ?>
-              </ul>
+                </tbody>
+              </table>
           </div>
         <?php endif; ?>
 
