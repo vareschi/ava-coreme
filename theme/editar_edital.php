@@ -46,8 +46,8 @@ $especialidades = $pdo->query("SELECT * FROM especialidades ORDER BY nome")->fet
 $anexos = [];
 if ($id) {
     $stmt = $pdo->prepare("SELECT * FROM edital_arquivos WHERE edital_id = ?");
-    $stmt->execute([$editar_id]);
-    $anexos = $stmt->fetchAll();
+    $stmt->execute([$id]);
+    $anexos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 
@@ -113,19 +113,20 @@ if ($id) {
         </div>
 
         <?php if (!empty($anexos)): ?>
-            <div class="mt-2">
-                <label><strong>Arquivos anexados:</strong></label>
-                <ul class="list-unstyled">
-                    <?php foreach ($anexos as $arquivo): ?>
-                        <li>
-                            <a href="<?= htmlspecialchars($arquivo['caminho_arquivo']) ?>" target="_blank">
-                                <?= htmlspecialchars($arquivo['nome_arquivo']) ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+          <div class="mt-2">
+              <label><strong>Arquivos anexados:</strong></label>
+              <ul class="list-unstyled">
+                  <?php foreach ($anexos as $arquivo): ?>
+                      <li>
+                          <a href="<?= htmlspecialchars($arquivo['caminho_arquivo']) ?>" target="_blank">
+                              <?= htmlspecialchars($arquivo['nome_arquivo']) ?>
+                          </a>
+                      </li>
+                  <?php endforeach; ?>
+              </ul>
+          </div>
         <?php endif; ?>
+
 
 
         <button type="submit" class="btn btn-primary">Salvar</button>
