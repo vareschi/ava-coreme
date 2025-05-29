@@ -54,10 +54,10 @@ verificarAcessoRecurso('usuarios');
   <input type="email" name="email" class="form-control mr-2" placeholder="E-mail" value="<?= $_GET['email'] ?? '' ?>">
   <select name="perfil" class="form-control mr-2">
     <option value="">Todos os Perfis</option>
-    <option value="admin">Admin</option>
-    <option value="secretaria">Secretária</option>
-    <option value="residente">Residente</option>
-    <option value="preceptor">Preceptor</option>
+    <option value="admin" <?= ($_GET['perfil'] ?? '') === 'admin' ? 'selected' : '' ?>>Admin</option>
+    <option value="secretaria" <?= ($_GET['perfil'] ?? '') === 'secretaria' ? 'selected' : '' ?>>Secretária</option>
+    <option value="residente" <?= ($_GET['perfil'] ?? '') === 'residente' ? 'selected' : '' ?>>Residente</option>
+    <option value="preceptor" <?= ($_GET['perfil'] ?? '') === 'preceptor' ? 'selected' : '' ?>>Preceptor</option>
   </select>
   <button type="submit" class="btn btn-outline-primary">Filtrar</button>
 </form>
@@ -65,15 +65,45 @@ verificarAcessoRecurso('usuarios');
 <?php
 $pdo = getPDO();
 
-$stmt = $pdo->query("
+$condicoes = [];
+$params = [];
+
+if (!empty($_GET['nome'])) {
+    $condicoes[] = "u.nome LIKE ?";
+    $params[] = '%' . $_GET['nome'] . '%';
+}
+
+if (!empty($_GET['email'])) {
+    $condicoes[] = "u.email LIKE ?";
+    $params[] = '%' . $_GET['email'] . '%';
+}
+
+$sql = "
   SELECT 
     u.*, 
     d.telefone, d.cidade, d.estado, d.imagem_perfil,
     d.data_nascimento, d.cpf, d.sexo, d.cep, d.endereco
   FROM usuarios u
   LEFT JOIN usuarios_dados d ON d.usuario_id = u.id
-  ORDER BY u.nome ASC
-");
+";
+
+if (!empty($_GET['perfil'])) {
+    $sql .= "
+      JOIN usuario_perfis up ON up.usuario_id = u.id
+      JOIN perfis p ON p.id = up.perfil_id
+    ";
+    $condicoes[] = "p.nome = ?";
+    $params[] = $_GET['perfil'];
+}
+
+if ($condicoes) {
+    $sql .= " WHERE " . implode(" AND ", $condicoes);
+}
+
+$sql .= " ORDER BY u.nome ASC";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
 $usuarios = $stmt->fetchAll();
 
 // Busca os perfis de todos os usuários
