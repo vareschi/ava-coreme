@@ -34,7 +34,6 @@ if (!$nome || !$email) {
     exit;
 }
 
-// EDITAR
 if ($usuario_id) {
     // Atualiza dados do usuário
     $sql = "UPDATE usuarios SET nome = ?, email = ?" . ($senha ? ", senha = ?" : "") . " WHERE id = ?";
@@ -62,19 +61,6 @@ if ($usuario_id) {
     $stmt = $pdo->prepare($sqlDados);
     $stmt->execute($paramsDados);
 
-    // Atualiza perfis
-    $pdo->prepare("DELETE FROM usuario_perfis WHERE usuario_id = ?")->execute([$usuario_id]);
-
-    foreach ($perfis as $perfil_nome) {
-        $stmtPerfil = $pdo->prepare("SELECT id FROM perfis WHERE nome = ?");
-        $stmtPerfil->execute([$perfil_nome]);
-        $perfil_id = $stmtPerfil->fetchColumn();
-        if ($perfil_id) {
-            $stmtVinculo = $pdo->prepare("INSERT INTO usuario_perfis (usuario_id, perfil_id) VALUES (?, ?)");
-            $stmtVinculo->execute([$usuario_id, $perfil_id]);
-        }
-    }
-
 } else {
     // NOVO USUÁRIO
     $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
@@ -99,15 +85,20 @@ if ($usuario_id) {
         $usuario_id, $telefone, $data_nascimento, $cpf, $sexo,
         $cep, $cidade, $estado, $endereco, $imagem_nome ?: 'u-xl-1.jpg'
     ]);
+}
 
-    foreach ($perfis as $perfil_nome) {
-        $stmtPerfil = $pdo->prepare("SELECT id FROM perfis WHERE nome = ?");
-        $stmtPerfil->execute([$perfil_nome]);
-        $perfil_id = $stmtPerfil->fetchColumn();
-        if ($perfil_id) {
-            $stmtVinculo = $pdo->prepare("INSERT INTO usuario_perfis (usuario_id, perfil_id) VALUES (?, ?)");
-            $stmtVinculo->execute([$usuario_id, $perfil_id]);
-        }
+// PERFIS – sempre atualizar independente de novo ou edição
+$pdo->prepare("DELETE FROM usuario_perfis WHERE usuario_id = ?")->execute([$usuario_id]);
+
+$stmtPerfil = $pdo->prepare("SELECT id FROM perfis WHERE nome = ? LIMIT 1");
+
+foreach ($perfis as $perfil_nome) {
+    $stmtPerfil->execute([$perfil_nome]);
+    $perfil_id = $stmtPerfil->fetchColumn();
+
+    if ($perfil_id) {
+        $stmtVinculo = $pdo->prepare("INSERT INTO usuario_perfis (usuario_id, perfil_id) VALUES (?, ?)");
+        $stmtVinculo->execute([$usuario_id, $perfil_id]);
     }
 }
 
