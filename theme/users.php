@@ -268,7 +268,6 @@ foreach ($perfisStmt as $linha) {
                 <option value="">Selecione</option>
                 <option value="M">Masculino</option>
                 <option value="F">Feminino</option>
-                <option value="Outro">Outro</option>
               </select>
             </div>
 
