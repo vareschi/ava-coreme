@@ -2,6 +2,10 @@
 require_once 'includes/header.php';
 require_once 'includes/config.php';
 
+include 'includes/header.php';
+include 'includes/sidebar.php';
+include 'includes/topbar.php';
+
 $pdo = getPDO();
 
 // Carrega especialidades e preceptores para os selects
