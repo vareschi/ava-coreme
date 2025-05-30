@@ -49,10 +49,10 @@ $data_cadastro = date('Y-m-d H:i:s');
 
 try {
     $stmt = $pdo->prepare("INSERT INTO residentes (
-        usuario_id, status, nome_pai, nome_mae, estado_civil, nome_conjuge,
+        usuario_id, situacao_status, nome_pai, nome_mae, estado_civil, nome_conjuge,
         nacionalidade, cor_etnica, naturalidade, rg, orgao_expedidor,
         data_expedicao, pis_pasep, titulo_eleitor, zona, secao, cidade_eleitor,
-        reservista, crm, grupo_sanguineo, fator_rh, especialidade_id, preceptor_id,
+        reservista, crm, sistema_abo, fator_rh, especialidade_id, preceptor_id,
         curso, nome_faculdade, sigla_faculdade, data_inicio, data_termino,
         peso, altura, data_cadastro
     ) VALUES (
