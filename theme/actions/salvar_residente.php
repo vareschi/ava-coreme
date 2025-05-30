@@ -1,4 +1,11 @@
 <?php
+
+//Depurador de Erros
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 session_start();
 require_once '../includes/config.php';
 
@@ -33,7 +40,7 @@ $especialidade_id = $_POST['especialidade_id'] ?? null;
 $preceptor_id = $_POST['preceptor_id'] ?? null;
 $curso = $_POST['curso'] ?? '';
 $faculdade = $_POST['faculdade'] ?? '';
-sigla_faculdade = $_POST['sigla_faculdade'] ?? '';
+$sigla_faculdade = $_POST['sigla_faculdade'] ?? '';
 $data_inicio = $_POST['data_inicio'] ?? null;
 $data_termino = $_POST['data_termino'] ?? null;
 $peso = $_POST['peso'] ?? '';
