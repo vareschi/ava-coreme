@@ -8,6 +8,15 @@ include 'includes/topbar.php';
 
 $pdo = getPDO();
 
+$usuario_id = $_GET['usuario_id'] ?? null;
+$residente = [];
+
+if ($usuario_id) {
+    $stmt = $pdo->prepare("SELECT * FROM residentes WHERE usuario_id = ?");
+    $stmt->execute([$usuario_id]);
+    $residente = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 // Carrega especialidades e preceptores para os selects
 $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
 $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT usuario_id FROM usuario_perfis WHERE perfil_id = (SELECT id FROM perfis WHERE nome = 'Preceptor')) ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
@@ -38,11 +47,11 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
         <div class="row g-3">
           <div class="col-md-6">
             <label class="form-label">Nome do Pai</label>
-            <input type="text" name="nome_pai" class="form-control">
+            <input type="text" name="nome_pai" class="form-control" value="<?= htmlspecialchars($residente['nome_pai'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">Nome da Mãe</label>
-            <input type="text" name="nome_mae" class="form-control">
+            <input type="text" name="nome_mae" class="form-control" value="<?= htmlspecialchars($residente['nome_mae'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">Estado Civil</label>
