@@ -15,7 +15,7 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
 
 <div class="container mt-4">
   <h2>Cadastro de Residente</h2>
-  <form action="salvar_residente.php" method="POST" enctype="multipart/form-data">
+  <form action="actions/salvar_residente.php" method="POST" enctype="multipart/form-data">
     <div class="card mb-3">
       <div class="card-header">Status e Identificação</div>
       <div class="card-body">
@@ -52,6 +52,7 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
               <option>Casado</option>
               <option>Divorciado</option>
               <option>Viúvo</option>
+              <option>União Estável</option>
             </select>
           </div>
           <div class="col-md-6">
