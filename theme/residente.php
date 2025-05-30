@@ -69,7 +69,7 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
         <div class="row g-3">
           <div class="col-md-4">
             <label class="form-label">RG</label>
-            <input type="text" name="rg" class="form-control">
+            <input type="text" name="rg" class="form-control" data-mask="00.000.000-0">
           </div>
           <div class="col-md-4">
             <label class="form-label">Órgão Expedidor</label>
@@ -142,12 +142,12 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
             <input type="date" name="data_termino" class="form-control">
           </div>
           <div class="col-md-3">
-            <label class="form-label">Peso</label>
-            <input type="text" name="peso" class="form-control">
+            <label class="form-label">Peso (kg)</label>
+            <input type="text" name="peso" class="form-control" data-mask="##0.0" data-mask-reverse="true">
           </div>
           <div class="col-md-3">
-            <label class="form-label">Altura</label>
-            <input type="text" name="altura" class="form-control">
+            <label class="form-label">Altura (m)</label>
+            <input type="text" name="altura" class="form-control" data-mask="#0.00" data-mask-reverse="true">
           </div>
         </div>
       </div>
@@ -158,5 +158,16 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
     </div>
   </form>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('[data-mask]').each(function() {
+      $(this).mask($(this).attr('data-mask'), {
+        reverse: $(this).data('mask-reverse') === true
+      });
+    });
+  });
+</script>
 
 <?php require_once 'includes/footer.php'; ?>
