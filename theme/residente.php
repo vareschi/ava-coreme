@@ -212,6 +212,9 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
       </div>
     </div>
 
+    <input type="hidden" name="usuario_id" value="<?= htmlspecialchars($usuario_id) ?>">
+
+
     <div class="d-grid">
       <button type="submit" class="btn btn-success">Salvar Residente</button>
     </div>

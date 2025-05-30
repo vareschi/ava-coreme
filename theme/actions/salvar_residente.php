@@ -10,9 +10,9 @@ session_start();
 require_once '../includes/config.php';
 
 $pdo = getPDO();
-$usuario_id = $_SESSION['usuario_id'] ?? null;
+$usuario_id = $_POST['usuario_id'] ?? ($_SESSION['usuario_id'] ?? null);
 if (!$usuario_id) {
-    die('Usuário não autenticado.');
+    die('Usuário não autenticado ou não informado.');
 }
 
 // Dados do POST
@@ -98,7 +98,7 @@ try {
         ':data_cadastro' => $data_cadastro
     ]);
 
-    header("Location: ../residentes.php?ok=1");
+    header("Location: ../residente.php?ok=1");
     exit;
 
 } catch (PDOException $e) {
