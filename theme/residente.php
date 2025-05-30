@@ -59,6 +59,18 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
             <label class="form-label">Nome do Cônjuge</label>
             <input type="text" name="nome_conjuge" class="form-control">
           </div>
+          <div class="col-md-4">
+            <label class="form-label">Nacionalidade</label>
+            <input type="text" name="nacionalidade" class="form-control">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Cor/Origem Étnica</label>
+            <input type="text" name="cor_etnica" class="form-control">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Naturalidade</label>
+            <input type="text" name="naturalidade" class="form-control">
+          </div>
         </div>
       </div>
     </div>
@@ -79,13 +91,29 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
             <label class="form-label">Data Expedição RG</label>
             <input type="date" name="data_expedicao_rg" class="form-control">
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
+            <label class="form-label">CRM</label>
+            <input type="text" name="crm" class="form-control">
+          </div>
+          <div class="col-md-4">
             <label class="form-label">PIS/PASEP/NIT</label>
             <input type="text" name="pispasep" class="form-control">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Reservista</label>
+            <input type="text" name="reservista" class="form-control">
           </div>
           <div class="col-md-6">
             <label class="form-label">Título de Eleitor</label>
             <input type="text" name="titulo_eleitor" class="form-control">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Zona</label>
+            <input type="text" name="zona" class="form-control">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Seção</label>
+            <input type="text" name="secao" class="form-control">
           </div>
         </div>
       </div>
@@ -148,6 +176,24 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
           <div class="col-md-3">
             <label class="form-label">Altura (m)</label>
             <input type="text" name="altura" class="form-control" data-mask="#0.00" data-mask-reverse="true">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Grupo Sanguíneo</label>
+            <select name="grupo_sanguineo" class="form-select">
+              <option value="">Selecione</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="AB">AB</option>
+              <option value="O">O</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Fator RH</label>
+            <select name="fator_rh" class="form-select">
+              <option value="">Selecione</option>
+              <option value="+">+</option>
+              <option value="-">-</option>
+            </select>
           </div>
         </div>
       </div>
