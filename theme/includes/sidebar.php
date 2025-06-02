@@ -19,7 +19,7 @@
             <div class="" data-simplebar style="height: 100%;">
               <!-- sidebar menu -->
               <ul class="nav sidebar-inner" id="sidebar-menu">
-                <li class="has-sub">
+                <li class="has-sub active expand">
                   <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#dashboard"
                     aria-expanded="false" aria-controls="dashboard">
                     <i class="mdi mdi-view-dashboard-outline"></i>
@@ -50,7 +50,7 @@
                   </ul>
                 </li>
 
-                <li class="has-sub active expand">
+                <li class="has-sub">
                   <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#app"
                     aria-expanded="false" aria-controls="app">
                     <i class="mdi mdi-pencil-box-multiple"></i>
