@@ -4,7 +4,7 @@
           <div id="sidebar" class="sidebar sidebar-with-footer">
             <!-- Aplication Brand -->
             <div class="app-brand">
-                <a href="theme/index.php" title="COREME">
+                <a href="index.php" title="COREME">
                     <img 
                     src="assets/img/logo-coreme.png" 
                     alt="Logo COREME" 
