@@ -99,14 +99,14 @@ try {
             data_expedicao, pis_pasep, titulo_eleitor, zona, secao, cidade_eleitor,
             reservista, crm, sistema_abo, fator_rh, especialidade_id, preceptor_id,
             curso, nome_faculdade, sigla_faculdade, data_inicio, data_termino,
-            peso, altura, data_cadastro
+            peso, altura
         ) VALUES (
             :usuario_id, :status, :nome_pai, :nome_mae, :estado_civil, :nome_conjuge,
             :nacionalidade, :cor_etnica, :naturalidade, :rg, :orgao_expedidor,
             :data_expedicao, :pis_pasep, :titulo_eleitor, :zona, :secao, :cidade_eleitor,
             :reservista, :crm, :sistema_abo, :fator_rh, :especialidade_id, :preceptor_id,
             :curso, :nome_faculdade, :sigla_faculdade, :data_inicio, :data_termino,
-            :peso, :altura, :data_cadastro
+            :peso, :altura
         )";
     }
 
