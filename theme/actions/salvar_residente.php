@@ -112,9 +112,6 @@ try {
 
     $stmt = $pdo->prepare($sql);
 
-    echo $sql;
-
-
     $stmt->execute([
         ':usuario_id' => $usuario_id,
         ':status' => $status,
