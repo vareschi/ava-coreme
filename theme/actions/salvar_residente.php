@@ -40,8 +40,6 @@ $reservista         = $_POST['reservista'] ?? '';
 $crm                = $_POST['crm'] ?? '';
 $sistema_abo        = $_POST['sistema_abo'] ?? '';
 $fator_rh           = $_POST['fator_rh'] ?? '';
-$especialidade_id   = $_POST['especialidade_id'] ?? null;
-$preceptor_id       = $_POST['preceptor_id'] ?? null;
 $curso              = $_POST['curso'] ?? '';
 $faculdade          = $_POST['faculdade'] ?? '';
 $sigla_faculdade    = $_POST['sigla_faculdade'] ?? '';
@@ -49,7 +47,6 @@ $data_inicio        = $_POST['data_inicio'] ?? null;
 $data_termino       = $_POST['data_termino'] ?? null;
 $peso               = $_POST['peso'] ?? '';
 $altura             = $_POST['altura'] ?? '';
-$data_cadastro      = date('Y-m-d H:i:s');
 
 try {
     // Verifica se já existe registro para o usuario_id
@@ -80,39 +77,37 @@ try {
             crm = :crm,
             sistema_abo = :sistema_abo,
             fator_rh = :fator_rh,
-            especialidade_id = :especialidade_id,
-            preceptor_id = :preceptor_id,
             curso = :curso,
             nome_faculdade = :nome_faculdade,
             sigla_faculdade = :sigla_faculdade,
             data_inicio = :data_inicio,
             data_termino = :data_termino,
             peso = :peso,
-            altura = :altura
+            altura = :altura,
+            data_atualizacao = NOW()
         WHERE usuario_id = :usuario_id";
-
     } else {
         // Insere
         $sql = "INSERT INTO residentes (
             usuario_id, situacao_status, nome_pai, nome_mae, estado_civil, nome_conjuge,
             nacionalidade, cor_etnica, naturalidade, rg, orgao_expedidor,
             data_expedicao, pis_pasep, titulo_eleitor, zona, secao, cidade_eleitor,
-            reservista, crm, sistema_abo, fator_rh, especialidade_id, preceptor_id,
+            reservista, crm, sistema_abo, fator_rh,
             curso, nome_faculdade, sigla_faculdade, data_inicio, data_termino,
-            peso, altura
+            peso, altura, data_cadastro
         ) VALUES (
             :usuario_id, :status, :nome_pai, :nome_mae, :estado_civil, :nome_conjuge,
             :nacionalidade, :cor_etnica, :naturalidade, :rg, :orgao_expedidor,
             :data_expedicao, :pis_pasep, :titulo_eleitor, :zona, :secao, :cidade_eleitor,
-            :reservista, :crm, :sistema_abo, :fator_rh, :especialidade_id, :preceptor_id,
+            :reservista, :crm, :sistema_abo, :fator_rh, 
             :curso, :nome_faculdade, :sigla_faculdade, :data_inicio, :data_termino,
-            :peso, :altura
+            :peso, :altura, NOW()
         )";
     }
 
     $stmt = $pdo->prepare($sql);
 
-    $stmt->execute([
+    $params = [
         ':usuario_id' => $usuario_id,
         ':status' => $status,
         ':nome_pai' => $nome_pai,
@@ -134,17 +129,16 @@ try {
         ':crm' => $crm,
         ':sistema_abo' => $sistema_abo,
         ':fator_rh' => $fator_rh,
-        ':especialidade_id' => $especialidade_id,
-        ':preceptor_id' => $preceptor_id,
         ':curso' => $curso,
         ':nome_faculdade' => $faculdade,
         ':sigla_faculdade' => $sigla_faculdade,
         ':data_inicio' => $data_inicio,
         ':data_termino' => $data_termino,
         ':peso' => $peso,
-        ':altura' => $altura,
-        ':data_cadastro' => $data_cadastro
-    ]);
+        ':altura' => $altura
+    ];
+
+    $stmt->execute($params);
 
     header("Location: ../residente.php?usuario_id={$usuario_id}&ok=1");
     exit;
