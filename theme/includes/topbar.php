@@ -1,6 +1,23 @@
-       <!-- ====================================
-        ——— PAGE WRAPPER Include
-        ===================================== -->
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once 'config.php';
+
+$pdo = getPDO();
+
+$usuario_id = $_SESSION['usuario_id'] ?? null;
+$usuario = null;
+
+if ($usuario_id) {
+    $stmt = $pdo->prepare("SELECT nome, email, imagem_perfil FROM usuarios 
+        LEFT JOIN usuarios_dados ON usuarios.id = usuarios_dados.usuario_id 
+        WHERE usuarios.id = ?");
+    $stmt->execute([$usuario_id]);
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+?>
+
         <div class="page-wrapper">
           
           <!-- Header -->
@@ -470,17 +487,19 @@
                   <!-- User Account -->
                   <li class="dropdown user-menu">
                     <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                      <img src="assets/img/user/user.png" class="user-image" alt="User Image" />
-                      <span class="d-none d-lg-inline-block">Abdus Salam</span>
+                      <img src="../assets/img/user/<?= $usuario['imagem_perfil'] ?? 'user.png' ?>" class="user-image" alt="User Image" />
+                      <span class="d-none d-lg-inline-block"><?= htmlspecialchars($usuario['nome'] ?? 'Usuário') ?></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
                       <!-- User image -->
                       <li class="dropdown-header">
-                        <img src="assets/img/user/user.png" class="img-circle" alt="User Image" />
+                        <img src="../assets/img/user/<?= $usuario['imagem_perfil'] ?? 'user.png' ?>" class="img-circle" alt="User Image" />
                         <div class="d-inline-block">
-                          Abdus Salam <small class="pt-1">iamabdus@gmail.com</small>
+                          <?= htmlspecialchars($usuario['nome'] ?? 'Usuário') ?>
+                          <small class="pt-1"><?= htmlspecialchars($usuario['email'] ?? '') ?></small>
                         </div>
                       </li>
+
 
                       <li>
                         <a href="user-profile.html">
