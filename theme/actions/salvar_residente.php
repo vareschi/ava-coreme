@@ -115,7 +115,7 @@ try {
     echo '<pre>';
     print_r($stmt->queryString);
     print_r($stmt->debugDumpParams());
-    exit;
+    //exit;
 
     $stmt->execute([
         ':usuario_id' => $usuario_id,
@@ -128,7 +128,7 @@ try {
         ':cor_etnica' => $cor_etnica,
         ':naturalidade' => $naturalidade,
         ':rg' => $rg,
-        ':orgao_expedidor' => $orgao_rg,
+        ':orgao_expedidor' => $orgao_expedidor,
         ':data_expedicao' => $data_expedicao_rg,
         ':pis_pasep' => $pispasep,
         ':titulo_eleitor' => $titulo_eleitor,
