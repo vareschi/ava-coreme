@@ -1,4 +1,11 @@
-<?php session_start(); ?>
+<?php session_start(); 
+
+if (isset($_SESSION['usuario_logado']) && $_SESSION['usuario_logado'] === true) {
+    header("Location: users.php");
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
