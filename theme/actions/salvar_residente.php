@@ -111,6 +111,12 @@ try {
     }
 
     $stmt = $pdo->prepare($sql);
+
+    echo '<pre>';
+    print_r($stmt->queryString);
+    print_r($stmt->debugDumpParams());
+    exit;
+
     $stmt->execute([
         ':usuario_id' => $usuario_id,
         ':status' => $status,
