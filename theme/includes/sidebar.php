@@ -50,7 +50,7 @@
                   </ul>
                 </li>
 
-                <li class="has-sub ">
+                <li class="has-sub active expand">
                   <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#app"
                     aria-expanded="false" aria-controls="app">
                     <i class="mdi mdi-pencil-box-multiple"></i>
