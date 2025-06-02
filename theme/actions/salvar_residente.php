@@ -29,7 +29,7 @@ $nacionalidade      = $_POST['nacionalidade'] ?? '';
 $cor_etnica         = $_POST['cor_etnica'] ?? '';
 $naturalidade       = $_POST['naturalidade'] ?? '';
 $rg                 = $_POST['rg'] ?? '';
-$orgao_rg           = $_POST['orgao_rg'] ?? '';
+$orgao_expedidor    = $_POST['orgao_expedidor'] ?? '';
 $data_expedicao_rg  = $_POST['data_expedicao_rg'] ?? null;
 $pispasep           = $_POST['pispasep'] ?? '';
 $titulo_eleitor     = $_POST['titulo_eleitor'] ?? '';
@@ -69,7 +69,7 @@ try {
             cor_etnica = :cor_etnica,
             naturalidade = :naturalidade,
             rg = :rg,
-            orgao_expedidor = :orgao_rg,
+            orgao_expedidor = :orgao_expedidor,
             data_expedicao = :data_expedicao,
             pis_pasep = :pis_pasep,
             titulo_eleitor = :titulo_eleitor,
@@ -78,7 +78,7 @@ try {
             cidade_eleitor = :cidade_eleitor,
             reservista = :reservista,
             crm = :crm,
-            sistema_abo = :grupo_sanguineo,
+            sistema_abo = :sistema_abo,
             fator_rh = :fator_rh,
             especialidade_id = :especialidade_id,
             preceptor_id = :preceptor_id,
@@ -104,7 +104,7 @@ try {
             :usuario_id, :status, :nome_pai, :nome_mae, :estado_civil, :nome_conjuge,
             :nacionalidade, :cor_etnica, :naturalidade, :rg, :orgao_expedidor,
             :data_expedicao, :pis_pasep, :titulo_eleitor, :zona, :secao, :cidade_eleitor,
-            :reservista, :crm, :grupo_sanguineo, :fator_rh, :especialidade_id, :preceptor_id,
+            :reservista, :crm, :sistema_abo, :fator_rh, :especialidade_id, :preceptor_id,
             :curso, :nome_faculdade, :sigla_faculdade, :data_inicio, :data_termino,
             :peso, :altura, :data_cadastro
         )";
@@ -137,7 +137,7 @@ try {
         ':cidade_eleitor' => $cidade_eleitor,
         ':reservista' => $reservista,
         ':crm' => $crm,
-        ':grupo_sanguineo' => $grupo_sanguineo,
+        ':sistema_abo' => $sistema_abo,
         ':fator_rh' => $fator_rh,
         ':especialidade_id' => $especialidade_id,
         ':preceptor_id' => $preceptor_id,

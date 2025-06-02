@@ -94,7 +94,7 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
           </div>
           <div class="col-md-4">
             <label class="form-label">Órgão Expedidor</label>
-            <input type="text" name="orgao_rg" class="form-control" value="<?= htmlspecialchars($residente['orgao_expedidor'] ?? '') ?>">
+            <input type="text" name="orgao_expedidor" class="form-control" value="<?= htmlspecialchars($residente['orgao_expedidor'] ?? '') ?>">
           </div>
           <div class="col-md-4">
             <label class="form-label">Data Expedição RG</label>
@@ -138,7 +138,7 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
           </div>
           <div class="col-md-6">
             <label class="form-label">Grupo Sanguíneo</label>
-            <select name="grupo_sanguineo" class="form-select">
+            <select name="sistema_abo" class="form-select">
               <option value="">Selecione</option>
               <option value="A" <?= ($residente['sistema_abo'] ?? '') === 'A' ? 'selected' : '' ?>>A</option>
               <option value="B" <?= ($residente['sistema_abo'] ?? '') === 'B' ? 'selected' : '' ?>>B</option>
