@@ -17,9 +17,6 @@ if ($usuario_id) {
     $residente = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-// Carrega especialidades e preceptores para os selects
-$especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
-$preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT usuario_id FROM usuario_perfis WHERE perfil_id = (SELECT id FROM perfis WHERE nome = 'Preceptor')) ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <div class="container mt-4">
