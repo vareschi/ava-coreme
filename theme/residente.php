@@ -94,11 +94,11 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
           </div>
           <div class="col-md-4">
             <label class="form-label">Órgão Expedidor</label>
-            <input type="text" name="orgao_rg" class="form-control" value="<?= htmlspecialchars($residente['orgao_rg'] ?? '') ?>">
+            <input type="text" name="orgao_rg" class="form-control" value="<?= htmlspecialchars($residente['orgao_expedidor'] ?? '') ?>">
           </div>
           <div class="col-md-4">
             <label class="form-label">Data Expedição RG</label>
-            <input type="date" name="data_expedicao_rg" class="form-control" value="<?= htmlspecialchars($residente['data_expedicao_rg'] ?? '') ?>">
+            <input type="date" name="data_expedicao_rg" class="form-control" value="<?= htmlspecialchars($residente['data_expedicao'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">PIS/PASEP/NIT</label>
@@ -168,7 +168,7 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
           </div>
           <div class="col-md-4">
             <label class="form-label">Faculdade</label>
-            <input type="text" name="faculdade" class="form-control" value="<?= htmlspecialchars($residente['faculdade'] ?? '') ?>">
+            <input type="text" name="faculdade" class="form-control" value="<?= htmlspecialchars($residente['nome_faculdade'] ?? '') ?>">
           </div>
           <div class="col-md-4">
             <label class="form-label">Sigla Faculdade</label>
