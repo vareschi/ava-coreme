@@ -487,13 +487,13 @@ if ($usuario_id) {
                   <!-- User Account -->
                   <li class="dropdown user-menu">
                     <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                      <img src="../assets/img/user/<?= $usuario['imagem_perfil'] ?? 'user.png' ?>" class="user-image" alt="User Image" />
+                      <img src="assets/img/user/<?= $usuario['imagem_perfil'] ?? 'user.png' ?>" class="user-image" alt="User Image" />
                       <span class="d-none d-lg-inline-block"><?= htmlspecialchars($usuario['nome'] ?? 'Usuário') ?></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
                       <!-- User image -->
                       <li class="dropdown-header">
-                        <img src="../assets/img/user/<?= $usuario['imagem_perfil'] ?? 'user.png' ?>" class="img-circle" alt="User Image" />
+                        <img src="assets/img/user/<?= $usuario['imagem_perfil'] ?? 'user.png' ?>" class="img-circle" alt="User Image" />
                         <div class="d-inline-block">
                           <?= htmlspecialchars($usuario['nome'] ?? 'Usuário') ?>
                           <small class="pt-1"><?= htmlspecialchars($usuario['email'] ?? '') ?></small>
