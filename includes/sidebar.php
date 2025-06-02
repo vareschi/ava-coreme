@@ -6,7 +6,7 @@
             <div class="app-brand">
                 <a href="index.php" title="COREME">
                     <img 
-                    src="assets/img/logo-coreme.png" 
+                    src="assets/img/logo2.png" 
                     alt="Logo COREME" 
                     class="brand-logo" 
                     style="max-height:40px; width:auto;"
