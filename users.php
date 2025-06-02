@@ -348,9 +348,9 @@ foreach ($perfisStmt as $linha) {
 
         // Esconder campo senha e remover required durante edição
         if (usuario.id) {
-            senhaWrapper.style.display = 'none';
+            //senhaWrapper.style.display = 'none';
             campoSenha.required = false;
-            campoSenha.value = '';
+            //campoSenha.value = '';
             document.querySelector('#modal-add-contact .modal-title').textContent = "Editar Usuário";
             document.querySelector('#modal-add-contact button[type="submit"]').textContent = "Atualizar";
         } else {
