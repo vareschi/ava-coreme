@@ -57,28 +57,28 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
             <label class="form-label">Estado Civil</label>
             <select name="estado_civil" class="form-select">
               <option value="">Selecione</option>
-              <option>Solteiro</option>
-              <option>Casado</option>
-              <option>Divorciado</option>
-              <option>Viúvo</option>
-              <option>União Estável</option>
+              <option <?= ($residente['estado_civil'] ?? '') === 'Solteiro' ? 'selected' : '' ?>>Solteiro</option>
+              <option <?= ($residente['estado_civil'] ?? '') === 'Casado' ? 'selected' : '' ?>>Casado</option>
+              <option <?= ($residente['estado_civil'] ?? '') === 'Divorciado' ? 'selected' : '' ?>>Divorciado</option>
+              <option <?= ($residente['estado_civil'] ?? '') === 'Viúvo' ? 'selected' : '' ?>>Viúvo</option>
+              <option <?= ($residente['estado_civil'] ?? '') === 'União Estável' ? 'selected' : '' ?>>União Estável</option>
             </select>
           </div>
           <div class="col-md-6">
             <label class="form-label">Nome do Cônjuge</label>
-            <input type="text" name="nome_conjuge" class="form-control">
+            <input type="text" name="nome_conjuge" class="form-control" value="<?= htmlspecialchars($residente['nome_conjuge'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">Nacionalidade</label>
-            <input type="text" name="nacionalidade" class="form-control">
+            <input type="text" name="nacionalidade" class="form-control" value="<?= htmlspecialchars($residente['nacionalidade'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">Cor/Origem Étnica</label>
-            <input type="text" name="cor_etnica" class="form-control">
+            <input type="text" name="cor_etnica" class="form-control" value="<?= htmlspecialchars($residente['cor_etnica'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">Naturalidade</label>
-            <input type="text" name="naturalidade" class="form-control">
+            <input type="text" name="naturalidade" class="form-control" value="<?= htmlspecialchars($residente['naturalidade'] ?? '') ?>">
           </div>
         </div>
       </div>
@@ -90,39 +90,39 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
         <div class="row g-3">
           <div class="col-md-4">
             <label class="form-label">RG</label>
-            <input type="text" name="rg" class="form-control" data-mask="00.000.000-0">
+            <input type="text" name="rg" class="form-control" data-mask="00.000.000-0"  value="<?= htmlspecialchars($residente['rg'] ?? '') ?>">
           </div>
           <div class="col-md-4">
             <label class="form-label">Órgão Expedidor</label>
-            <input type="text" name="orgao_rg" class="form-control">
+            <input type="text" name="orgao_rg" class="form-control" value="<?= htmlspecialchars($residente['orgao_rg'] ?? '') ?>">
           </div>
           <div class="col-md-4">
             <label class="form-label">Data Expedição RG</label>
-            <input type="date" name="data_expedicao_rg" class="form-control">
+            <input type="date" name="data_expedicao_rg" class="form-control" value="<?= htmlspecialchars($residente['data_expedicao_rg'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">PIS/PASEP/NIT</label>
-            <input type="text" name="pispasep" class="form-control">
+            <input type="text" name="pispasep" class="form-control" value="<?= htmlspecialchars($residente['pispasep'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">Título de Eleitor</label>
-            <input type="text" name="titulo_eleitor" class="form-control">
+            <input type="text" name="titulo_eleitor" class="form-control" value="<?= htmlspecialchars($residente['titulo_eleitor'] ?? '') ?>">
           </div>
           <div class="col-md-3">
             <label class="form-label">Zona</label>
-            <input type="text" name="zona" class="form-control">
+            <input type="text" name="zona" class="form-control" value="<?= htmlspecialchars($residente['zona'] ?? '') ?>">
           </div>
           <div class="col-md-3">
             <label class="form-label">Seção</label>
-            <input type="text" name="secao" class="form-control">
+            <input type="text" name="secao" class="form-control" value="<?= htmlspecialchars($residente['secao'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">Cidade Título Eleitor</label>
-            <input type="text" name="cidade_eleitor" class="form-control">
+            <input type="text" name="cidade_eleitor" class="form-control" value="<?= htmlspecialchars($residente['cidade_eleitor'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">Reservista</label>
-            <input type="text" name="reservista" class="form-control">
+            <input type="text" name="reservista" class="form-control" value="<?= htmlspecialchars($residente['reservista'] ?? '') ?>">
           </div>
         </div>
       </div>
@@ -134,42 +134,24 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
         <div class="row g-3">
           <div class="col-md-6">
             <label class="form-label">CRM</label>
-            <input type="text" name="crm" class="form-control">
+            <input type="text" name="crm" class="form-control" value="<?= htmlspecialchars($residente['crm'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">Grupo Sanguíneo</label>
             <select name="grupo_sanguineo" class="form-select">
               <option value="">Selecione</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="AB">AB</option>
-              <option value="O">O</option>
+              <option value="A" <?= ($residente['sistema_abo'] ?? '') === 'A' ? 'selected' : '' ?>>A</option>
+              <option value="B" <?= ($residente['sistema_abo'] ?? '') === 'B' ? 'selected' : '' ?>>B</option>
+              <option value="AB" <?= ($residente['sistema_abo'] ?? '') === 'AB' ? 'selected' : '' ?>>AB</option>
+              <option value="O" <?= ($residente['sistema_abo'] ?? '') === 'O' ? 'selected' : '' ?>>O</option>
             </select>
           </div>
           <div class="col-md-6">
             <label class="form-label">Fator RH</label>
             <select name="fator_rh" class="form-select">
               <option value="">Selecione</option>
-              <option value="RH+">RH+</option>
-              <option value="RH-">RH-</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Especialidade</label>
-            <select name="especialidade_id" class="form-select">
-              <option value="">Selecione</option>
-              <?php foreach ($especialidades as $e): ?>
-                <option value="<?= $e['id'] ?>"><?= $e['nome'] ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Preceptor</label>
-            <select name="preceptor_id" class="form-select">
-              <option value="">Selecione</option>
-              <?php foreach ($preceptores as $p): ?>
-                <option value="<?= $p['id'] ?>"><?= $p['nome'] ?></option>
-              <?php endforeach; ?>
+              <option value="RH+" <?= ($residente['fator_rh'] ?? '') === 'RH+' ? 'selected' : '' ?>>RH+</option>
+              <option value="RH-" <?= ($residente['fator_rh'] ?? '') === 'RH-' ? 'selected' : '' ?>>RH-</option>
             </select>
           </div>
         </div>
@@ -182,31 +164,31 @@ $preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE id IN (SELECT us
         <div class="row g-3">
           <div class="col-md-4">
             <label class="form-label">Curso</label>
-            <input type="text" name="curso" class="form-control">
+            <input type="text" name="curso" class="form-control" value="<?= htmlspecialchars($residente['curso'] ?? '') ?>">
           </div>
           <div class="col-md-4">
             <label class="form-label">Faculdade</label>
-            <input type="text" name="faculdade" class="form-control">
+            <input type="text" name="faculdade" class="form-control" value="<?= htmlspecialchars($residente['faculdade'] ?? '') ?>">
           </div>
           <div class="col-md-4">
             <label class="form-label">Sigla Faculdade</label>
-            <input type="text" name="sigla_faculdade" class="form-control">
+            <input type="text" name="sigla_faculdade" class="form-control" value="<?= htmlspecialchars($residente['sigla_faculdade'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">Data Início</label>
-            <input type="date" name="data_inicio" class="form-control">
+            <input type="date" name="data_inicio" class="form-control" value="<?= htmlspecialchars($residente['data_inicio'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">Data Término</label>
-            <input type="date" name="data_termino" class="form-control">
+            <input type="date" name="data_termino" class="form-control" value="<?= htmlspecialchars($residente['data_termino'] ?? '') ?>">
           </div>
           <div class="col-md-3">
             <label class="form-label">Peso (kg)</label>
-            <input type="text" name="peso" class="form-control" data-mask="##0.0" data-mask-reverse="true">
+            <input type="text" name="peso" class="form-control" data-mask="##0.0" data-mask-reverse="true" value="<?= htmlspecialchars($residente['peso'] ?? '') ?>">
           </div>
           <div class="col-md-3">
             <label class="form-label">Altura (m)</label>
-            <input type="text" name="altura" class="form-control" data-mask="#0.00" data-mask-reverse="true">
+            <input type="text" name="altura" class="form-control" data-mask="#0.00" data-mask-reverse="true" value="<?= htmlspecialchars($residente['altura'] ?? '') ?>">
           </div>
         </div>
       </div>

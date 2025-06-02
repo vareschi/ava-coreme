@@ -69,7 +69,7 @@ try {
             cor_etnica = :cor_etnica,
             naturalidade = :naturalidade,
             rg = :rg,
-            orgao_expedidor = :orgao_expedidor,
+            orgao_expedidor = :orgao_rg,
             data_expedicao = :data_expedicao,
             pis_pasep = :pis_pasep,
             titulo_eleitor = :titulo_eleitor,
