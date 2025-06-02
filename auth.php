@@ -36,7 +36,7 @@ if ($usuario && password_verify($senha, $usuario['senha'])) {
     $_SESSION['perfis'] = $stmtPerfis->fetchAll(PDO::FETCH_COLUMN);
 
     // 6. Redireciona para o painel
-    header("Location: dashboard.php");
+    header("Location: users.php");
     exit;
 
 } else {
