@@ -1,13 +1,12 @@
-<?php session_start(); 
+<?php
+session_start();
 
-var_dump($_SESSION); 
-
-if (isset($_SESSION['usuario_logado']) && $_SESSION['usuario_logado'] === true) {
+if (isset($_SESSION['usuario_id'])) {
     header("Location: users.php");
     exit();
 }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
