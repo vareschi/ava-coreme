@@ -7,6 +7,8 @@ include 'includes/topbar.php';
 
 $pdo = getPDO();
 
+$especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
+
 // Filtro de busca
 $filtro = $_GET['filtro'] ?? '';
 $sql = "SELECT a.*, e.nome AS especialidade_nome 
@@ -37,7 +39,12 @@ $avaliacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </form>
 
-  <a href="cadastro_avaliacao.php" class="btn btn-success mb-3">Nova Avaliação</a>
+  <!-- Botão para abrir a modal -->
+  <div class="mb-3">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#modalAvaliacao">
+      Nova Avaliação
+    </button>
+  </div>
 
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
@@ -46,7 +53,6 @@ $avaliacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <th>Título</th>
           <th>Descrição</th>
           <th>Especialidade</th>
-          <th>Período</th>
           <th>Status</th>
           <th>Ações</th>
         </tr>
@@ -60,7 +66,6 @@ $avaliacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
               <td><?= htmlspecialchars($av['titulo']) ?></td>
               <td><?= htmlspecialchars($av['descricao']) ?></td>
               <td><?= htmlspecialchars($av['especialidade_nome'] ?? '-') ?></td>
-              <td><?= htmlspecialchars($av['periodo']) ?></td>
               <td><?= htmlspecialchars($av['status']) ?></td>
               <td>
                 <a href="editar_avaliacao.php?id=<?= $av['id'] ?>" class="btn btn-sm btn-warning">Editar</a>
@@ -73,5 +78,52 @@ $avaliacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </table>
   </div>
 </div>
+
+<!-- Botão para abrir a modal -->
+<div class="mb-3">
+  <button class="btn btn-primary" data-toggle="modal" data-target="#modalAvaliacao">
+    Nova Avaliação
+  </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalAvaliacao" tabindex="-1" role="dialog" aria-labelledby="modalAvaliacaoLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form action="actions/salvar_avaliacao.php" method="POST">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalAvaliacaoLabel">Cadastrar Avaliação</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="titulo">Título</label>
+            <input type="text" class="form-control" name="titulo" id="titulo" required>
+          </div>
+          <div class="form-group">
+            <label for="descricao">Descrição</label>
+            <textarea class="form-control" name="descricao" id="descricao" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="especialidade_id">Especialidade</label>
+            <select class="form-control" name="especialidade_id" id="especialidade_id" required>
+              <option value="">Selecione</option>
+              <?php foreach ($especialidades as $e): ?>
+                <option value="<?= $e['id'] ?>"><?= htmlspecialchars($e['nome']) ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">Salvar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
 
 <?php require_once 'includes/footer.php'; ?>
