@@ -56,7 +56,7 @@ $avaliacoes = $pdo->query("SELECT a.*, e.nome AS especialidade
             <tr>
               <td><?= htmlspecialchars($av['titulo']) ?></td>
               <td><?= htmlspecialchars($av['descricao']) ?></td>
-              <td><?= htmlspecialchars($av['especialidade']) ?></td>
+              <td><?= htmlspecialchars($av['especialidade'] ?? 'Geral') ?></td>
               <td class="text-right">
                 <a href="cadastro_avaliacao.php?id=<?= $av['id'] ?>" class="text-warning me-2">
                   <i class="mdi mdi-pencil"></i>
