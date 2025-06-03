@@ -20,17 +20,16 @@ $pdo = getPDO();
 // Edição
 $id = $_GET['id'] ?? null;
 $avaliacao = null;
+$perguntas = [];
 
 if ($id) {
     $stmt = $pdo->prepare("SELECT * FROM avaliacoes WHERE id = ?");
     $stmt->execute([$id]);
     $avaliacao = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $perguntas = [];
     $stmt = $pdo->prepare("SELECT * FROM avaliacoes_perguntas WHERE avaliacao_id = ?");
     $stmt->execute([$id]);
     $perguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 }
 
 $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
@@ -42,6 +41,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
       <h4 class="card-title">
         <?= $avaliacao ? 'Editar Avaliação' : 'Nova Avaliação' ?>
       </h4>
+
       <form action="actions/salvar_avaliacao.php" method="POST">
         <?php if ($avaliacao): ?>
           <input type="hidden" name="id" value="<?= $avaliacao['id'] ?>">
@@ -69,67 +69,123 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
           </select>
         </div>
 
-        <div class="d-grid">
+        <div class="d-grid mb-4">
           <button type="submit" class="btn btn-success">Salvar Avaliação</button>
         </div>
       </form>
-    </div>
 
-    <?php if ($perguntas): ?>
-        <h5>Perguntas Cadastradas</h5>
-        <table class="table">
+      <?php if ($avaliacao): ?>
+        <hr>
+        <h5 class="mt-4">Perguntas Cadastradas</h5>
+
+        <?php if ($perguntas): ?>
+          <table class="table table-bordered">
             <thead>
-            <tr>
+              <tr>
                 <th>Pergunta</th>
                 <th>Tipo</th>
                 <th>Nota Máxima</th>
                 <th>Ações</th>
-            </tr>
+              </tr>
             </thead>
             <tbody>
-            <?php foreach ($perguntas as $p): ?>
+              <?php foreach ($perguntas as $p): ?>
                 <tr>
-                <td><?= htmlspecialchars($p['pergunta']) ?></td>
-                <td><?= $p['tipo'] ?></td>
-                <td><?= $p['nota_maxima'] ?></td>
-                <td>
-                    <a href="editar_pergunta.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-primary">Editar</a>
-                    <a href="excluir_pergunta.php?id=<?= $p['id'] ?>&avaliacao_id=<?= $id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?')">Excluir</a>
-                </td>
+                  <td><?= htmlspecialchars($p['pergunta']) ?></td>
+                  <td><?= ucfirst($p['tipo']) ?></td>
+                  <td><?= number_format($p['nota_maxima'], 1, ',', '.') ?></td>
+                  <td>
+                    <button type="button"
+                            class="btn btn-sm btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalEditarPergunta"
+                            data-id="<?= $p['id'] ?>"
+                            data-pergunta="<?= htmlspecialchars($p['pergunta'], ENT_QUOTES) ?>"
+                            data-tipo="<?= $p['tipo'] ?>"
+                            data-nota="<?= $p['nota_maxima'] ?>"
+                            data-avaliacao="<?= $p['avaliacao_id'] ?>">
+                    Editar
+                    </button>
+                    <a href="excluir_pergunta.php?id=<?= $p['id'] ?>&avaliacao_id=<?= $id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta pergunta?')">Excluir</a>
+                  </td>
                 </tr>
-            <?php endforeach; ?>
+              <?php endforeach; ?>
             </tbody>
-        </table>
+          </table>
+        <?php else: ?>
+          <p>Nenhuma pergunta cadastrada ainda.</p>
         <?php endif; ?>
 
-        <h5>Adicionar Nova Pergunta</h5>
+        <hr>
+        <h5 class="mt-4">Adicionar Nova Pergunta</h5>
         <form action="salvar_pergunta.php" method="POST">
-        <input type="hidden" name="avaliacao_id" value="<?= $id ?>">
+          <input type="hidden" name="avaliacao_id" value="<?= $id ?>">
 
-        <div class="form-group">
-            <label>Pergunta</label>
+          <div class="mb-3">
+            <label class="form-label">Pergunta</label>
             <input type="text" name="pergunta" class="form-control" required>
-        </div>
+          </div>
 
-        <div class="form-group">
-            <label>Tipo</label>
-            <select name="tipo" class="form-control" required>
-            <option value="objetiva">Objetiva</option>
-            <option value="discursiva">Discursiva</option>
+          <div class="mb-3">
+            <label class="form-label">Tipo</label>
+            <select name="tipo" class="form-select" required>
+              <option value="objetiva">Objetiva</option>
+              <option value="discursiva">Discursiva</option>
             </select>
-        </div>
+          </div>
 
-        <div class="form-group">
-            <label>Nota Máxima</label>
+          <div class="mb-3">
+            <label class="form-label">Nota Máxima</label>
             <input type="number" name="nota_maxima" class="form-control" step="0.1" min="0" required>
-        </div>
+          </div>
 
-        <button type="submit" class="btn btn-success">Adicionar Pergunta</button>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Salvar Pergunta</button>
+          </div>
         </form>
-
-
-
+      <?php endif; ?>
+    </div>
   </div>
 </div>
+
+<div class="modal fade" id="modalEditarPergunta" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" method="POST" action="salvar_edicao_pergunta.php">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Pergunta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" name="id" id="edit-id">
+        <input type="hidden" name="avaliacao_id" id="edit-avaliacao-id">
+
+        <div class="mb-3">
+          <label class="form-label">Pergunta</label>
+          <input type="text" name="pergunta" id="edit-pergunta" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Tipo</label>
+          <select name="tipo" id="edit-tipo" class="form-select" required>
+            <option value="objetiva">Objetiva</option>
+            <option value="discursiva">Discursiva</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Nota Máxima</label>
+          <input type="number" name="nota_maxima" id="edit-nota" class="form-control" step="0.1" min="0" required>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 
 <?php include 'includes/footer.php'; ?>
