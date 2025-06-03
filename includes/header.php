@@ -34,7 +34,7 @@
     
     
     
-    
+    <script src="assets/js/sleek.js"></script>
     
 
     <!-- SLEEK CSS -->
