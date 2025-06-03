@@ -20,7 +20,11 @@ include 'includes/topbar.php';
 verificarAcessoRecurso('avaliacoes');
 
 $pdo = getPDO();
-$avaliacoes = $pdo->query("SELECT a.*, e.nome AS especialidade FROM avaliacoes a LEFT JOIN especialidades e ON a.especialidade_id = e.id WHERE a.ativo = 1 ORDER BY a.id DESC")->fetchAll();
+$avaliacoes = $pdo->query("SELECT a.*, e.nome AS especialidade 
+                             FROM avaliacoes a 
+                        LEFT JOIN especialidades e ON a.especialidade_id = e.id 
+                            WHERE a.status = 1 
+                         ORDER BY a.id DESC")->fetchAll();
 
 ?>
 
