@@ -1,129 +1,106 @@
 <?php
-require_once 'includes/header.php';
-require_once 'includes/config.php';
+session_start();
 
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: sign-in.php");
+    exit;
+}
+
+require_once 'includes/config.php';
+require_once 'includes/funcoes.php';
+
+include 'includes/header.php';
 include 'includes/sidebar.php';
 include 'includes/topbar.php';
 
+verificarAcessoRecurso('avaliacoes');
+
 $pdo = getPDO();
+$avaliacoes = $pdo->query("SELECT a.*, e.nome AS especialidade FROM avaliacoes a LEFT JOIN especialidades e ON a.especialidade_id = e.id WHERE a.ativo = 1 ORDER BY a.id DESC")->fetchAll();
 
-$especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
-
-// Filtro de busca
-$filtro = $_GET['filtro'] ?? '';
-$sql = "SELECT a.*, e.nome AS especialidade_nome 
-        FROM avaliacoes a 
-        LEFT JOIN especialidades e ON a.especialidade_id = e.id 
-        WHERE a.status != 'Inativa'";
-
-$params = [];
-if ($filtro) {
-    $sql .= " AND a.titulo LIKE :filtro";
-    $params[':filtro'] = "%$filtro%";
-}
-$sql .= " ORDER BY a.data_criacao DESC";
-$stmt = $pdo->prepare($sql);
-$stmt->execute($params);
-$avaliacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<div class="container mt-4">
-  <h2>Avaliações</h2>
+<script src="assets/plugins/data-tables/jquery.datatables.min.js"></script>
+<script src="assets/plugins/data-tables/datatables.bootstrap4.min.js"></script>
 
-  <form class="row g-3 mb-3" method="GET">
-    <div class="col-md-10">
-      <input type="text" name="filtro" class="form-control" placeholder="Buscar por título..." value="<?= htmlspecialchars($filtro) ?>">
-    </div>
-    <div class="col-md-2">
-      <button type="submit" class="btn btn-primary w-100">Buscar</button>
-    </div>
-  </form>
-
-  <!-- Botão para abrir a modal -->
-  <div class="mb-3">
-    <button class="btn btn-primary" data-toggle="modal" data-target="#modalAvaliacao">
-      Nova Avaliação
-    </button>
-  </div>
-
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>Título</th>
-          <th>Descrição</th>
-          <th>Especialidade</th>
-          <th>Status</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php if (count($avaliacoes) === 0): ?>
-          <tr><td colspan="6">Nenhuma avaliação encontrada.</td></tr>
-        <?php else: ?>
+<div class="content">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title d-flex justify-content-between align-items-center">
+        Avaliações
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAvaliacao">
+          Nova Avaliação
+        </button>
+      </h4>
+      <hr>
+      <table id="hoverable-data-table" class="table table-hover nowrap" style="width:100%">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Especialidade</th>
+            <th class="text-right">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
           <?php foreach ($avaliacoes as $av): ?>
             <tr>
               <td><?= htmlspecialchars($av['titulo']) ?></td>
               <td><?= htmlspecialchars($av['descricao']) ?></td>
-              <td><?= htmlspecialchars($av['especialidade_nome'] ?? '-') ?></td>
-              <td><?= htmlspecialchars($av['status']) ?></td>
-              <td>
-                <a href="editar_avaliacao.php?id=<?= $av['id'] ?>" class="btn btn-sm btn-warning">Editar</a>
-                <a href="actions/excluir_avaliacao.php?id=<?= $av['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja realmente excluir esta avaliação?')">Excluir</a>
+              <td><?= htmlspecialchars($av['especialidade']) ?></td>
+              <td class="text-right">
+                <a href="cadastro_avaliacao.php?id=<?= $av['id'] ?>" class="text-warning me-2">
+                  <i class="mdi mdi-pencil"></i>
+                </a>
+                <a href="actions/excluir_avaliacao.php?id=<?= $av['id'] ?>" class="text-danger" onclick="return confirm('Tem certeza que deseja excluir esta avaliação?')">
+                  <i class="mdi mdi-delete"></i>
+                </a>
               </td>
             </tr>
           <?php endforeach; ?>
-        <?php endif; ?>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
-<!-- Botão para abrir a modal -->
-<div class="mb-3">
-  <button class="btn btn-primary" data-toggle="modal" data-target="#modalAvaliacao">
-    Nova Avaliação
-  </button>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="modalAvaliacao" tabindex="-1" role="dialog" aria-labelledby="modalAvaliacaoLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form action="actions/salvar_avaliacao.php" method="POST">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalAvaliacaoLabel">Cadastrar Avaliação</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-            <span aria-hidden="true">&times;</span>
-          </button>
+<!-- Modal Nova Avaliação -->
+<div class="modal fade" id="modalAvaliacao" tabindex="-1" aria-labelledby="tituloModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="actions/salvar_avaliacao.php" method="POST" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tituloModal">Nova Avaliação</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Título</label>
+          <input type="text" name="titulo" class="form-control" required>
         </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="titulo">Título</label>
-            <input type="text" class="form-control" name="titulo" id="titulo" required>
-          </div>
-          <div class="form-group">
-            <label for="descricao">Descrição</label>
-            <textarea class="form-control" name="descricao" id="descricao" rows="3"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="especialidade_id">Especialidade</label>
-            <select class="form-control" name="especialidade_id" id="especialidade_id" required>
-              <option value="">Selecione</option>
-              <?php foreach ($especialidades as $e): ?>
-                <option value="<?= $e['id'] ?>"><?= htmlspecialchars($e['nome']) ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
+        <div class="mb-3">
+          <label class="form-label">Descrição</label>
+          <textarea name="descricao" class="form-control"></textarea>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-success">Salvar</button>
+        <div class="mb-3">
+          <label class="form-label">Especialidade</label>
+          <select name="especialidade_id" class="form-select" required>
+            <option value="">Selecione</option>
+            <?php
+              $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll();
+              foreach ($especialidades as $e): ?>
+              <option value="<?= $e['id'] ?>"><?= htmlspecialchars($e['nome']) ?></option>
+            <?php endforeach; ?>
+          </select>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
       </div>
     </form>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php include 'includes/footer.php'; ?>
