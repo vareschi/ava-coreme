@@ -16,7 +16,7 @@ if (!isset($_SESSION['usuario_id'])) {
 // Coleta os dados do formulário
 $titulo = trim($_POST['titulo'] ?? '');
 $descricao = trim($_POST['descricao'] ?? '');
-$especialidade_id = $_POST['especialidade_id'] ?? null;
+$especialidade_id = !empty($_POST['especialidade_id']) ? $_POST['especialidade_id'] : null;
 $data_criacao = date('Y-m-d H:i:s');
 
 // Validação básica
@@ -25,8 +25,16 @@ if (empty($titulo) ) {
 }
 
 try {
-    $stmt = $pdo->prepare("INSERT INTO avaliacoes (titulo, descricao, especialidade_id, data_criacao) VALUES (?, ?, ?, ?)");
-    $stmt->execute([$titulo, $descricao, $especialidade_id, $data_criacao]);
+    $stmt = $pdo->prepare("INSERT INTO avaliacoes (titulo, descricao, especialidade_id, data_criacao) 
+                       VALUES (:titulo, :descricao, :especialidade_id, :data_criacao)");
+
+    $stmt->bindValue(':titulo', $titulo);
+    $stmt->bindValue(':descricao', $descricao);
+    $stmt->bindValue(':especialidade_id', $especialidade_id, $especialidade_id ? PDO::PARAM_INT : PDO::PARAM_NULL);
+    $stmt->bindValue(':data_criacao', $data_criacao);
+
+    $stmt->execute();
+
 
     header("Location: ../avaliacoes.php?ok=1");
     exit;
