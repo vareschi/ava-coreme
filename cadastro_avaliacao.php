@@ -25,6 +25,12 @@ if ($id) {
     $stmt = $pdo->prepare("SELECT * FROM avaliacoes WHERE id = ?");
     $stmt->execute([$id]);
     $avaliacao = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $perguntas = [];
+    $stmt = $pdo->prepare("SELECT * FROM avaliacoes_perguntas WHERE avaliacao_id = ?");
+    $stmt->execute([$id]);
+    $perguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 }
 
 $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
@@ -68,6 +74,61 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
         </div>
       </form>
     </div>
+
+    <?php if ($perguntas): ?>
+        <h5>Perguntas Cadastradas</h5>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Pergunta</th>
+                <th>Tipo</th>
+                <th>Nota Máxima</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($perguntas as $p): ?>
+                <tr>
+                <td><?= htmlspecialchars($p['pergunta']) ?></td>
+                <td><?= $p['tipo'] ?></td>
+                <td><?= $p['nota_maxima'] ?></td>
+                <td>
+                    <a href="editar_pergunta.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="excluir_pergunta.php?id=<?= $p['id'] ?>&avaliacao_id=<?= $id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?')">Excluir</a>
+                </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php endif; ?>
+
+        <h5>Adicionar Nova Pergunta</h5>
+        <form action="salvar_pergunta.php" method="POST">
+        <input type="hidden" name="avaliacao_id" value="<?= $id ?>">
+
+        <div class="form-group">
+            <label>Pergunta</label>
+            <input type="text" name="pergunta" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label>Tipo</label>
+            <select name="tipo" class="form-control" required>
+            <option value="objetiva">Objetiva</option>
+            <option value="discursiva">Discursiva</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Nota Máxima</label>
+            <input type="number" name="nota_maxima" class="form-control" step="0.1" min="0" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Adicionar Pergunta</button>
+        </form>
+
+
+
   </div>
 </div>
 
