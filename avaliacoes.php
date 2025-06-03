@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: sign-in.php");
     exit;
@@ -101,6 +105,6 @@ $avaliacoes = $pdo->query("SELECT a.*, e.nome AS especialidade FROM avaliacoes a
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
 
 <?php include 'includes/footer.php'; ?>
