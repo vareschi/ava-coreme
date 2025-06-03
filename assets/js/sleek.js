@@ -323,7 +323,7 @@ $(document).ready(function () {
   /*======== HOVERABLE DATA TABLE ========*/
   var hoverableDataTable = $("#hoverable-data-table");
   if (hoverableDataTable.length !== 0){
-    hoverableDataTable.DataTable({
+    $('#hoverable-data-table').DataTable({
       "aLengthMenu": [[20, 30, 50, 75, -1], [20, 30, 50, 75, "All"]],
       "pageLength": 20,
       "dom": '<"row justify-content-between top-information"lf>rt<"row justify-content-between bottom-information"ip><"clear">'
