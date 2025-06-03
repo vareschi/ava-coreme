@@ -153,9 +153,6 @@ $(document).ready(function () {
     });
   }
 
-  function hoverableDataTable(){
-    
-  }
 
   if (document.querySelector("#todo")) {
     var list = document.querySelector("#todo-list"),

@@ -92,7 +92,7 @@ $avaliacoes = $pdo->query("SELECT a.*, e.nome AS especialidade
         </div>
         <div class="mb-3">
           <label class="form-label">Especialidade</label>
-          <select name="especialidade_id" class="form-select" required>
+          <select name="especialidade_id" class="form-select" >
             <option value="">Selecione</option>
             <?php
               $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll();
