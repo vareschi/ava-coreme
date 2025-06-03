@@ -20,7 +20,7 @@ $especialidade_id = $_POST['especialidade_id'] ?? null;
 $data_criacao = date('Y-m-d H:i:s');
 
 // Validação básica
-if (empty($titulo) || !$especialidade_id) {
+if (empty($titulo) ) {
     die('Campos obrigatórios não preenchidos.');
 }
 
