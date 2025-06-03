@@ -31,12 +31,6 @@
     
     <link href='assets/plugins/toastr/toastr.min.css' rel='stylesheet'>
     
-    
-    
-    
-    <script src="assets/js/sleek.js"></script>
-    
-
     <!-- SLEEK CSS -->
     <link id="sleek-css" rel="stylesheet" href="assets/css/sleek.css" />
   
