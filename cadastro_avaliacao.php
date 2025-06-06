@@ -225,6 +225,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 
       <div class="modal-body">
         <input type="hidden" name="pergunta_id" id="criterio-pergunta-id">
+        <input type="hidden" name="avaliacao_id" value="<?= $id ?>">
         <div class="mb-3">
           <label class="form-label">Critério</label>
           <input type="text" name="descricao" class="form-control" required>
@@ -277,6 +278,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 
     function abrirModalNovoCriterio(perguntaId) {
         $('#criterio-pergunta-id').val(perguntaId);
+        $('#modalNovoCriterio input[name="avaliacao_id"]').val('<?= $id ?>');
         $('#modalNovoCriterio').modal('show');
     };
 
