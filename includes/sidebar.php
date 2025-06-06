@@ -51,8 +51,8 @@
                 </li>
 
                 <li class="has-sub">
-                  <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#app"
-                    aria-expanded="false" aria-controls="app">
+                  <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#cadastros"
+                    aria-expanded="false" aria-controls="cadastros">
                     <i class="mdi mdi-pencil-box-multiple"></i>
                     <span class="nav-text">Cadastros</span> <b class="caret"></b>
                   </a>
@@ -85,8 +85,8 @@
                 </li>
 
                 <li class="has-sub">
-                  <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#app"
-                    aria-expanded="false" aria-controls="app">
+                  <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#avaliacoes"
+                    aria-expanded="false" aria-controls="avaliacoes">
                     <i class="mdi mdi-pencil-box-multiple"></i>
                     <span class="nav-text">Avaliações</span> <b class="caret"></b>
                   </a>
