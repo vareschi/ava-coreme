@@ -256,7 +256,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 
 <script>
 
-    function abrirModalNovoCriterio(perguntaId) {
+    function abrirModalNovoCriterio(perguntaId, avaliacaoId) {
         const modal = new bootstrap.Modal(document.getElementById('modalNovoCriterio'));
         document.getElementById('criterio-id').value = '';
         document.getElementById('criterio-edit-descricao').value = '';
