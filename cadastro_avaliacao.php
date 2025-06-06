@@ -107,15 +107,13 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 
                     <button type="button"
                             class="btn btn-sm btn-primary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalNovoCriterio"
                             onclick="abrirModalEditarCriterio(
                                 <?= $c['id'] ?>,
                                 '<?= htmlspecialchars($c['descricao'], ENT_QUOTES) ?>',
-                                <?= $p['id'] ?>,
-                                <?= $id ?>
+                                <?= $perguntaId ?>,
+                                <?= $avaliacaoId ?>
                             )">
-                        Editar
+                    Editar
                     </button>
 
                     <a href="actions/excluir_pergunta.php?id=<?= $p['id'] ?>&avaliacao_id=<?= $id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta pergunta?')">Excluir</a>
