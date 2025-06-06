@@ -121,7 +121,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 
                 <!-- Carregar critérios da pergunta -->
                 <?php
-                    $stmtCrit = $pdo->prepare("SELECT * FROM avaliacoes_criterios WHERE pergunta_id = ?");
+                    $stmtCrit = $pdo->prepare("SELECT * FROM avaliacoes_criterios WHERE pergunta_id = ? AND status = 1");
                     $stmtCrit->execute([$p['id']]);
                     $criterios = $stmtCrit->fetchAll(PDO::FETCH_ASSOC);
                 ?>

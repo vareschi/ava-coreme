@@ -22,7 +22,7 @@ $id = $_GET['id'] ?? null;
 $avaliacao_id = $_GET['avaliacao_id'] ?? null;
 
 if ($id) {
-    $stmt = $pdo->prepare("DELETE FROM avaliacoes_criterios WHERE id = ?");
+    $stmt = $pdo->prepare("UPDATE avaliacoes_criterios SET  status = 0, data_exclusao = NOW() WHERE id = ?");
     $stmt->execute([$id]);
 }
 
