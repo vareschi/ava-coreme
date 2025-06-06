@@ -144,12 +144,12 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                                 <td>
                                 <button type="button"
                                         class="btn btn-sm btn-primary"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#modalEditarCriterio"
-                                        data-id="<?= $c['id'] ?>"
-                                        data-descricao="<?= htmlspecialchars($c['descricao'], ENT_QUOTES) ?>"
-                                        data-pergunta-id="<?= $p['id'] ?>"
-                                        data-avaliacao-id="<?= $id ?>">
+                                        onclick="abrirModalEditarCriterio(
+                                            <?= $c['id'] ?>,
+                                            '<?= str_replace("'", "\\'", htmlspecialchars($c['descricao'], ENT_QUOTES)) ?>',
+                                            <?= $p['id'] ?>,
+                                            <?= $id ?>
+                                        )">
                                 Editar
                                 </button>
 
