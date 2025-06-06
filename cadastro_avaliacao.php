@@ -109,7 +109,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                             class="btn btn-sm btn-primary"
                             onclick="abrirModalEditarCriterio(
                                 <?= $c['id'] ?>,
-                                '<?= htmlspecialchars($c['descricao'], ENT_QUOTES) ?>',
+                                '<?= str_replace("'", "\\'", htmlspecialchars($c['descricao'], ENT_QUOTES)) ?>',
                                 <?= $perguntaId ?>,
                                 <?= $avaliacaoId ?>
                             )">
