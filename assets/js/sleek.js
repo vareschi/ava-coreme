@@ -288,11 +288,6 @@ $(document).ready(function () {
     }
   }
 
-  if (document.dir != "rtl" ){
-    callToaster("toast-top-right");
-  }else {
-    callToaster("toast-top-left");
-  }
 
   /*======== PROGRESS BAR ========*/
   NProgress.done();
