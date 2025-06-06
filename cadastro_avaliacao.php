@@ -217,7 +217,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 <!-- Modal Novo Critério -->
 <div class="modal fade" id="modalNovoCriterio" tabindex="-1" role="dialog">
   <div class="modal-dialog">
-    <form class="modal-content" method="POST" action="salvar_criterio.php">
+    <form class="modal-content" method="POST" action="actions/salvar_criterio.php">
       <div class="modal-header">
         <h5 class="modal-title">Novo Critério</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
