@@ -96,11 +96,12 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                     <td>
                     <button type="button"
                             class="btn btn-sm btn-secondary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalNovoCriterio"
-                            data-pergunta-id="<?= $p['id'] ?>">
+                            data-toggle="modal"
+                            data-target="#modalNovoCriterio"
+                            onclick="abrirModalNovoCriterio(<?= $p['id'] ?>)">
                     Novo Critério
                     </button>
+
 
                     <button type="button"
                         class="btn btn-sm btn-primary"
@@ -214,7 +215,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 </div>
 
 <!-- Modal Novo Critério -->
-<div class="modal fade" id="modalNovoCriterio" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="modalNovoCriterio" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <form class="modal-content" method="POST" action="salvar_criterio.php">
       <div class="modal-header">
@@ -273,6 +274,12 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
  <script src="assets/options/optionswitcher.js"></script>
 
 <script>
+
+    function abrirModalNovoCriterio(perguntaId) {
+        $('#criterio-pergunta-id').val(perguntaId);
+        $('#modalNovoCriterio').modal('show');
+    };
+
   // Modal Editar Pergunta
   const modalEditar = document.getElementById('modalEditarPergunta');
   modalEditar.addEventListener('show.bs.modal', function (event) {
