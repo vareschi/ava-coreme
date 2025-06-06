@@ -209,7 +209,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-secondary" onclick="fecharModalEditarPergunta()">Cancelar</button>
         <button type="submit" class="btn btn-primary">Salvar Alterações</button>
       </div>
     </form>
