@@ -190,7 +190,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 <!-- Modal Edição Pergunta -->
 <div class="modal fade" id="modalEditarPergunta" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
-    <form class="modal-content" method="POST" action="salvar_edicao_pergunta.php">
+    <form class="modal-content" method="POST" action="action/salvar_edicao_pergunta.php">
       <div class="modal-header">
         <h5 class="modal-title">Editar Pergunta</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -265,7 +265,12 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
   </div>
 </div>
 
-
+ <!-- Javascript -->
+ <script src="assets/plugins/jquery/jquery.min.js"></script>
+ <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+ <script src="assets/plugins/simplebar/simplebar.min.js"></script>
+ <script src="assets/js/sleek.js"></script>
+ <script src="assets/options/optionswitcher.js"></script>
 
 <script>
   // Modal Editar Pergunta
