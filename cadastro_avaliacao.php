@@ -98,7 +98,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                             class="btn btn-sm btn-secondary"
                             data-toggle="modal"
                             data-target="#modalNovoCriterio"
-                            onclick="abrirModalNovoCriterio(<?= $p['id'] ?>)">
+                            onclick="abrirModalNovoCriterio(<?= $p['id'] ?>, <?= $id ?>)">
                     Novo Critério
                     </button>
 
@@ -260,7 +260,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
         document.getElementById('criterio-pergunta-id').value = perguntaId;
         document.getElementById('criterio-avaliacao-id').value = avaliacaoId;
         document.getElementById('form-criterio').action = 'actions/salvar_criterio.php';
-        modal.show();
+        new bootstrap.Modal(document.getElementById('modalNovoCriterio')).show();
     };
 
     function abrirModalEditarCriterio(id, descricao, perguntaId, avaliacaoId) {
