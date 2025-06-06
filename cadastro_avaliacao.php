@@ -161,7 +161,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 
         <hr>
         <h5 class="mt-4">Adicionar Nova Pergunta</h5>
-        <form action="salvar_pergunta.php" method="POST">
+        <form action="actions/salvar_pergunta.php" method="POST">
           <input type="hidden" name="avaliacao_id" value="<?= $id ?>">
 
           <div class="mb-3">
