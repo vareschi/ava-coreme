@@ -290,15 +290,6 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
     document.getElementById('criterio-pergunta-id').value = button.getAttribute('data-pergunta-id');
   });
 
-  // Modal Editar Critério
-  const modalEditarCriterio = document.getElementById('modalEditarCriterio');
-  modalEditarCriterio.addEventListener('show.bs.modal', function (event) {
-    const button = event.relatedTarget;
-    document.getElementById('criterio-edit-id').value = button.getAttribute('data-id');
-    document.getElementById('criterio-edit-avaliacao-id').value = button.getAttribute('data-avaliacao-id');
-    document.getElementById('criterio-edit-pergunta-id').value = button.getAttribute('data-pergunta-id');
-    document.getElementById('criterio-edit-descricao').value = button.getAttribute('data-descricao');
-  });
 </script>
 
 
