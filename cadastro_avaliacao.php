@@ -81,19 +81,18 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
         <?php if ($perguntas): ?>
           <table class="table table-bordered">
             <thead>
-              <tr>
-                <th>Pergunta</th>
-                <th>Tipo</th>
-                <th>Nota Máxima</th>
-                <th>Ações</th>
-              </tr>
+              <thead>
+                <tr>
+                    <th>Pergunta</th>
+                    <th>Ações</th>
+                </tr>
             </thead>
-            <tbody>
+
+            </thead>
+                <tbody>
               <?php foreach ($perguntas as $p): ?>
                 <tr>
-                    <td><?= htmlspecialchars($p['pergunta']) ?></td>
-                    <td><?= ucfirst($p['tipo']) ?></td>
-                    <td><?= number_format($p['nota_maxima'], 1, ',', '.') ?></td>
+                    <td><?= htmlspecialchars($p['titulo']) ?></td>
                     <td>
                     <button type="button"
                             class="btn btn-sm btn-secondary"
@@ -104,16 +103,15 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                         Novo Critério
                     </button>
                     <button type="button"
-                            class="btn btn-sm btn-primary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalEditarPergunta"
-                            data-id="<?= $p['id'] ?>"
-                            data-pergunta="<?= htmlspecialchars($p['pergunta'], ENT_QUOTES) ?>"
-                            data-tipo="<?= $p['tipo'] ?>"
-                            data-nota="<?= $p['nota_maxima'] ?>"
-                            data-avaliacao="<?= $p['avaliacao_id'] ?>">
+                        class="btn btn-sm btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalEditarPergunta"
+                        data-id="<?= $p['id'] ?>"
+                        data-titulo="<?= htmlspecialchars($p['titulo'], ENT_QUOTES) ?>"
+                        data-avaliacao="<?= $p['avaliacao_id'] ?>">
                         Editar
                     </button>
+
                     <a href="excluir_pergunta.php?id=<?= $p['id'] ?>&avaliacao_id=<?= $id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta pergunta?')">Excluir</a>
                     </td>
                 </tr>
@@ -166,21 +164,9 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 
           <div class="mb-3">
             <label class="form-label">Pergunta</label>
-            <input type="text" name="pergunta" class="form-control" required>
+            <input type="text" name="titulo" class="form-control" required>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label">Tipo</label>
-            <select name="tipo" class="form-select" required>
-              <option value="objetiva">Objetiva</option>
-              <option value="discursiva">Discursiva</option>
-            </select>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Nota Máxima</label>
-            <input type="number" name="nota_maxima" class="form-control" step="0.1" min="0" required>
-          </div>
 
           <div class="d-grid">
             <button type="submit" class="btn btn-primary">Salvar Pergunta</button>
@@ -205,21 +191,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
         <input type="hidden" name="avaliacao_id" id="edit-avaliacao-id">
 
         <div class="mb-3">
-          <label class="form-label">Pergunta</label>
-          <input type="text" name="pergunta" id="edit-pergunta" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Tipo</label>
-          <select name="tipo" id="edit-tipo" class="form-select" required>
-            <option value="objetiva">Objetiva</option>
-            <option value="discursiva">Discursiva</option>
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Nota Máxima</label>
-          <input type="number" name="nota_maxima" id="edit-nota" class="form-control" step="0.1" min="0" required>
+          <input type="text" name="titulo" id="edit-titulo" class="form-control" required>
         </div>
       </div>
 
@@ -264,17 +236,16 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 
     document.getElementById('edit-id').value = button.getAttribute('data-id');
     document.getElementById('edit-avaliacao-id').value = button.getAttribute('data-avaliacao');
-    document.getElementById('edit-pergunta').value = button.getAttribute('data-pergunta');
-    document.getElementById('edit-nota').value = button.getAttribute('data-nota');
-    document.getElementById('edit-tipo').value = button.getAttribute('data-tipo');
+    document.getElementById('edit-titulo').value = button.getAttribute('data-titulo');
+    
+  });
 
-
-    const modalNovoCriterio = document.getElementById('modalNovoCriterio');
+   const modalNovoCriterio = document.getElementById('modalNovoCriterio');
     modalNovoCriterio.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
         document.getElementById('criterio-pergunta-id').value = button.getAttribute('data-pergunta-id');
     });
-  });
+    
 </script>
 
 <?php include 'includes/footer.php'; ?>
