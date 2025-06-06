@@ -21,12 +21,12 @@ $avaliacao_id = $_POST['avaliacao_id'] ?? null;
 $titulo = trim($_POST['titulo'] ?? '');
 
 if (!$avaliacao_id || $titulo === '') {
-    header("Location: ../cadastro_avaliacoes.php?id=" . urlencode($avaliacao_id));
+    header("Location: ../cadastro_avaliacao.php?id=" . urlencode($avaliacao_id));
     exit;
 }
 
 $stmt = $pdo->prepare("INSERT INTO avaliacoes_perguntas (avaliacao_id, titulo) VALUES (?, ?)");
 $stmt->execute([$avaliacao_id, $titulo]);
 
-header("Location: ../cadastro_avaliacoes.php?id=" . urlencode($avaliacao_id));
+header("Location: ../cadastro_avaliacao.php?id=" . urlencode($avaliacao_id));
 exit;
