@@ -27,5 +27,5 @@ if ($id) {
 }
 
 // Redireciona de volta para a edição da avaliação
-header("Location: ../cadastro_avaliacoes.php?id=" . urlencode($avaliacao_id));
+header("Location: ../cadastro_avaliacao.php?id=" . urlencode($avaliacao_id));
 exit;

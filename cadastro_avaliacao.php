@@ -153,7 +153,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                                 Editar
                                 </button>
 
-                                <a href="excluir_criterio.php?id=<?= $c['id'] ?>&avaliacao_id=<?= $id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este critério?')">Excluir</a>
+                                <a href="actions/excluir_criterio.php?id=<?= $c['id'] ?>&avaliacao_id=<?= $id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este critério?')">Excluir</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
