@@ -84,6 +84,24 @@
                   </ul>
                 </li>
 
+                <li class="has-sub">
+                  <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#app"
+                    aria-expanded="false" aria-controls="app">
+                    <i class="mdi mdi-pencil-box-multiple"></i>
+                    <span class="nav-text">Avaliações</span> <b class="caret"></b>
+                  </a>
+
+                  <ul class="collapse " id="app" data-parent="#sidebar-menu">
+                    <div class="sub-menu">
+                        <li class="">
+                          <a class="sidenav-item-link" href="avaliacoes.php">
+                              <span class="nav-text">Modelo Avaliações</span>
+                          </a>
+                        </li>
+                    </div>
+                  </ul>
+                </li>
+
                 
 
                 <!-- <li class="section-title">
