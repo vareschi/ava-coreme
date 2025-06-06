@@ -262,7 +262,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
         document.getElementById('criterio-avaliacao-id').value = avaliacaoId;
         document.getElementById('form-criterio').action = 'actions/salvar_criterio.php';
         new bootstrap.Modal(document.getElementById('modalNovoCriterio')).show();
-    };
+    }
 
     function abrirModalEditarCriterio(id, descricao, perguntaId, avaliacaoId) {
         const modal = new bootstrap.Modal(document.getElementById('modalNovoCriterio'));
