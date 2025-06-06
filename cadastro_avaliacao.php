@@ -268,6 +268,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 
 
 <script>
+  // Modal Editar Pergunta
   const modalEditar = document.getElementById('modalEditarPergunta');
   modalEditar.addEventListener('show.bs.modal', function (event) {
     const button = event.relatedTarget;
@@ -275,25 +276,25 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
     document.getElementById('edit-id').value = button.getAttribute('data-id');
     document.getElementById('edit-avaliacao-id').value = button.getAttribute('data-avaliacao');
     document.getElementById('edit-titulo').value = button.getAttribute('data-titulo');
-    
   });
 
-   const modalNovoCriterio = document.getElementById('modalNovoCriterio');
-    modalNovoCriterio.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-        document.getElementById('criterio-pergunta-id').value = button.getAttribute('data-pergunta-id');
-    });
+  // Modal Novo Critério
+  const modalNovoCriterio = document.getElementById('modalNovoCriterio');
+  modalNovoCriterio.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+    document.getElementById('criterio-pergunta-id').value = button.getAttribute('data-pergunta-id');
+  });
 
-    const modalEditarCriterio = document.getElementById('modalEditarCriterio');
-    modalEditarCriterio.addEventListener('show.bs.modal', function (event) {
+  // Modal Editar Critério
+  const modalEditarCriterio = document.getElementById('modalEditarCriterio');
+  modalEditarCriterio.addEventListener('show.bs.modal', function (event) {
     const button = event.relatedTarget;
     document.getElementById('criterio-edit-id').value = button.getAttribute('data-id');
     document.getElementById('criterio-edit-avaliacao-id').value = button.getAttribute('data-avaliacao-id');
     document.getElementById('criterio-edit-pergunta-id').value = button.getAttribute('data-pergunta-id');
     document.getElementById('criterio-edit-descricao').value = button.getAttribute('data-descricao');
-    });
-
-
+  });
 </script>
+
 
 <?php include 'includes/footer.php'; ?>
