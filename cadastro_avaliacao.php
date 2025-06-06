@@ -94,13 +94,16 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                 <tr>
                     <td><?= htmlspecialchars($p['titulo']) ?></td>
                     <td>
+                        <?php
+                            $perguntaId = (int) $p['id'];
+                            $avaliacaoId = (int) $id;
+                        ?>
                     <button type="button"
                             class="btn btn-sm btn-secondary"
-                            data-toggle="modal"
-                            data-target="#modalNovoCriterio"
-                            onclick="abrirModalNovoCriterio(<?= $p['id'] ?>, <?= $avaliacao['id'] ?>)">
+                            onclick="abrirModalNovoCriterio(<?= $perguntaId ?>, <?= $avaliacaoId ?>)">
                     Novo Critério
                     </button>
+
 
                     <button type="button"
                             class="btn btn-sm btn-primary"
