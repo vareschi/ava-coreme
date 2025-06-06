@@ -57,7 +57,7 @@
                     <span class="nav-text">Cadastros</span> <b class="caret"></b>
                   </a>
 
-                  <ul class="collapse " id="app" data-parent="#sidebar-menu">
+                  <ul class="collapse " id="cadastros" data-parent="#sidebar-menu">
                     <div class="sub-menu">
                         <li class="">
                           <a class="sidenav-item-link" href="users.php">
@@ -91,7 +91,7 @@
                     <span class="nav-text">Avaliações</span> <b class="caret"></b>
                   </a>
 
-                  <ul class="collapse " id="app" data-parent="#sidebar-menu">
+                  <ul class="collapse " id="avaliacoes" data-parent="#sidebar-menu">
                     <div class="sub-menu">
                         <li class="">
                           <a class="sidenav-item-link" href="avaliacoes.php">
