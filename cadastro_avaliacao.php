@@ -282,10 +282,9 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
     }
 
     function fecharModalEditarPergunta() {
-        const modalElement = document.getElementById('modalEditarPergunta');
-        const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-        modal.hide();
+        $('#modalEditarPergunta').modal('hide');
     }
+
 
 
 
