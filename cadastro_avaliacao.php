@@ -98,7 +98,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                             class="btn btn-sm btn-secondary"
                             data-toggle="modal"
                             data-target="#modalNovoCriterio"
-                            onclick="abrirModalNovoCriterio(<?= $p['id'] ?>, <?= $id ?>)">
+                            onclick="abrirModalNovoCriterio(<?= $p['id'] ?>, <?= $avaliacao['id'] ?>)">
                     Novo Critério
                     </button>
 
