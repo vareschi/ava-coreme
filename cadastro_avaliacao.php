@@ -102,14 +102,16 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                     Novo Critério
                     </button>
 
-
                     <button type="button"
-                        class="btn btn-sm btn-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalEditarPergunta"
-                        data-id="<?= $p['id'] ?>"
-                        data-titulo="<?= htmlspecialchars($p['titulo'], ENT_QUOTES) ?>"
-                        data-avaliacao="<?= $p['avaliacao_id'] ?>">
+                            class="btn btn-sm btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalNovoCriterio"
+                            onclick="abrirModalEditarCriterio(
+                                <?= $c['id'] ?>,
+                                '<?= htmlspecialchars($c['descricao'], ENT_QUOTES) ?>',
+                                <?= $p['id'] ?>,
+                                <?= $id ?>
+                            )">
                         Editar
                     </button>
 
@@ -214,45 +216,19 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
   </div>
 </div>
 
-<!-- Modal Novo Critério -->
-<div class="modal fade" id="modalNovoCriterio" tabindex="-1" role="dialog">
+<!-- Modal Criar/Editar Critério -->
+<div class="modal fade" id="modalNovoCriterio" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
-    <form class="modal-content" method="POST" action="actions/salvar_criterio.php">
+    <form class="modal-content" method="POST" id="form-criterio">
       <div class="modal-header">
-        <h5 class="modal-title">Novo Critério</h5>
+        <h5 class="modal-title">Critério</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
       <div class="modal-body">
+        <input type="hidden" name="id" id="criterio-id">
         <input type="hidden" name="pergunta_id" id="criterio-pergunta-id">
-        <input type="hidden" name="avaliacao_id" value="<?= $id ?>">
-        <div class="mb-3">
-          <label class="form-label">Critério</label>
-          <input type="text" name="descricao" class="form-control" required>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-success">Salvar Critério</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- MOdal Editar Criterio -->
-<div class="modal fade" id="modalEditarCriterio" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <form class="modal-content" method="POST" action="actions/salvar_edicao_criterio.php">
-      <div class="modal-header">
-        <h5 class="modal-title">Editar Critério</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
-      <div class="modal-body">
-        <input type="hidden" name="id" id="criterio-edit-id">
-        <input type="hidden" name="avaliacao_id" id="criterio-edit-avaliacao-id">
-        <input type="hidden" name="pergunta_id" id="criterio-edit-pergunta-id">
+        <input type="hidden" name="avaliacao_id" id="criterio-avaliacao-id">
         <div class="mb-3">
           <label class="form-label">Descrição</label>
           <input type="text" name="descricao" id="criterio-edit-descricao" class="form-control" required>
@@ -261,11 +237,12 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
       </div>
     </form>
   </div>
 </div>
+
 
  <!-- Javascript -->
  <script src="assets/plugins/jquery/jquery.min.js"></script>
@@ -277,10 +254,24 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
 <script>
 
     function abrirModalNovoCriterio(perguntaId) {
-        $('#criterio-pergunta-id').val(perguntaId);
-        $('#modalNovoCriterio input[name="avaliacao_id"]').val('<?= $id ?>');
-        $('#modalNovoCriterio').modal('show');
+        const modal = new bootstrap.Modal(document.getElementById('modalNovoCriterio'));
+        document.getElementById('criterio-id').value = '';
+        document.getElementById('criterio-edit-descricao').value = '';
+        document.getElementById('criterio-pergunta-id').value = perguntaId;
+        document.getElementById('criterio-avaliacao-id').value = avaliacaoId;
+        document.getElementById('form-criterio').action = 'actions/salvar_criterio.php';
+        modal.show();
     };
+
+    function abrirModalEditarCriterio(id, descricao, perguntaId, avaliacaoId) {
+        const modal = new bootstrap.Modal(document.getElementById('modalNovoCriterio'));
+        document.getElementById('criterio-id').value = id;
+        document.getElementById('criterio-edit-descricao').value = descricao;
+        document.getElementById('criterio-pergunta-id').value = perguntaId;
+        document.getElementById('criterio-avaliacao-id').value = avaliacaoId;
+        document.getElementById('form-criterio').action = 'actions/salvar_edicao_criterio.php';
+        modal.show();
+    }
 
   // Modal Editar Pergunta
   const modalEditar = document.getElementById('modalEditarPergunta');
