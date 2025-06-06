@@ -12,7 +12,7 @@ if (!isset($_SESSION['usuario_id'])) {
     exit;
 }
 
-require_once 'includes/config.php';
+require_once '../includes/config.php';
 
 $pdo = getPDO();
 
