@@ -27,7 +27,7 @@ if ($id) {
     $stmt->execute([$id]);
     $avaliacao = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $stmt = $pdo->prepare("SELECT * FROM avaliacoes_perguntas WHERE avaliacao_id = ?");
+    $stmt = $pdo->prepare("SELECT * FROM avaliacoes_perguntas WHERE avaliacao_id = ? and status = 1");
     $stmt->execute([$id]);
     $perguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
