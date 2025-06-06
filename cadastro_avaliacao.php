@@ -98,23 +98,22 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                             $perguntaId = (int) $p['id'];
                             $avaliacaoId = (int) $id;
                         ?>
-                    <button type="button"
-                            class="btn btn-sm btn-secondary"
-                            onclick="abrirModalNovoCriterio(<?= $perguntaId ?>, <?= $avaliacaoId ?>)">
-                    Novo Critério
-                    </button>
+                        <button type="button"
+                                class="btn btn-sm btn-secondary"
+                                onclick="abrirModalNovoCriterio(<?= $perguntaId ?>, <?= $avaliacaoId ?>)">
+                        Novo Critério
+                        </button>
 
 
-                    <button type="button"
-                            class="btn btn-sm btn-primary"
-                            onclick="abrirModalEditarCriterio(
-                                <?= $c['id'] ?>,
-                                '<?= str_replace("'", "\\'", htmlspecialchars($c['descricao'], ENT_QUOTES)) ?>',
-                                <?= $perguntaId ?>,
-                                <?= $avaliacaoId ?>
-                            )">
-                    Editar
-                    </button>
+                        <button type="button"
+                                class="btn btn-sm btn-primary"
+                                onclick="abrirModalEditarPergunta(
+                                <?= $p['id'] ?>,
+                                '<?= str_replace("'", "\\'", htmlspecialchars($p['titulo'], ENT_QUOTES)) ?>',
+                                <?= $p['avaliacao_id'] ?>
+                                )">
+                        Editar Pergunta
+                        </button>
 
                     <a href="actions/excluir_pergunta.php?id=<?= $p['id'] ?>&avaliacao_id=<?= $id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta pergunta?')">Excluir</a>
                     </td>
@@ -274,15 +273,13 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
         modal.show();
     }
 
-  // Modal Editar Pergunta
-  const modalEditar = document.getElementById('modalEditarPergunta');
-  modalEditar.addEventListener('show.bs.modal', function (event) {
-    const button = event.relatedTarget;
-
-    document.getElementById('edit-id').value = button.getAttribute('data-id');
-    document.getElementById('edit-avaliacao-id').value = button.getAttribute('data-avaliacao');
-    document.getElementById('edit-titulo').value = button.getAttribute('data-titulo');
-  });
+    function abrirModalEditarPergunta(id, titulo, avaliacaoId) {
+        const modal = new bootstrap.Modal(document.getElementById('modalEditarPergunta'));
+        document.getElementById('edit-id').value = id;
+        document.getElementById('edit-avaliacao-id').value = avaliacaoId;
+        document.getElementById('edit-titulo').value = titulo;
+        modal.show();
+    }
 
   // Modal Novo Critério
   const modalNovoCriterio = document.getElementById('modalNovoCriterio');
