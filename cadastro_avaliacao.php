@@ -99,7 +99,6 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                             data-bs-toggle="modal"
                             data-bs-target="#modalNovoCriterio"
                             data-pergunta-id="<?= $p['id'] ?>"
-                            data-pergunta-texto="<?= htmlspecialchars($p['pergunta'], ENT_QUOTES) ?>">
                         Novo Critério
                     </button>
                     <button type="button"
@@ -112,7 +111,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                         Editar
                     </button>
 
-                    <a href="excluir_pergunta.php?id=<?= $p['id'] ?>&avaliacao_id=<?= $id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta pergunta?')">Excluir</a>
+                    <a href="actions/excluir_pergunta.php?id=<?= $p['id'] ?>&avaliacao_id=<?= $id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta pergunta?')">Excluir</a>
                     </td>
                 </tr>
 
@@ -139,7 +138,17 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                             <tr>
                                 <td><?= htmlspecialchars($c['descricao']) ?></td>
                                 <td>
-                                <a href="editar_criterio.php?id=<?= $c['id'] ?>" class="btn btn-sm btn-primary">Editar</a>
+                                <button type="button"
+                                        class="btn btn-sm btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalEditarCriterio"
+                                        data-id="<?= $c['id'] ?>"
+                                        data-descricao="<?= htmlspecialchars($c['descricao'], ENT_QUOTES) ?>"
+                                        data-pergunta-id="<?= $p['id'] ?>"
+                                        data-avaliacao-id="<?= $id ?>">
+                                Editar
+                                </button>
+
                                 <a href="excluir_criterio.php?id=<?= $c['id'] ?>&avaliacao_id=<?= $id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este critério?')">Excluir</a>
                                 </td>
                             </tr>
@@ -228,6 +237,34 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
   </div>
 </div>
 
+<!-- MOdal Editar Criterio -->
+<div class="modal fade" id="modalEditarCriterio" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" method="POST" action="actions/salvar_edicao_criterio.php">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Critério</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" name="id" id="criterio-edit-id">
+        <input type="hidden" name="avaliacao_id" id="criterio-edit-avaliacao-id">
+        <input type="hidden" name="pergunta_id" id="criterio-edit-pergunta-id">
+        <div class="mb-3">
+          <label class="form-label">Descrição</label>
+          <input type="text" name="descricao" id="criterio-edit-descricao" class="form-control" required>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
 
 <script>
   const modalEditar = document.getElementById('modalEditarPergunta');
@@ -245,7 +282,17 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
         const button = event.relatedTarget;
         document.getElementById('criterio-pergunta-id').value = button.getAttribute('data-pergunta-id');
     });
-    
+
+    const modalEditarCriterio = document.getElementById('modalEditarCriterio');
+    modalEditarCriterio.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+    document.getElementById('criterio-edit-id').value = button.getAttribute('data-id');
+    document.getElementById('criterio-edit-avaliacao-id').value = button.getAttribute('data-avaliacao-id');
+    document.getElementById('criterio-edit-pergunta-id').value = button.getAttribute('data-pergunta-id');
+    document.getElementById('criterio-edit-descricao').value = button.getAttribute('data-descricao');
+    });
+
+
 </script>
 
 <?php include 'includes/footer.php'; ?>
