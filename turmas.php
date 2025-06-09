@@ -27,7 +27,6 @@ $turmas = $pdo->query("SELECT t.*, e.nome AS nome_especialidade, ed.numero AS nu
                        WHERE t.status = 1
                        ORDER BY t.data_abertura DESC")->fetchAll();
 $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll();
-$editais = $pdo->query("SELECT id, numero, nome FROM editais WHERE CURDATE() BETWEEN data_abertura AND data_fechamento ORDER BY data_abertura DESC")->fetchAll();
 $preceptores = $pdo->query("SELECT u.id, u.nome from usuarios u, usuario_perfis p WHERE p.usuario_id = u.id AND p.perfil_id = 4 ORDER BY u.nome")->fetchAll();
 ?>
 
@@ -48,7 +47,6 @@ $preceptores = $pdo->query("SELECT u.id, u.nome from usuarios u, usuario_perfis 
           <tr>
             <th>Nome</th>
             <th>Especialidade</th>
-            <th>Edital</th>
             <th>Abertura</th>
             <th>Fechamento</th>
             <th class="text-right">Ações</th>
@@ -59,7 +57,6 @@ $preceptores = $pdo->query("SELECT u.id, u.nome from usuarios u, usuario_perfis 
             <tr>
               <td><?= htmlspecialchars($turma['nome']) ?></td>
               <td><?= htmlspecialchars($turma['nome_especialidade']) ?></td>
-              <td><?= htmlspecialchars($turma['numero_edital']) ?></td>
               <td><?= date('d/m/Y', strtotime($turma['data_abertura'])) ?></td>
               <td><?= date('d/m/Y', strtotime($turma['data_fechamento'])) ?></td>
               <td class="text-right">
@@ -119,15 +116,6 @@ $preceptores = $pdo->query("SELECT u.id, u.nome from usuarios u, usuario_perfis 
 
         <div class="form-row">
         <div class="form-group col-md-6">
-            <label>Edital da Turma</label>
-            <select name="edital_id" id="edital_id" class="form-control" required>
-            <option value="">Selecione</option>
-            <?php foreach ($editais as $e): ?>
-                <option value="<?= $e['id'] ?>"><?= htmlspecialchars($e['numero'] . ' - ' . $e['nome']) ?></option>
-            <?php endforeach; ?>
-            </select>
-        </div>
-        <div class="form-group col-md-6">
             <label>Carga Horária</label>
             <input type="number" name="carga_horaria" id="carga_horaria" class="form-control" required>
         </div>
@@ -185,7 +173,6 @@ function editarTurma(id) {
                 document.getElementById('nome').value = data.nome;
                 document.getElementById('especialidade_id').value = data.especialidade_id;
                 document.getElementById('preceptor_id').value = data.preceptor_id ?? '';
-                document.getElementById('edital_id').value = data.edital_id;
                 document.getElementById('data_abertura').value = data.data_abertura;
                 document.getElementById('data_fechamento').value = data.data_fechamento;
                 document.getElementById('descricao').value = data.descricao;

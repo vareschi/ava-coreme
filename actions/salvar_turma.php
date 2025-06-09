@@ -22,7 +22,6 @@ $id              = $_POST['id'] ?? null; // pode ser vazio para nova turma
 $nome            = trim($_POST['nome'] ?? '');
 $especialidade   = $_POST['especialidade_id'] ?? null;
 $preceptor       = $_POST['preceptor_id'] ?? null; // opcional
-$edital_id       = $_POST['edital_id'] ?? null;
 $data_abertura   = $_POST['data_abertura'] ?? null;
 $data_fechamento = $_POST['data_fechamento'] ?? null;
 $descricao       = trim($_POST['descricao'] ?? '');
@@ -30,7 +29,7 @@ $carga_horaria   = $_POST['carga_horaria'] ?? null;
 $vagas           = $_POST['vagas'] ?? null;
 
 // Validação básica
-if (empty($nome) || !$especialidade || !$edital_id || !$data_abertura || !$data_fechamento) {
+if (empty($nome) || !$especialidade || !$data_abertura || !$data_fechamento) {
     header("Location: ../turmas.php?erro=1");
     exit;
 }
@@ -42,7 +41,6 @@ if ($id) {
             nome = ?, 
             especialidade_id = ?, 
             preceptor_id = ?, 
-            edital_id = ?, 
             data_abertura = ?, 
             data_fechamento = ?, 
             descricao = ?, 
@@ -54,7 +52,6 @@ if ($id) {
         $nome,
         $especialidade,
         $preceptor ?: null,
-        $edital_id,
         $data_abertura,
         $data_fechamento,
         $descricao,
@@ -66,15 +63,14 @@ if ($id) {
     // Insere nova
     $stmt = $pdo->prepare("
         INSERT INTO turmas 
-        (nome, especialidade_id, preceptor_id, edital_id, data_abertura, data_fechamento, descricao, carga_horaria, vagas, status) 
+        (nome, especialidade_id, preceptor_id, data_abertura, data_fechamento, descricao, carga_horaria, vagas, status) 
         VALUES 
-        (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+        (?, ?, ?, ?, ?, ?, ?, ?, 1)
     ");
     $stmt->execute([
         $nome,
         $especialidade,
         $preceptor ?: null,
-        $edital_id,
         $data_abertura,
         $data_fechamento,
         $descricao,

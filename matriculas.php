@@ -133,10 +133,14 @@ if ($turma_id) {
 </div>
 
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.abrirModalNovaMatricula = function () {
+      $('#modalNovaMatricula').modal('show');
+    }
+  });
+</script>
+
+
 <?php include 'includes/footer.php'; ?>
 
-<script>
-    function abrirModalNovaMatricula() {
-    $('#modalNovaMatricula').modal('show');
-    }
-</script>
