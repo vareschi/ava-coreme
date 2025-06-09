@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 if (!isset($_SESSION['usuario_id'])) {
@@ -131,6 +136,10 @@ if ($turma_id) {
 function abrirModalNovaMatricula() {
   $('#modalNovaMatricula').modal('show');
 }
+
+  $(document).ready(function() {
+    console.log("jQuery OK");
+  });
 </script>
 
 <?php include 'includes/footer.php'; ?>
