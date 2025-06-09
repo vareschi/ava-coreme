@@ -26,8 +26,8 @@ $turmas = $pdo->query("SELECT t.*, e.nome AS nome_especialidade, ed.numero AS nu
                        LEFT JOIN editais ed ON t.edital_id = ed.id
                        ORDER BY t.data_abertura DESC")->fetchAll();
 $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll();
-$editais = $pdo->query("SELECT id, numero, nome FROM editais ORDER BY data_abertura DESC")->fetchAll();
-$preceptores = $pdo->query("SELECT id, nome FROM usuarios WHERE tipo = 'preceptor' ORDER BY nome")->fetchAll();
+$editais = $pdo->query("SELECT id, numero, nome FROM editais WHERE CURDATE() BETWEEN data_abertura AND data_fechamento ORDER BY data_abertura DESC")->fetchAll();
+$preceptores = $pdo->query("SELECT u.id, u.nome from usuarios u, usuario_perfis p WHERE p.usuario_id = u.id AND p.perfil_id = 4 ORDER BY u.nome")->fetchAll();
 ?>
 
 <div class="content">
