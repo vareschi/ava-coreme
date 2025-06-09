@@ -80,6 +80,11 @@
                               <span class="nav-text">Avaliações</span>
                           </a>
                         </li>
+                        <li class="">
+                          <a class="sidenav-item-link" href="turmas.php">
+                              <span class="nav-text">Turmas</span>
+                          </a>
+                        </li>
                     </div>
                   </ul>
                 </li>
