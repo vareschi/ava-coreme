@@ -27,26 +27,26 @@ $turmas = $pdo->query("SELECT id, nome FROM turmas WHERE status = 1 ORDER BY nom
 $turma_id = $_GET['turma_id'] ?? '';
 
 $matriculas = [];
-if ($turma_id) {
-    $stmt = $pdo->prepare("SELECT m.id, u.nome as nome_residente, t.nome as nome_turma
-                            FROM matriculas m
-                            JOIN usuarios u ON m.usuario_id = u.id
-                            JOIN turmas t ON m.turma_id = t.id
-                            WHERE m.turma_id = ? AND m.status = 1   
-                            ORDER BY u.nome");
-    $stmt->execute([$turma_id]);
-    $matriculas = $stmt->fetchAll();
-} else
-{
-    $stmt = $pdo->prepare("SELECT m.id, u.nome as nome_residente, t.nome as nome_turma
-                            FROM matriculas m
-                            JOIN usuarios u ON m.usuario_id = u.id
-                            JOIN turmas t ON m.turma_id = t.id
-                            WHERE m.status = 1   
-                            ORDER BY u.nome");
-    $stmt->execute([$turma_id]);
-    $matriculas = $stmt->fetchAll();
+$where = "WHERE m.status = 1";
+$params = [];
+
+if (!empty($turma_id)) {
+    $where .= " AND m.turma_id = ?";
+    $params[] = $turma_id;
 }
+
+$sql = "SELECT m.id, u.nome as nome_residente, t.nome as nome_turma
+        FROM matriculas m
+        JOIN usuarios u ON m.usuario_id = u.id
+        JOIN turmas t ON m.turma_id = t.id
+        $where
+        ORDER BY u.nome";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$matriculas = $stmt->fetchAll();
+
+
 ?>
 
 <div class="content">
