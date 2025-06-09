@@ -76,13 +76,13 @@
                           </a>
                         </li>
                         <li class="">
-                          <a class="sidenav-item-link" href="avaliacoes.php">
-                              <span class="nav-text">Avaliações</span>
+                          <a class="sidenav-item-link" href="turmas.php">
+                              <span class="nav-text">Turmas</span>
                           </a>
                         </li>
                         <li class="">
-                          <a class="sidenav-item-link" href="turmas.php">
-                              <span class="nav-text">Turmas</span>
+                          <a class="sidenav-item-link" href="matriculas.php">
+                              <span class="nav-text">Matriculas</span>
                           </a>
                         </li>
                     </div>
@@ -101,6 +101,11 @@
                         <li class="">
                           <a class="sidenav-item-link" href="avaliacoes.php">
                               <span class="nav-text">Modelo Avaliações</span>
+                          </a>
+                        </li>
+                        <li class="">
+                          <a class="sidenav-item-link" href="cadastro_avaliacoes.php">
+                              <span class="nav-text">Cadastrar Avaliações</span>
                           </a>
                         </li>
                     </div>
