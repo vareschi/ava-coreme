@@ -30,7 +30,7 @@ $matriculas = [];
 if ($turma_id) {
     $stmt = $pdo->prepare("SELECT m.id, u.nome as nome_residente, t.nome as nome_turma
                             FROM matriculas m
-                            JOIN usuarios u ON m.residente_id = u.id
+                            JOIN usuarios u ON m.usuario_id = u.id
                             JOIN turmas t ON m.turma_id = t.id
                             WHERE m.turma_id = ? AND m.status = 1   
                             ORDER BY u.nome");
@@ -132,15 +132,11 @@ if ($turma_id) {
   </div>
 </div>
 
-
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.abrirModalNovaMatricula = function () {
-      $('#modalNovaMatricula').modal('show');
+    function abrirModalNovaMatricula() {
+    $('#modalNovaMatricula').modal('show');
     }
-  });
 </script>
-
 
 <?php include 'includes/footer.php'; ?>
 
