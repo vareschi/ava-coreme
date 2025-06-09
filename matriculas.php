@@ -36,6 +36,16 @@ if ($turma_id) {
                             ORDER BY u.nome");
     $stmt->execute([$turma_id]);
     $matriculas = $stmt->fetchAll();
+} else
+{
+    $stmt = $pdo->prepare("SELECT m.id, u.nome as nome_residente, t.nome as nome_turma
+                            FROM matriculas m
+                            JOIN usuarios u ON m.usuario_id = u.id
+                            JOIN turmas t ON m.turma_id = t.id
+                            WHERE m.status = 1   
+                            ORDER BY u.nome");
+    $stmt->execute([$turma_id]);
+    $matriculas = $stmt->fetchAll();
 }
 ?>
 
