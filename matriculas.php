@@ -108,13 +108,13 @@ if ($turma_id) {
 
         <div class="form-group">
           <label>Residente</label>
-          <select name="residente_id" class="form-control" required>
+          <select name="usuario_id" class="form-control" required>
             <option value="">Selecione</option>
             <?php
               $resQuery = $pdo->prepare("SELECT u.id, u.nome FROM usuarios u 
                                          JOIN usuario_perfis p ON p.usuario_id = u.id
                                          WHERE p.perfil_id = 3 AND u.id NOT IN (
-                                           SELECT usuario_id FROM matriculas WHERE turma_id = ?
+                                           SELECT usuario_id FROM matriculas WHERE turma_id = ? and status = 1
                                          ) ORDER BY u.nome");
               $resQuery->execute([$turma_id ?: 0]);
               foreach ($resQuery->fetchAll() as $res):
