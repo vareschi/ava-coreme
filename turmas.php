@@ -24,6 +24,7 @@ $pdo = getPDO();
 $turmas = $pdo->query("SELECT t.*, e.nome AS nome_especialidade, ed.numero AS numero_edital FROM turmas t
                        LEFT JOIN especialidades e ON t.especialidade_id = e.id
                        LEFT JOIN editais ed ON t.edital_id = ed.id
+                       WHERE t.status = 1
                        ORDER BY t.data_abertura DESC")->fetchAll();
 $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll();
 $editais = $pdo->query("SELECT id, numero, nome FROM editais WHERE CURDATE() BETWEEN data_abertura AND data_fechamento ORDER BY data_abertura DESC")->fetchAll();
@@ -167,8 +168,13 @@ $preceptores = $pdo->query("SELECT u.id, u.nome from usuarios u, usuario_perfis 
 function abrirModalNovaTurma() {
     document.getElementById('form-turma').reset();
     document.getElementById('turma-id').value = '';
+    document.getElementById('especialidade_id').value = '';
+    document.getElementById('preceptor_id').value = '';
+    document.getElementById('edital_id').value = '';
+    document.getElementById('descricao').value = '';
     $('#modalNovaTurma').modal('show');
 }
+
 
 function editarTurma(id) {
     fetch('actions/get_turma.php?id=' + id)
