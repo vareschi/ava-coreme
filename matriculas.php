@@ -114,7 +114,7 @@ if ($turma_id) {
               $resQuery = $pdo->prepare("SELECT u.id, u.nome FROM usuarios u 
                                          JOIN usuario_perfis p ON p.usuario_id = u.id
                                          WHERE p.perfil_id = 3 AND u.id NOT IN (
-                                           SELECT residente_id FROM matriculas WHERE turma_id = ?
+                                           SELECT usuario_id FROM matriculas WHERE turma_id = ?
                                          ) ORDER BY u.nome");
               $resQuery->execute([$turma_id ?: 0]);
               foreach ($resQuery->fetchAll() as $res):
