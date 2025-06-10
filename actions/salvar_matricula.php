@@ -31,6 +31,15 @@ $stmt = $pdo->prepare("SELECT id, status FROM matriculas WHERE usuario_id = ? AN
 $stmt->execute([$usuario_id, $turma_id]);
 $matriculaExistente = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// Verifica se o residente já tem matrícula ativa em outra turma
+$stmt = $pdo->prepare("SELECT id FROM matriculas WHERE usuario_id = ? AND status = 1");
+$stmt->execute([$usuario_id]);
+
+if ($stmt->fetch()) {
+    header("Location: ../matriculas.php?erro=ja_matriculado_ativo");
+    exit;
+}
+
 if ($matriculaExistente) {
     if ((int)$matriculaExistente['status'] === 0) {
         // Reativa matrícula inativa
