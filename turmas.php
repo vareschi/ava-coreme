@@ -21,9 +21,8 @@ include 'includes/topbar.php';
 verificarAcessoRecurso('turmas');
 
 $pdo = getPDO();
-$turmas = $pdo->query("SELECT t.*, e.nome AS nome_especialidade, ed.numero AS numero_edital FROM turmas t
+$turmas = $pdo->query("SELECT t.*, e.nome AS nome_especialidade FROM turmas t
                        LEFT JOIN especialidades e ON t.especialidade_id = e.id
-                       LEFT JOIN editais ed ON t.edital_id = ed.id
                        WHERE t.status = 1
                        ORDER BY t.data_abertura DESC")->fetchAll();
 $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll();
@@ -104,7 +103,7 @@ $preceptores = $pdo->query("SELECT u.id, u.nome from usuarios u, usuario_perfis 
             </select>
         </div>
         <div class="form-group col-md-6">
-            <label>Preceptor</label>
+            <label>Preceptor / Cordenador</label>
             <select name="preceptor_id" id="preceptor_id" class="form-control">
             <option value="">Opcional</option>
             <?php foreach ($preceptores as $p): ?>
