@@ -16,7 +16,7 @@ include 'includes/topbar.php';
 verificarAcessoRecurso('campos_estagio');
 
 $pdo = getPDO();
-$campos = $pdo->query("SELECT * FROM campos_estagio ORDER BY nome")->fetchAll();
+$campos = $pdo->query("SELECT * FROM campos_estagio WHERE status = 1 ORDER BY nome")->fetchAll();
 ?>
 
 <div class="content">
