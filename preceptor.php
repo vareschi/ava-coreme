@@ -1,10 +1,23 @@
 <?php
-require_once 'includes/header.php';
+session_start();
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: sign-in.php");
+    exit;
+}
+
 require_once 'includes/config.php';
+require_once 'includes/funcoes.php';
 
 include 'includes/header.php';
 include 'includes/sidebar.php';
 include 'includes/topbar.php';
+
+verificarAcessoRecurso('usuarios');
 
 $pdo = getPDO();
 
@@ -14,7 +27,7 @@ $campos_estagio = $pdo->query("SELECT id, nome FROM campos_estagio WHERE data_ex
 // Buscar especialidades disponíveis
 $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll();
 
-verificarAcessoRecurso('usuarios');
+
 
 if ($usuario_id) {
     $stmt = $pdo->prepare("SELECT * FROM preceptores WHERE usuario_id = ?");
