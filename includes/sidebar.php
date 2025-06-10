@@ -113,6 +113,11 @@
                               <span class="nav-text">Cadastrar Avaliações</span>
                           </a>
                         </li>
+                        <li class="">
+                          <a class="sidenav-item-link" href="gerar_avaliacoes.php">
+                              <span class="nav-text">Gerar Avaliações</span>
+                          </a>
+                        </li>
                     </div>
                   </ul>
                 </li>

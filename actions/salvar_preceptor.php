@@ -61,7 +61,7 @@ try {
 
     $pdo->commit();
 
-    header("Location: ../preceptores.php?usuario_id=$usuario_id&sucesso=1");
+    header("Location: ../preceptor.php?usuario_id=$usuario_id&sucesso=1");
     exit;
 
 } catch (Exception $e) {
