@@ -11,6 +11,9 @@ $pdo = getPDO();
 $usuario_id = $_GET['usuario_id'] ?? null;
 $preceptor = [];
 $campos_estagio = $pdo->query("SELECT id, nome FROM campos_estagio WHERE data_exclusao IS NULL ORDER BY nome")->fetchAll();
+// Buscar especialidades disponíveis
+$especialidades = $pdo->query("SELECT id, nome FROM especialidades WHERE status = 1 ORDER BY nome")->fetchAll();
+
 
 if ($usuario_id) {
     $stmt = $pdo->prepare("SELECT * FROM preceptores WHERE usuario_id = ?");
@@ -33,13 +36,22 @@ if ($usuario_id) {
       <div class="card-body">
         <div class="row g-3">
           <div class="col-md-4">
-            <label class="form-label">Data de Início na preceptoria</label>
+            <label class="form-label">Data de Início na Preceptoria</label>
             <input type="date" name="data_inicio" class="form-control" value="<?= htmlspecialchars($preceptor['data_inicio'] ?? '') ?>">
           </div>
+
           <div class="col-md-4">
             <label class="form-label">Especialidade</label>
-            <input type="text" name="especialidade" class="form-control" value="<?= htmlspecialchars($preceptor['especialidade'] ?? '') ?>">
+            <select name="especialidade_id" class="form-select">
+              <option value="">Selecione</option>
+              <?php foreach ($especialidades as $esp): ?>
+                <option value="<?= $esp['id'] ?>" <?= ($preceptor['especialidade_id'] ?? '') == $esp['id'] ? 'selected' : '' ?>>
+                  <?= htmlspecialchars($esp['nome']) ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
           </div>
+
           <div class="col-md-4">
             <label class="form-label">Coordenador</label>
             <select name="coordenador" class="form-select">
@@ -52,12 +64,16 @@ if ($usuario_id) {
 
         <div class="mt-4">
           <label class="form-label">Campos de Estágio</label>
-          <?php foreach ($campos_estagio as $campo): ?>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="campos_estagio[]" value="<?= $campo['id'] ?>" <?= in_array($campo['id'], $camposSelecionados) ? 'checked' : '' ?>>
-              <label class="form-check-label"><?= htmlspecialchars($campo['nome']) ?></label>
-            </div>
-          <?php endforeach; ?>
+          <div class="row">
+            <?php foreach ($campos_estagio as $campo): ?>
+              <div class="col-md-6">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="campos_estagio[]" value="<?= $campo['id'] ?>" <?= in_array($campo['id'], $camposSelecionados) ? 'checked' : '' ?>>
+                  <label class="form-check-label"><?= htmlspecialchars($campo['nome']) ?></label>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          </div>
         </div>
       </div>
     </div>
@@ -69,5 +85,6 @@ if ($usuario_id) {
     </div>
   </form>
 </div>
+
 
 <?php include 'includes/footer.php'; ?>
