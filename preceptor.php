@@ -14,6 +14,7 @@ $campos_estagio = $pdo->query("SELECT id, nome FROM campos_estagio WHERE data_ex
 // Buscar especialidades disponíveis
 $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll();
 
+verificarAcessoRecurso('usuarios');
 
 if ($usuario_id) {
     $stmt = $pdo->prepare("SELECT * FROM preceptores WHERE usuario_id = ?");
