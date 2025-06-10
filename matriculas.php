@@ -24,6 +24,8 @@ $pdo = getPDO();
 
 $turmas = $pdo->query("SELECT id, nome FROM turmas WHERE status = 1 ORDER BY nome")->fetchAll();
 
+$editais = $pdo->query("SELECT id, numero, nome FROM editais WHERE CURDATE() BETWEEN data_abertura AND data_fechamento ORDER BY data_abertura DESC")->fetchAll();
+
 $turma_id = $_GET['turma_id'] ?? '';
 
 $matriculas = [];
@@ -35,10 +37,11 @@ if (!empty($turma_id)) {
     $params[] = $turma_id;
 }
 
-$sql = "SELECT m.id, u.nome as nome_residente, t.nome as nome_turma
+$sql = "SELECT m.id, u.nome as nome_residente, t.nome as nome_turma, e.numero as numero_edital
         FROM matriculas m
         JOIN usuarios u ON m.usuario_id = u.id
         JOIN turmas t ON m.turma_id = t.id
+        LEFT JOIN editais e ON m.edital_origem_id = e.id
         $where
         ORDER BY u.nome";
 
@@ -72,6 +75,7 @@ $matriculas = $stmt->fetchAll();
           <tr>
             <th>Residente</th>
             <th>Turma</th>
+            <th>Edital de Origem</th>
             <th class="text-right">Ações</th>
           </tr>
         </thead>
@@ -81,6 +85,7 @@ $matriculas = $stmt->fetchAll();
               <tr>
                 <td><?= htmlspecialchars($m['nome_residente']) ?></td>
                 <td><?= htmlspecialchars($m['nome_turma']) ?></td>
+                <td><?= htmlspecialchars($m['numero_edital'] ?? 'Não informado') ?></td>
                 <td class="text-right">
                   <a href="actions/excluir_matricula.php?id=<?= $m['id'] ?>" onclick="return confirm('Remover esta matrícula?')" class="btn btn-sm btn-link text-danger">
                     <i class="mdi mdi-delete"></i>
@@ -133,6 +138,16 @@ $matriculas = $stmt->fetchAll();
             <?php endforeach; ?>
           </select>
         </div>
+        <div class="form-group">
+            <label for="edital_origem_id">Edital de Origem</label>
+            <select name="edital_origem_id" id="edital_origem_id" class="form-control">
+                <option value="">Selecione (opcional)</option>
+                <?php foreach ($editais as $e): ?>
+                <option value="<?= $e['id'] ?>"><?= htmlspecialchars($e['numero'] . ' - ' . $e['nome']) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

@@ -19,6 +19,7 @@ $pdo = getPDO();
 
 $usuario_id = $_POST['usuario_id'] ?? null;
 $turma_id   = $_POST['turma_id'] ?? null;
+$edital_origem_id = $_POST['edital_origem_id'] ?? null;
 
 if (!$usuario_id || !$turma_id) {
     header("Location: ../matriculas.php?erro=campos_obrigatorios");
@@ -35,8 +36,8 @@ if ($stmt->fetch()) {
 }
 
 // Insere nova matrícula
-$stmt = $pdo->prepare("INSERT INTO matriculas (usuario_id, turma_id) VALUES (?, ?)");
-$stmt->execute([$usuario_id, $turma_id]);
+$stmt = $pdo->prepare("INSERT INTO matriculas (turma_id, usuario_id, edital_origem_id, status) VALUES (?, ?, ?, 1)");
+$stmt->execute([$turma_id, $usuario_id, $edital_origem_id ?: null]);
 
 header("Location: ../matriculas.php?sucesso=1");
 exit;
