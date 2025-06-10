@@ -158,7 +158,6 @@ function abrirModalNovaTurma() {
     document.getElementById('turma-id').value = '';
     document.getElementById('especialidade_id').value = '';
     document.getElementById('preceptor_id').value = '';
-    document.getElementById('edital_id').value = '';
     document.getElementById('descricao').value = '';
     $('#modalNovaTurma').modal('show');
 }
