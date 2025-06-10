@@ -40,9 +40,9 @@ if ($usuario_id) {
             <input type="date" name="data_inicio" class="form-control" value="<?= htmlspecialchars($preceptor['data_inicio'] ?? '') ?>">
           </div>
 
-          <div class="col-md-4">
+          <div class="form-group">
             <label class="form-label">Especialidade</label>
-            <select name="especialidade_id" class="form-select">
+            <select name="especialidade_id" class="form-control">
               <option value="">Selecione</option>
               <?php foreach ($especialidades as $esp): ?>
                 <option value="<?= $esp['id'] ?>" <?= ($preceptor['especialidade_id'] ?? '') == $esp['id'] ? 'selected' : '' ?>>
@@ -52,9 +52,9 @@ if ($usuario_id) {
             </select>
           </div>
 
-          <div class="col-md-4">
+          <div class="form-group">
             <label class="form-label">Coordenador</label>
-            <select name="coordenador" class="form-select">
+            <select name="coordenador" class="form-control">
               <option value="">Selecione</option>
               <option value="Sim" <?= ($preceptor['coordenador'] ?? '') === 'Sim' ? 'selected' : '' ?>>Sim</option>
               <option value="Não" <?= ($preceptor['coordenador'] ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
