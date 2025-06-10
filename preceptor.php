@@ -35,7 +35,7 @@ if ($usuario_id) {
       <div class="card-header">Preceptoria</div>
       <div class="card-body">
         <div class="row g-3">
-          <div class="col-md-4">
+          <div class="form-group">
             <label class="form-label">Data de Início na Preceptoria</label>
             <input type="date" name="data_inicio" class="form-control" value="<?= htmlspecialchars($preceptor['data_inicio'] ?? '') ?>">
           </div>
