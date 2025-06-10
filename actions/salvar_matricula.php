@@ -17,8 +17,8 @@ verificarAcessoRecurso('matriculas');
 
 $pdo = getPDO();
 
-$usuario_id = $_POST['usuario_id'] ?? null;
-$turma_id   = $_POST['turma_id'] ?? null;
+$usuario_id       = $_POST['usuario_id'] ?? null;
+$turma_id         = $_POST['turma_id'] ?? null;
 $edital_origem_id = $_POST['edital_origem_id'] ?? null;
 
 if (!$usuario_id || !$turma_id) {
@@ -26,13 +26,23 @@ if (!$usuario_id || !$turma_id) {
     exit;
 }
 
-// Verifica se já existe a matrícula
-$stmt = $pdo->prepare("SELECT id FROM matriculas WHERE usuario_id = ? AND turma_id = ? AND data_exclusao IS NULL");
+// Verifica se já existe alguma matrícula
+$stmt = $pdo->prepare("SELECT id, status FROM matriculas WHERE usuario_id = ? AND turma_id = ?");
 $stmt->execute([$usuario_id, $turma_id]);
+$matriculaExistente = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($stmt->fetch()) {
-    header("Location: ../matriculas.php?erro=ja_matriculado");
-    exit;
+if ($matriculaExistente) {
+    if ((int)$matriculaExistente['status'] === 0) {
+        // Reativa matrícula inativa
+        $stmt = $pdo->prepare("UPDATE matriculas SET status = 1, edital_origem_id = ?, data_exclusao = NULL WHERE id = ?");
+        $stmt->execute([$edital_origem_id ?: null, $matriculaExistente['id']]);
+        header("Location: ../matriculas.php?sucesso=reativada");
+        exit;
+    } else {
+        // Já existe matrícula ativa
+        header("Location: ../matriculas.php?erro=ja_matriculado");
+        exit;
+    }
 }
 
 // Insere nova matrícula
