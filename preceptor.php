@@ -12,7 +12,7 @@ $usuario_id = $_GET['usuario_id'] ?? null;
 $preceptor = [];
 $campos_estagio = $pdo->query("SELECT id, nome FROM campos_estagio WHERE data_exclusao IS NULL ORDER BY nome")->fetchAll();
 // Buscar especialidades disponíveis
-$especialidades = $pdo->query("SELECT id, nome FROM especialidades WHERE status = 1 ORDER BY nome")->fetchAll();
+$especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll();
 
 
 if ($usuario_id) {
