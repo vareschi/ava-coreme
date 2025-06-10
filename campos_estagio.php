@@ -16,7 +16,7 @@ include 'includes/topbar.php';
 verificarAcessoRecurso('campos_estagio');
 
 $pdo = getPDO();
-$campos = $pdo->query("SELECT * FROM campos_estagio ORDER BY campo")->fetchAll();
+$campos = $pdo->query("SELECT * FROM campos_estagio ORDER BY nome")->fetchAll();
 ?>
 
 <div class="content">
@@ -43,7 +43,7 @@ $campos = $pdo->query("SELECT * FROM campos_estagio ORDER BY campo")->fetchAll()
           <?php foreach ($campos as $c): ?>
             <tr>
               <td><?= $c['id'] ?></td>
-              <td><?= htmlspecialchars($c['campo']) ?></td>
+              <td><?= htmlspecialchars($c['nome']) ?></td>
               <td class="text-right">
                 <a href="actions/excluir_campo_estagio.php?id=<?= $c['id'] ?>" onclick="return confirm('Excluir este campo?')" class="btn btn-sm btn-link text-danger">
                   <i class="mdi mdi-delete"></i>
@@ -68,7 +68,7 @@ $campos = $pdo->query("SELECT * FROM campos_estagio ORDER BY campo")->fetchAll()
       <div class="modal-body">
         <div class="form-group">
           <label for="campo">Nome do Campo</label>
-          <input type="text" name="campo" id="campo" class="form-control" required>
+          <input type="text" name="nome" id="nome" class="form-control" required>
         </div>
       </div>
       <div class="modal-footer">
@@ -81,7 +81,7 @@ $campos = $pdo->query("SELECT * FROM campos_estagio ORDER BY campo")->fetchAll()
 
 <script>
 function abrirModalNovoCampo() {
-  document.getElementById('campo').value = '';
+  document.getElementById('nome').value = '';
   $('#modalNovoCampo').modal('show');
 }
 </script>
