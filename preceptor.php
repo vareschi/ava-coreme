@@ -62,7 +62,7 @@ if ($usuario_id) {
           </div>
         </div>
 
-        <div class="mt-4">
+        <div class="form-group">
           <label class="form-label">Campos de Estágio</label>
           <div class="row">
             <?php foreach ($campos_estagio as $campo): ?>
