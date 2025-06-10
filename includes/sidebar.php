@@ -85,6 +85,11 @@
                               <span class="nav-text">Matriculas</span>
                           </a>
                         </li>
+                        <li class="">
+                          <a class="sidenav-item-link" href="campos_estagio.php">
+                              <span class="nav-text">Campos de Estágio</span>
+                          </a>
+                        </li>
                     </div>
                   </ul>
                 </li>
