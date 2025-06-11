@@ -3,6 +3,11 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+echo '<pre>';
+var_dump($_POST);
+exit;
+
+
 require_once '../includes/config.php';
 require_once '../includes/funcoes.php';
 

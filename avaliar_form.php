@@ -61,7 +61,7 @@ include 'includes/topbar.php';
 <div class="container mt-4">
   <h2>Avaliar Residente: <?= htmlspecialchars($avaliacao['residente_nome']) ?></h2>
   <form action="actions/salvar_nota_criterio.php" method="POST">
-    <input type="hidden" name="avaliacao_gerada_id" value="<?= $avaliacao_id ?>">
+    <input type="hidden" name="avaliacao_gerada_id" value="<?= $avaliacao_gerada_id ?>">
 
     <?php foreach ($perguntas as $pergunta): ?>
       <div class="card mb-3">
