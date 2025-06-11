@@ -12,7 +12,7 @@ if (!isset($_GET['id'])) {
     die('Avaliação não especificada.');
 }
 
-$avaliacoes_geradas_id = $_GET['id'];
+$avaliacao_gerada_id = $_GET['id'];
 $pdo = getPDO();
 
 $perfil_id = $_SESSION['perfil_id'] ?? null;
@@ -24,7 +24,7 @@ $sql = "SELECT ag.*, u.nome AS residente_nome, p.nome AS preceptor_nome
         JOIN usuarios p ON ag.preceptor_id = p.id
         WHERE ag.id = ?";
 $stmt = $pdo->prepare($sql);
-$stmt->execute([$avaliacoes_geradas_id]);
+$stmt->execute([$avaliacao_gerada_id]);
 $avaliacao = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$avaliacao) {
@@ -61,7 +61,7 @@ include 'includes/topbar.php';
 <div class="container mt-4">
   <h2>Avaliar Residente: <?= htmlspecialchars($avaliacao['residente_nome']) ?></h2>
   <form action="actions/salvar_nota_criterio.php" method="POST">
-    <input type="hidden" name="avaliacaos_gerada_id" value="<?= $avaliacoes_geradas_id ?>">
+    <input type="hidden" name="avaliacaos_gerada_id" value="<?= $avaliacao_gerada_id ?>">
 
     <?php foreach ($perguntas as $pergunta): ?>
       <div class="card mb-3">
