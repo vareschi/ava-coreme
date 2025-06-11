@@ -19,12 +19,12 @@ if (!$avaliacao_gerada_id || empty($criterios)) {
 }
 
 // Apaga notas anteriores (caso exista reavaliação)
-$stmt = $pdo->prepare("DELETE FROM avaliacoes_respostas WHERE avaliacao_id = ?");
+$stmt = $pdo->prepare("DELETE FROM avaliacoes_respostas WHERE avaliacao_gerada_id = ?");
 $stmt->execute([$avaliacao_gerada_id]);
 
 // Insere as novas notas
 foreach ($criterios as $criterio_id => $nota) {
-    $stmt = $pdo->prepare("INSERT INTO avaliacoes_respostas (avaliacao_id, criterio_id, nota_atribuida) VALUES (?, ?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO avaliacoes_respostas (avaliacao_gerada_id, criterio_id, nota_atribuida) VALUES (?, ?, ?)");
     $stmt->execute([$avaliacao_gerada_id, $criterio_id, $nota]);
 }
 
