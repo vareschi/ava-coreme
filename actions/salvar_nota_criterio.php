@@ -10,7 +10,6 @@ verificarAcessoRecurso('avaliacoes');
 
 $pdo = getPDO();
 
-// Coleta dados do formulário
 $avaliacao_gerada_id = $_POST['avaliacao_gerada_id'] ?? null;
 $observacoes = trim($_POST['observacoes'] ?? '');
 $criterios = $_POST['criterios'] ?? [];
@@ -19,42 +18,52 @@ if (!$avaliacao_gerada_id || empty($criterios)) {
     die('Avaliação ou critérios não informados.');
 }
 
-// Apaga notas anteriores (para reavaliação)
+// Recuperar dados da avaliação gerada para popular os campos corretamente
+$stmt = $pdo->prepare("SELECT * FROM avaliacoes_geradas WHERE id = ?");
+$stmt->execute([$avaliacao_gerada_id]);
+$avaliacao = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$avaliacao) {
+    die('Avaliação gerada não encontrada.');
+}
+
+// Apaga respostas anteriores (se houver)
 $stmt = $pdo->prepare("DELETE FROM avaliacoes_respostas WHERE avaliacao_gerada_id = ?");
 $stmt->execute([$avaliacao_gerada_id]);
 
-// Insere as novas respostas
-$stmtInsert = $pdo->prepare("
-    INSERT INTO avaliacoes_respostas (avaliacao_gerada_id, criterio_id, nota_atribuida, data_avaliacao) 
-    VALUES (?, ?, ?, NOW())
-");
-
+// Insere novas respostas com dados completos
 foreach ($criterios as $criterio_id => $nota) {
-    $nota = is_numeric($nota) ? (float) $nota : null;
-    if ($nota === null) continue; // pular se nota inválida
-    $stmtInsert->execute([$avaliacao_gerada_id, $criterio_id, $nota]);
+    $stmt = $pdo->prepare("
+        INSERT INTO avaliacoes_respostas (
+            avaliacao_gerada_id, criterio_id, usuario_id, turma_id, preceptor_id, nota_atribuida, data_avaliacao
+        ) VALUES (?, ?, ?, ?, ?, ?, NOW())
+    ");
+    $stmt->execute([
+        $avaliacao_gerada_id,
+        $criterio_id,
+        $avaliacao['residente_id'],
+        $avaliacao['turma_id'],
+        $avaliacao['preceptor_id'],
+        $nota
+    ]);
 }
 
-// Verifica o total de critérios ativos da avaliação
+// Verifica se todos os critérios foram avaliados
 $stmt = $pdo->prepare("
     SELECT COUNT(*) FROM avaliacoes_criterios ac
-    JOIN avaliacoes_perguntas ap ON ap.id = ac.pergunta_id AND ap.status = 1
-    JOIN avaliacoes_geradas ag ON ag.modelo_id = ap.avaliacao_id
-    WHERE ag.id = ? AND ac.status = 1
+    JOIN avaliacoes_perguntas ap ON ac.pergunta_id = ap.id
+    WHERE ap.avaliacao_id = ? AND ac.status = 1 AND ap.status = 1
 ");
-$stmt->execute([$avaliacao_gerada_id]);
-$total_criterios = (int) $stmt->fetchColumn();
+$stmt->execute([$avaliacao['modelo_id']]);
+$total_criterios = $stmt->fetchColumn();
 
-// Compara com quantidade de respostas preenchidas
 $total_respostas = count($criterios);
-$status = ($total_respostas >= $total_criterios && $total_criterios > 0) ? 3 : 2; // 3 = Finalizado, 2 = Iniciado
+$status = ($total_respostas >= $total_criterios) ? 3 : 2; // 3 = Finalizado, 2 = Iniciado
 
-// Atualiza o status e observações
-$stmt = $pdo->prepare("
-    UPDATE avaliacoes_geradas 
-    SET status = ?, observacoes_preceptor = ?, data_atualizacao = NOW()
-    WHERE id = ?
-");
+// Atualiza status e observações da avaliação
+$stmt = $pdo->prepare("UPDATE avaliacoes_geradas 
+                       SET status = ?, observacoes_preceptor = ?, data_atualizacao = NOW()
+                       WHERE id = ?");
 $stmt->execute([$status, $observacoes, $avaliacao_gerada_id]);
 
 header("Location: ../avaliar.php?sucesso=1");
