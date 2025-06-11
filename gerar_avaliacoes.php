@@ -28,7 +28,6 @@ $campos_estagio = $pdo->query("SELECT id, nome FROM campos_estagio WHERE data_ex
 ?>
 
 <div class="container mt-4">
-  <h2>Gerar Avaliações</h2>
     <div class="card">
   <div class="card-body">
     <h4 class="card-title">Gerar Avaliações</h4>

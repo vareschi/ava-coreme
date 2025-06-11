@@ -1,6 +1,4 @@
 <?php
-
-
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -17,7 +15,6 @@ if (!isset($_GET['id'])) {
 $avaliacao_id = $_GET['id'];
 $pdo = getPDO();
 
-// Verifica se a avaliação pertence ao preceptor logado (ou admin/secretaria)
 $perfil_id = $_SESSION['perfil_id'] ?? null;
 $usuario_id = $_SESSION['usuario_id'];
 
@@ -38,7 +35,9 @@ if ($perfil_id == 4 && $avaliacao['preceptor_id'] != $usuario_id) {
     die('Você não tem permissão para avaliar esta avaliação.');
 }
 
-// Carrega perguntas e critérios do modelo
+$desabilitarCampos = ($avaliacao['status'] == 3); // Desativa se finalizada
+
+// Carrega perguntas e critérios
 $stmt = $pdo->prepare("SELECT id, titulo FROM avaliacoes_perguntas WHERE avaliacao_id = ? AND status = 1");
 $stmt->execute([$avaliacao['modelo_id']]);
 $perguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -61,7 +60,7 @@ include 'includes/topbar.php';
 
 <div class="container mt-4">
   <h2>Avaliar Residente: <?= htmlspecialchars($avaliacao['residente_nome']) ?></h2>
-  <form action="actions/salvar_avaliacao.php" method="POST">
+  <form action="actions/salvar_nota_criterio.php" method="POST">
     <input type="hidden" name="avaliacao_gerada_id" value="<?= $avaliacao_id ?>">
 
     <?php foreach ($perguntas as $pergunta): ?>
@@ -74,7 +73,7 @@ include 'includes/topbar.php';
             <?php foreach ($criterios[$pergunta['id']] as $criterio): ?>
               <div class="form-group mb-2">
                 <label><?= htmlspecialchars($criterio['descricao']) ?></label>
-                <select class="form-control" name="criterios[<?= $criterio['id'] ?>]" required>
+                <select class="form-control" name="criterios[<?= $criterio['id'] ?>]" <?= $desabilitarCampos ? 'disabled' : '' ?> required>
                   <option value="">Selecione...</option>
                   <?php
                     $notas = [
@@ -100,12 +99,16 @@ include 'includes/topbar.php';
 
     <div class="form-group">
       <label>Observações do Preceptor (opcional)</label>
-      <textarea name="observacoes" class="form-control" rows="4"><?= htmlspecialchars($avaliacao['observacoes_preceptor'] ?? '') ?></textarea>
+      <textarea name="observacoes" class="form-control" rows="4" <?= $desabilitarCampos ? 'disabled' : '' ?>>
+        <?= htmlspecialchars($avaliacao['observacoes_preceptor'] ?? '') ?>
+      </textarea>
     </div>
 
-    <div class="d-grid">
-      <button type="submit" class="btn btn-success">Salvar Avaliação</button>
-    </div>
+    <?php if (!$desabilitarCampos): ?>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-success">Salvar Avaliação</button>
+      </div>
+    <?php endif; ?>
   </form>
 </div>
 
