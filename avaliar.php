@@ -188,8 +188,8 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
             ?>
           </td>
           <td>
-            <?php if (in_array($perfil_id, [1, 2, 4]) && $av['status'] == 1): ?>
-              <a href="avaliar_form.php?id=<?= $av['id'] ?>" class="btn btn-sm btn-primary">Avaliar</a>
+            <?php if (isset($_SESSION['perfis']) && array_intersect([1, 2, 4], $_SESSION['perfis']) && $av['status'] == 1): ?>
+            <a href="avaliar_form.php?id=<?= $av['id'] ?>" class="btn btn-sm btn-primary">Avaliar</a>
             <?php else: ?>
               -
             <?php endif; ?>
