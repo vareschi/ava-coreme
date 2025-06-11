@@ -1,12 +1,6 @@
 <?php
 session_start();
 
-echo '<pre>';
-var_dump($_SESSION['perfis']);
-echo '</pre>';
-
-
-
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
