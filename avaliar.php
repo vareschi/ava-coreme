@@ -188,7 +188,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
             ?>
           </td>
           <td>
-            <?php if ($perfil_id == 4 && $av['status'] == 1): ?>
+            <?php if (in_array($perfil_id, [1, 2, 4]) && $av['status'] == 1): ?>
               <a href="avaliar_form.php?id=<?= $av['id'] ?>" class="btn btn-sm btn-primary">Avaliar</a>
             <?php else: ?>
               -
