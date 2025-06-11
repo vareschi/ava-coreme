@@ -39,7 +39,7 @@ if ($perfil_id == 4 && $avaliacao['preceptor_id'] != $usuario_id) {
 }
 
 // Carrega perguntas e critérios do modelo
-$stmt = $pdo->prepare("SELECT id, titulo FROM avaliacao_perguntas WHERE avaliacao_id = ? AND status = 1");
+$stmt = $pdo->prepare("SELECT id, titulo FROM avaliacoes_perguntas WHERE avaliacao_id = ? AND status = 1");
 $stmt->execute([$avaliacao['modelo_id']]);
 $perguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -47,7 +47,7 @@ $pergunta_ids = array_column($perguntas, 'id');
 $criterios = [];
 if ($pergunta_ids) {
     $in = implode(',', array_fill(0, count($pergunta_ids), '?'));
-    $stmt = $pdo->prepare("SELECT * FROM avaliacao_criterios WHERE pergunta_id IN ($in) and status=1");
+    $stmt = $pdo->prepare("SELECT * FROM avaliacoes_criterios WHERE pergunta_id IN ($in) and status=1");
     $stmt->execute($pergunta_ids);
     foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $c) {
         $criterios[$c['pergunta_id']][] = $c;
