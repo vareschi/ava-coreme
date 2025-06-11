@@ -29,50 +29,52 @@ $campos_estagio = $pdo->query("SELECT id, nome FROM campos_estagio WHERE data_ex
 
 <div class="container mt-4">
   <h2>Gerar Avaliações</h2>
-  <form action="actions/gerar_avaliacoes.php" method="POST">
-    <div class="card mb-3">
-      <div class="card-header">Parâmetros</div>
-      <div class="card-body">
-        <div class="form-group mb-3">
-          <label for="tipo_destino">Destino</label>
-          <select name="tipo_destino" id="tipo_destino" class="form-control" onchange="toggleDestino()" required>
-            <option value="">Selecione</option>
+    <div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Gerar Avaliações</h4>
+    <form action="actions/processar_geracao_avaliacoes.php" method="POST">
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="tipo_geracao">Gerar por:</label>
+          <select name="tipo_geracao" id="tipo_geracao" class="form-control" required>
+            <option value="">Selecione...</option>
             <option value="turma">Turma</option>
             <option value="residente">Residente</option>
           </select>
         </div>
 
-        <div class="form-group mb-3 d-none" id="grupo_turma">
+        <div class="col-md-6 mb-3" id="campo_turma" style="display:none;">
           <label for="turma_id">Turma</label>
           <select name="turma_id" id="turma_id" class="form-control">
             <option value="">Selecione</option>
-            <?php foreach ($turmas as $t): ?>
-              <option value="<?= $t['id'] ?>"><?= htmlspecialchars($t['nome']) ?></option>
+            <?php foreach ($turmas as $turma): ?>
+              <option value="<?= $turma['id'] ?>"><?= htmlspecialchars($turma['nome']) ?></option>
             <?php endforeach; ?>
           </select>
         </div>
 
-        <div class="form-group mb-3 d-none" id="grupo_residente">
+        <div class="col-md-6 mb-3" id="campo_residente" style="display:none;">
           <label for="residente_id">Residente</label>
           <select name="residente_id" id="residente_id" class="form-control">
             <option value="">Selecione</option>
-            <?php foreach ($residentes as $r): ?>
-              <option value="<?= $r['id'] ?>"><?= htmlspecialchars($r['nome']) ?></option>
+            <?php foreach ($residentes as $residente): ?>
+              <option value="<?= $residente['id'] ?>"><?= htmlspecialchars($residente['nome']) ?></option>
             <?php endforeach; ?>
           </select>
         </div>
 
-        <div class="form-group mb-3">
-          <label for="modelo_id">Modelo de Avaliação</label>
-          <select name="modelo_id" id="modelo_id" class="form-control" required>
+        <div class="col-md-6 mb-3">
+          <label for="modelo_avaliacao_id">Modelo de Avaliação</label>
+          <select name="modelo_avaliacao_id" id="modelo_avaliacao_id" class="form-control" required>
             <option value="">Selecione</option>
-            <?php foreach ($modelos as $m): ?>
-              <option value="<?= $m['id'] ?>"><?= htmlspecialchars($m['titulo']) ?></option>
+            <?php foreach ($modelos  as $a): ?>
+              <option value="<?= $a['id'] ?>"><?= htmlspecialchars($a['titulo']) ?></option>
             <?php endforeach; ?>
           </select>
         </div>
 
-        <div class="form-group mb-3">
+        <div class="col-md-6 mb-3">
           <label for="campo_estagio_id">Campo de Estágio</label>
           <select name="campo_estagio_id" id="campo_estagio_id" class="form-control" required>
             <option value="">Selecione</option>
@@ -81,21 +83,70 @@ $campos_estagio = $pdo->query("SELECT id, nome FROM campos_estagio WHERE data_ex
             <?php endforeach; ?>
           </select>
         </div>
-      </div>
-    </div>
 
-    <div class="d-grid">
-      <button type="submit" class="btn btn-success">Gerar Avaliações</button>
-    </div>
-  </form>
+        <div class="col-md-3 mb-3">
+          <label for="inicio_avaliacao">Início Avaliação</label>
+          <input type="date" name="inicio_avaliacao" id="inicio_avaliacao" class="form-control" required>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <label for="fim_avaliacao">Fim Avaliação</label>
+          <input type="date" name="fim_avaliacao" id="fim_avaliacao" class="form-control" required>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <label for="nivel_especialidade">Nível da Especialidade</label>
+          <select name="nivel_especialidade" id="nivel_especialidade" class="form-control" required>
+            <option value="">Selecione...</option>
+            <option value="R1">R1</option>
+            <option value="R2">R2</option>
+            <option value="R3">R3</option>
+            <option value="R4">R4</option>
+            <option value="R5">R5</option>
+          </select>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <label for="ano_letivo">Ano Letivo</label>
+          <input type="number" name="ano_letivo" id="ano_letivo" class="form-control" value="<?= date('Y') ?>" required>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <label for="mes_referencia">Mês de Referência</label>
+          <select name="mes_referencia" id="mes_referencia" class="form-control" required>
+            <option value="">Selecione...</option>
+            <?php
+            $meses = [
+                '01' => 'Janeiro', '02' => 'Fevereiro', '03' => 'Março', '04' => 'Abril',
+                '05' => 'Maio', '06' => 'Junho', '07' => 'Julho', '08' => 'Agosto',
+                '09' => 'Setembro', '10' => 'Outubro', '11' => 'Novembro', '12' => 'Dezembro'
+              ];
+              foreach ($meses as $num => $nome): ?>
+                <option value="<?= $num ?>"><?= $nome ?></option>
+            <?php endforeach; ?>
+
+          </select>
+        </div>
+      </div>
+
+      <div class="d-grid mt-3">
+        <button type="submit" class="btn btn-success">Gerar Avaliações</button>
+      </div>
+       </form>
+  </div>
+</div>
+
+  
 </div>
 
 <script>
-function toggleDestino() {
-  const tipo = document.getElementById('tipo_destino').value;
-  document.getElementById('grupo_turma').classList.toggle('d-none', tipo !== 'turma');
-  document.getElementById('grupo_residente').classList.toggle('d-none', tipo !== 'residente');
-}
+
+document.getElementById('tipo_geracao').addEventListener('change', function () {
+  const tipo = this.value;
+  document.getElementById('campo_turma').style.display = tipo === 'turma' ? 'block' : 'none';
+  document.getElementById('campo_residente').style.display = tipo === 'residente' ? 'block' : 'none';
+});
+
 </script>
 
 <?php include 'includes/footer.php'; ?>
