@@ -2,6 +2,10 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+echo '<pre>';
+var_dump($_POST);
+exit;
+
 session_start();
 require_once 'includes/config.php';
 require_once 'includes/funcoes.php';
@@ -61,7 +65,7 @@ include 'includes/topbar.php';
 <div class="container mt-4">
   <h2>Avaliar Residente: <?= htmlspecialchars($avaliacao['residente_nome']) ?></h2>
   <form action="actions/salvar_nota_criterio.php" method="POST">
-    <input type="hidden" name="avaliacaos_gerada_id" value="<?= $avaliacao_gerada_id ?>">
+    <input type="hidden" name="avaliacao_gerada_id" value="<?= $avaliacao_gerada_id ?>">
 
     <?php foreach ($perguntas as $pergunta): ?>
       <div class="card mb-3">
