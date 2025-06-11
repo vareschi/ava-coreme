@@ -40,7 +40,7 @@ try {
         WHERE pc.campo_estagio_id = ?");
 
     $stmtInsert = $pdo->prepare("INSERT INTO avaliacoes_geradas (
-        modelo_avaliacao_id, residente_id, preceptor_id, campo_estagio_id,
+        modelo_id, residente_id, preceptor_id, campo_estagio_id,
         inicio_avaliacao, fim_avaliacao, nivel_especialidade, ano_letivo, mes_referencia
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
