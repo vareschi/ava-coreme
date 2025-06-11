@@ -12,7 +12,7 @@ if (!isset($_GET['id'])) {
     die('Avaliação não especificada.');
 }
 
-$avaliacao_id = $_GET['id'];
+$avaliacoes_geradas_id = $_GET['id'];
 $pdo = getPDO();
 
 $perfil_id = $_SESSION['perfil_id'] ?? null;
@@ -24,7 +24,7 @@ $sql = "SELECT ag.*, u.nome AS residente_nome, p.nome AS preceptor_nome
         JOIN usuarios p ON ag.preceptor_id = p.id
         WHERE ag.id = ?";
 $stmt = $pdo->prepare($sql);
-$stmt->execute([$avaliacao_id]);
+$stmt->execute([$avaliacoes_geradas_id]);
 $avaliacao = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$avaliacao) {
