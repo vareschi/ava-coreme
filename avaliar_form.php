@@ -39,7 +39,7 @@ if ($perfil_id == 4 && $avaliacao['preceptor_id'] != $usuario_id) {
 }
 
 // Carrega perguntas e critérios do modelo
-$stmt = $pdo->prepare("SELECT id, texto FROM avaliacao_perguntas WHERE avaliacao_id = ?");
+$stmt = $pdo->prepare("SELECT id, titulo FROM avaliacao_perguntas WHERE avaliacao_id = ? AND status = 1");
 $stmt->execute([$avaliacao['modelo_id']]);
 $perguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -47,7 +47,7 @@ $pergunta_ids = array_column($perguntas, 'id');
 $criterios = [];
 if ($pergunta_ids) {
     $in = implode(',', array_fill(0, count($pergunta_ids), '?'));
-    $stmt = $pdo->prepare("SELECT * FROM avaliacao_criterios WHERE pergunta_id IN ($in)");
+    $stmt = $pdo->prepare("SELECT * FROM avaliacao_criterios WHERE pergunta_id IN ($in) and status=1");
     $stmt->execute($pergunta_ids);
     foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $c) {
         $criterios[$c['pergunta_id']][] = $c;
@@ -67,13 +67,13 @@ include 'includes/topbar.php';
     <?php foreach ($perguntas as $pergunta): ?>
       <div class="card mb-3">
         <div class="card-header">
-          <strong><?= htmlspecialchars($pergunta['texto']) ?></strong>
+          <strong><?= htmlspecialchars($pergunta['titulo']) ?></strong>
         </div>
         <div class="card-body">
           <?php if (!empty($criterios[$pergunta['id']])): ?>
             <?php foreach ($criterios[$pergunta['id']] as $criterio): ?>
               <div class="form-group mb-2">
-                <label><?= htmlspecialchars($criterio['texto']) ?></label>
+                <label><?= htmlspecialchars($criterio['descricao']) ?></label>
                 <select class="form-control" name="criterios[<?= $criterio['id'] ?>]" required>
                   <option value="">Selecione...</option>
                   <?php
