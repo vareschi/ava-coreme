@@ -52,7 +52,7 @@ try {
     // Verifica total de critérios esperados
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM avaliacoes_criterios ac
                            JOIN avaliacoes_perguntas ap ON ap.id = ac.pergunta_id AND ap.status = 1
-                           WHERE ac.avaliacao_id = ? AND ac.status = 1");
+                           WHERE ap.avaliacao_id = ? AND ac.status = 1");
     $stmt->execute([$avaliacao['modelo_id']]);
     $total_criterios = $stmt->fetchColumn();
     $total_respostas = count($criterios);
