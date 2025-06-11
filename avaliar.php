@@ -69,7 +69,34 @@ $sqlPaginada = $sql . " LIMIT $limite OFFSET $offset";
 $avaliacoes = $pdo->query($sqlPaginada)->fetchAll(PDO::FETCH_ASSOC);
 
 // Total para paginação
-$total = $pdo->query(str_replace("SELECT ag.*,", "SELECT COUNT(*) as total,", $sql))->fetch()['total'];
+// Clonar a lógica da query principal, mas alterando apenas o SELECT para COUNT
+$sqlTotal = "
+    SELECT COUNT(*) as total
+    FROM avaliacoes_geradas ag
+    JOIN usuarios u ON ag.residente_id = u.id
+    JOIN usuarios p ON ag.preceptor_id = p.id
+    JOIN campos_estagio ce ON ag.campo_estagio_id = ce.id
+    JOIN matriculas m ON m.usuario_id = ag.residente_id AND m.status = 1
+    JOIN turmas t ON t.id = m.turma_id
+    JOIN especialidades esp ON esp.id = t.especialidade_id
+    WHERE ag.inicio_avaliacao <= CURDATE()
+      AND ag.fim_avaliacao >= CURDATE()
+";
+
+// Reaplicar os mesmos filtros
+if ($perfil_id == 3) {
+    $sqlTotal .= " AND ag.residente_id = $usuario_id";
+} elseif ($perfil_id == 4) {
+    $sqlTotal .= " AND ag.preceptor_id = $usuario_id";
+}
+if ($campo_estagio_id) $sqlTotal .= " AND ag.campo_estagio_id = " . (int)$campo_estagio_id;
+if ($especialidade_id) $sqlTotal .= " AND t.especialidade_id = " . (int)$especialidade_id;
+if ($status !== '') $sqlTotal .= " AND ag.status = " . (int)$status;
+if ($busca) $sqlTotal .= " AND (u.nome LIKE '%$busca%' OR p.nome LIKE '%$busca%')";
+
+// Executar a query de total
+$total_result = $pdo->query($sqlTotal)->fetch(PDO::FETCH_ASSOC);
+$total = $total_result['total'] ?? 0;
 $totalPaginas = ceil($total / $limite);
 
 // Filtros auxiliares
