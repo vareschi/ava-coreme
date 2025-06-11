@@ -28,17 +28,22 @@ $status = $_GET['status'] ?? '';
 $busca = $_GET['busca'] ?? '';
 
 // Construir query base
-$sql = "SELECT ag.*, 
-        u.nome AS residente_nome,
-        p.nome AS preceptor_nome,
-        e.nome AS especialidade_nome,
-        ce.nome AS campo_estagio_nome
+$sql = "SELECT 
+            ag.*, 
+            u.nome AS residente_nome,
+            p.nome AS preceptor_nome,
+            esp.nome AS especialidade_nome,
+            ce.nome AS campo_estagio_nome
         FROM avaliacoes_geradas ag
         JOIN usuarios u ON ag.residente_id = u.id
         JOIN usuarios p ON ag.preceptor_id = p.id
-        JOIN especialidades e ON ag.especialidade_id = e.id
         JOIN campos_estagio ce ON ag.campo_estagio_id = ce.id
-        WHERE ag.inicio_avaliacao <= CURDATE() AND ag.fim_avaliacao >= CURDATE()";
+        JOIN matriculas m ON m.usuario_id = ag.residente_id AND m.status = 1
+        JOIN turmas t ON t.id = m.turma_id
+        JOIN especialidades esp ON esp.id = t.especialidade_id
+        WHERE ag.inicio_avaliacao <= CURDATE()
+          AND ag.fim_avaliacao >= CURDATE()
+        ";
 
 // Aplicar permissões por perfil
 if ($perfil_id == 3) {
