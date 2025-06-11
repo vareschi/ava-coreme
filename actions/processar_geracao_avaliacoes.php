@@ -63,7 +63,7 @@ try {
         }
     }
 
-    header("Location: ../avaliacoes.php?sucesso=1");
+    header("Location: ../avaliar.php?sucesso=1");
     exit;
 } catch (Exception $e) {
     echo "Erro ao gerar avaliações: " . $e->getMessage();
