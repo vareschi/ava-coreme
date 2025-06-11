@@ -54,7 +54,7 @@ if ($perfil_id == 3) {
 
 // Aplicar filtros
 if ($campo_estagio_id) $sql .= " AND ag.campo_estagio_id = " . (int)$campo_estagio_id;
-if ($especialidade_id) $sql .= " AND ag.especialidade_id = " . (int)$especialidade_id;
+if ($especialidade_id) $sql .= " AND t.especialidade_id = " . (int)$especialidade_id;
 if ($status !== '') $sql .= " AND ag.status = " . (int)$status;
 if ($busca) $sql .= " AND (u.nome LIKE '%$busca%' OR p.nome LIKE '%$busca%')";
 
