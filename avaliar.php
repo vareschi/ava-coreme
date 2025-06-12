@@ -16,7 +16,7 @@ include 'includes/header.php';
 include 'includes/sidebar.php';
 include 'includes/topbar.php';
 
-verificarAcessoRecurso('avaliacoes');
+verificarAcessoRecurso('avaliar');
 
 $pdo = getPDO();
 $usuario_id = $_SESSION['usuario_id'];
