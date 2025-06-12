@@ -314,6 +314,7 @@ foreach ($perfisStmt as $linha) {
  <script src="assets/plugins/simplebar/simplebar.min.js"></script>
  <script src="assets/js/sleek.js"></script>
  <script src="assets/options/optionswitcher.js"></script>
+ <script src="assets/js/jquery.mask.min.js"></script>
 
 <script>
     function preencherModalUsuario(usuario) {
