@@ -83,6 +83,13 @@ $campos_estagio = $pdo->query("SELECT id, nome FROM campos_estagio WHERE data_ex
           </select>
         </div>
 
+        <div class="col-md-6 mb-3">
+          <label for="preceptor_id">Preceptor (opcional)</label>
+          <select name="preceptor_id" id="preceptor_id" class="form-control">
+            <option value="">Todos os preceptores do campo</option>
+          </select>
+        </div>
+
         <div class="col-md-3 mb-3">
           <label for="inicio_avaliacao">Início Avaliação</label>
           <input type="date" name="inicio_avaliacao" id="inicio_avaliacao" class="form-control" required>
@@ -144,6 +151,26 @@ document.getElementById('tipo_geracao').addEventListener('change', function () {
   const tipo = this.value;
   document.getElementById('campo_turma').style.display = tipo === 'turma' ? 'block' : 'none';
   document.getElementById('campo_residente').style.display = tipo === 'residente' ? 'block' : 'none';
+});
+
+document.getElementById('campo_estagio_id').addEventListener('change', function () {
+  const campoId = this.value;
+  const preceptorSelect = document.getElementById('preceptor_id');
+
+  preceptorSelect.innerHTML = '<option value="">Todos os preceptores do campo</option>';
+
+  if (campoId) {
+    fetch(`api/preceptores_por_campo.php?campo_id=${campoId}`)
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(preceptor => {
+          const option = document.createElement('option');
+          option.value = preceptor.id;
+          option.textContent = preceptor.nome;
+          preceptorSelect.appendChild(option);
+        });
+      });
+  }
 });
 
 </script>
