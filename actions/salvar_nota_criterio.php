@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+$usuario_id = $_SESSION['usuario_id'] ?? 0;
+if ($usuario_id <= 0) {
+    die('Usuário não autenticado.');
+}
+
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -40,13 +47,13 @@ try {
     $stmt->execute([$avaliacao_gerada_id]);
 
     // Insere as novas respostas
-    $stmt = $pdo->prepare("INSERT INTO avaliacoes_respostas (avaliacao_gerada_id, criterio_id, nota_atribuida) VALUES (?, ?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO avaliacoes_respostas (avaliacao_gerada_id, criterio_id, nota_atribuida,usuario_id) VALUES (?,?, ?, ?)");
 
     foreach ($criterios as $criterio_id => $nota) {
         if (!is_numeric($criterio_id) || !is_numeric($nota)) {
             continue; // Ignora valores inválidos
         }
-        $stmt->execute([$avaliacao_gerada_id, $criterio_id, $nota]);
+        $stmt->execute([$avaliacao_gerada_id, $criterio_id, $nota, $usuario_id]);
     }
 
     // Verifica total de critérios esperados
