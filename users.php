@@ -389,17 +389,22 @@ foreach ($perfisStmt as $linha) {
         document.querySelector('#modal-add-contact input[name="imagem_perfil"]').value = '';
     }
 
-    $('input[name="telefone"]').mask('(00) 0000-00009');
-    $('input[name="telefone"]').blur(function() {
-      var phone, element;
-      element = $(this);
-      phone = element.val().replace(/\D/g, '');
-      if (phone.length === 11) {
-        element.mask('(00) 00000-0000');
-      } else {
-        element.mask('(00) 0000-00009');
-      }
+    $(document).ready(function(){
+        // Máscara de telefone
+        $('input[name="telefone"]').mask('(00) 0000-00009');
+        $('input[name="telefone"]').blur(function() {
+            var phone = $(this).val().replace(/\D/g, '');
+            if (phone.length === 11) {
+                $(this).mask('(00) 00000-0000');
+            } else {
+                $(this).mask('(00) 0000-00009');
+            }
+        });
+
+        // Máscara de CPF
+        $('input[name="cpf"]').mask('000.000.000-00');
     });
+
 
 
 </script>
