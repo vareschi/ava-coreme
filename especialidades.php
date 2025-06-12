@@ -54,7 +54,7 @@ if ($editar_id) {
 
   <div class="card">
     <div class="card-body">
-      <table id="hoverable-data-table" class="table table-hover nowrap" style="width:100%">
+      <table class="table table-hover nowrap" style="width:100%">
         <thead>
           <tr>
             <th>Especialidade</th>
