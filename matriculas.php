@@ -188,9 +188,12 @@ $matriculas = $stmt->fetchAll();
       document.querySelector('#matricula_id').value = '';
       document.querySelector('#modalNovaMatricula form').reset();
 
-      // Exibe campo de seleção e oculta nome visual
+      // Mostra campo de seleção novamente
       document.getElementById('campoResidenteWrapper').style.display = 'block';
       document.getElementById('residenteLabelWrapper').style.display = 'none';
+
+      // Reativa o required
+      document.querySelector('select[name="usuario_id"]').required = true;
 
       document.querySelector('#modalNovaMatricula .modal-title').textContent = 'Nova Matrícula';
       document.querySelector('#modalNovaMatricula button[type="submit"]').textContent = 'Salvar Matrícula';
@@ -199,25 +202,27 @@ $matriculas = $stmt->fetchAll();
     }
 
 
+
     function editarMatricula(matricula) {
       $('#modalNovaMatricula').modal('show');
 
-      // Preenche campos
       document.querySelector('#matricula_id').value = matricula.id;
       document.querySelector('select[name="turma_id"]').value = matricula.turma_id || '';
       document.querySelector('select[name="usuario_id"]').value = matricula.usuario_id || '';
       document.querySelector('select[name="edital_origem_id"]').value = matricula.edital_origem_id || '';
 
-      // Ajusta visibilidade do campo Residente
+      // Oculta campo de seleção e exibe apenas o nome
       document.getElementById('campoResidenteWrapper').style.display = 'none';
       document.getElementById('residenteLabelWrapper').style.display = 'block';
-
-      // Mostra o nome do residente
       document.getElementById('residenteNomeVisual').value = matricula.nome_residente || '';
+
+      // Remove o required do campo escondido
+      document.querySelector('select[name="usuario_id"]').required = false;
 
       document.querySelector('#modalNovaMatricula .modal-title').textContent = 'Editar Matrícula';
       document.querySelector('#modalNovaMatricula button[type="submit"]').textContent = 'Atualizar Matrícula';
     }
+
 
 
 

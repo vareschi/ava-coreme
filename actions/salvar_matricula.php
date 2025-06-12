@@ -29,7 +29,6 @@ if (!$usuario_id || !$turma_id) {
 
 if ($matricula_id) {
     // Edição
-    // Verifica se a matrícula existe e pertence ao mesmo usuário/turma
     $stmt = $pdo->prepare("SELECT * FROM matriculas WHERE id = ?");
     $stmt->execute([$matricula_id]);
     $matriculaExistente = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -39,13 +38,15 @@ if ($matricula_id) {
         exit;
     }
 
-    // Atualiza a matrícula
-    $stmt = $pdo->prepare("UPDATE matriculas SET usuario_id = ?, turma_id = ?, edital_origem_id = ? WHERE id = ?");
-    $stmt->execute([$usuario_id, $turma_id, $edital_origem_id ?: null, $matricula_id]);
+    // Segurança: usa o usuário original da matrícula, ignorando o que veio do POST
+    $usuario_id_existente = $matriculaExistente['usuario_id'];
+
+    // Atualiza turma e edital, mas mantém o mesmo usuário
+    $stmt = $pdo->prepare("UPDATE matriculas SET turma_id = ?, edital_origem_id = ? WHERE id = ?");
+    $stmt->execute([$turma_id, $edital_origem_id ?: null, $matricula_id]);
 
     header("Location: ../matriculas.php?sucesso=editada");
     exit;
-
 } else {
     // NOVA MATRÍCULA
 
