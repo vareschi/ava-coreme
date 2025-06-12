@@ -1,4 +1,16 @@
 <?php
+
+//Função Para buscar 1 Perfil
+function temPerfil($id) {
+    return in_array($id, $_SESSION['perfis'] ?? []);
+}
+
+//Função Para buscar entre Vários Perfis
+function temAlgumPerfil(array $ids) {
+    $meusPerfis = $_SESSION['perfis'] ?? [];
+    return (bool) array_intersect($meusPerfis, $ids);
+}
+
 function verificarAcessoRecurso(string $recurso) {
     if (!isset($_SESSION['usuario_id'])) {
         header("Location: login.php");
