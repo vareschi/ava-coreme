@@ -2,7 +2,7 @@
 session_start();
 $perfis = $_SESSION['perfis'] ?? [];
 
-require_once 'funcoes.php';
+require_once '../includes/funcoes.php';
 ?>
 
 <aside class="left-sidebar bg-sidebar">
@@ -76,7 +76,7 @@ require_once 'funcoes.php';
       </ul>
     </div>
 
-    <!-- Rodapé do menu lateral 
+    <!-- Rodapé do menu lateral -->
     <div class="sidebar-footer">
       <hr class="separator mb-0" />
       <div class="sidebar-footer-content">
@@ -89,7 +89,7 @@ require_once 'funcoes.php';
           <div class="progress-bar progress-bar-warning" style="width: 65%;" role="progressbar"></div>
         </div>
       </div>
-    </div> -->
+    </div>
 
   </div>
 </aside>
