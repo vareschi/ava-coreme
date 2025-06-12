@@ -37,13 +37,21 @@ if (!empty($turma_id)) {
     $params[] = $turma_id;
 }
 
-$sql = "SELECT m.id, u.nome as nome_residente, t.nome as nome_turma, e.numero as numero_edital
+$sql = "SELECT 
+            m.id,
+            m.usuario_id,
+            m.turma_id,
+            m.edital_origem_id,
+            u.nome as nome_residente,
+            t.nome as nome_turma,
+            e.numero as numero_edital
         FROM matriculas m
         JOIN usuarios u ON m.usuario_id = u.id
         JOIN turmas t ON m.turma_id = t.id
         LEFT JOIN editais e ON m.edital_origem_id = e.id
         $where
         ORDER BY u.nome";
+
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
@@ -134,11 +142,16 @@ $matriculas = $stmt->fetchAll();
             <option value="">Selecione</option>
             <?php
               $resQuery = $pdo->prepare("SELECT u.id, u.nome FROM usuarios u 
-                                         JOIN usuario_perfis p ON p.usuario_id = u.id
-                                         WHERE p.perfil_id = 3 AND u.id NOT IN (
-                                           SELECT usuario_id FROM matriculas WHERE turma_id = ? and status = 1
-                                         ) ORDER BY u.nome");
-              $resQuery->execute([$turma_id ?: 0]);
+                JOIN usuario_perfis p ON p.usuario_id = u.id
+                WHERE p.perfil_id = 3 AND (
+                  u.id NOT IN (
+                    SELECT usuario_id FROM matriculas WHERE turma_id = ? AND status = 1
+                  ) OR u.id = ?
+                )
+                ORDER BY u.nome");
+
+              $resQuery->execute([$turma_id ?: 0, $usuario_id_atual ?? 0]);
+
               foreach ($resQuery->fetchAll() as $res):
             ?>
               <option value="<?= $res['id'] ?>"><?= htmlspecialchars($res['nome']) ?></option>
@@ -180,13 +193,14 @@ $matriculas = $stmt->fetchAll();
       $('#modalNovaMatricula').modal('show');
 
       document.querySelector('#matricula_id').value = matricula.id;
-      document.querySelector('select[name="turma_id"]').value = matricula.nome_turma_id || '';
+      document.querySelector('select[name="turma_id"]').value = matricula.turma_id || '';
       document.querySelector('select[name="usuario_id"]').value = matricula.usuario_id || '';
       document.querySelector('select[name="edital_origem_id"]').value = matricula.edital_origem_id || '';
 
       document.querySelector('#modalNovaMatricula .modal-title').textContent = 'Editar Matrícula';
       document.querySelector('#modalNovaMatricula button[type="submit"]').textContent = 'Atualizar Matrícula';
     }
+
 
 </script>
 
