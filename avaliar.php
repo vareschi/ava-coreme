@@ -155,6 +155,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
         <th>Preceptor</th>
         <th>Residente</th>
         <th>Especialidade</th>
+        <th>Campo Estágio</th>
         <th>Status</th>
         <th>Prazo</th>
         <th>Ações</th>
@@ -166,6 +167,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
           <td><?= htmlspecialchars($av['preceptor_nome']) ?></td>
           <td><?= htmlspecialchars($av['residente_nome']) ?></td>
           <td><?= htmlspecialchars($av['especialidade_nome']) ?></td>
+          <td><?= htmlspecialchars($av['campo_estagio_nome']) ?></td>
           <td>
             <?php
               echo match($av['status']) {
