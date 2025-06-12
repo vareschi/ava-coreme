@@ -5,7 +5,6 @@ require_once '../includes/funcoes.php';
 
 $pdo = getPDO();
 
-// Verifica se o usuário está autenticado
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: ../sign-in.php");
     exit;
@@ -20,6 +19,7 @@ try {
     $nivel = $_POST['nivel_especialidade'];
     $ano = $_POST['ano_letivo'];
     $mes = $_POST['mes_referencia'];
+    $preceptor_especifico = $_POST['preceptor_id'] ?? null;
 
     $residentes = [];
 
@@ -35,18 +35,25 @@ try {
         throw new Exception("Nenhum residente encontrado.");
     }
 
-    $stmtPrec = $pdo->prepare("SELECT p.usuario_id AS preceptor_id FROM preceptor_campoestagio pc
-        JOIN preceptores p ON pc.preceptor_id = p.id
-        WHERE pc.campo_estagio_id = ?");
-
     $stmtInsert = $pdo->prepare("INSERT INTO avaliacoes_geradas (
         modelo_id, residente_id, preceptor_id, campo_estagio_id,
         inicio_avaliacao, fim_avaliacao, nivel_especialidade, ano_letivo, mes_referencia
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     foreach ($residentes as $residente_id) {
-        $stmtPrec->execute([$campo_estagio_id]);
-        $preceptores = $stmtPrec->fetchAll(PDO::FETCH_COLUMN);
+        $preceptores = [];
+
+        if ($preceptor_especifico) {
+            // Usa apenas o preceptor selecionado
+            $preceptores = [$preceptor_especifico];
+        } else {
+            // Busca todos os preceptores do campo
+            $stmtPrec = $pdo->prepare("SELECT p.usuario_id AS preceptor_id FROM preceptor_campoestagio pc
+                JOIN preceptores p ON pc.preceptor_id = p.id
+                WHERE pc.campo_estagio_id = ?");
+            $stmtPrec->execute([$campo_estagio_id]);
+            $preceptores = $stmtPrec->fetchAll(PDO::FETCH_COLUMN);
+        }
 
         foreach ($preceptores as $preceptor_id) {
             $stmtInsert->execute([
