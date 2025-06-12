@@ -50,32 +50,39 @@ if ($usuario_id) {
       <div class="card-header">Preceptoria</div>
       <div class="card-body">
         <div class="row g-3">
-          <div class="form-group">
-            <label class="form-label">Data de Início na Preceptoria</label>
-            <input type="date" name="data_inicio" class="form-control" value="<?= htmlspecialchars($preceptor['data_inicio'] ?? '') ?>">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="form-label">Data de Início na Preceptoria</label>
+              <input type="date" name="data_inicio" class="form-control" value="<?= htmlspecialchars($preceptor['data_inicio'] ?? '') ?>">
+            </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">Especialidade</label>
-            <select name="especialidade_id" class="form-control">
-              <option value="">Selecione</option>
-              <?php foreach ($especialidades as $esp): ?>
-                <option value="<?= $esp['id'] ?>" <?= ($preceptor['especialidade_id'] ?? '') == $esp['id'] ? 'selected' : '' ?>>
-                  <?= htmlspecialchars($esp['nome']) ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="form-label">Especialidade</label>
+              <select name="especialidade_id" class="form-control">
+                <option value="">Selecione</option>
+                <?php foreach ($especialidades as $esp): ?>
+                  <option value="<?= $esp['id'] ?>" <?= ($preceptor['especialidade_id'] ?? '') == $esp['id'] ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($esp['nome']) ?>
+                  </option>
+                <?php endforeach; ?>
+              </select>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">Coordenador</label>
-            <select name="coordenador" class="form-control">
-              <option value="">Selecione</option>
-              <option value="Sim" <?= ($preceptor['coordenador'] ?? '') === 'Sim' ? 'selected' : '' ?>>Sim</option>
-              <option value="Não" <?= ($preceptor['coordenador'] ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
-            </select>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="form-label">Coordenador</label>
+              <select name="coordenador" class="form-control">
+                <option value="">Selecione</option>
+                <option value="Sim" <?= ($preceptor['coordenador'] ?? '') === 'Sim' ? 'selected' : '' ?>>Sim</option>
+                <option value="Não" <?= ($preceptor['coordenador'] ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
+              </select>
+            </div>
           </div>
         </div>
+
 
         <div class="form-group">
           <label class="form-label">Campos de Estágio</label>
