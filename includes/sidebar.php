@@ -2,7 +2,7 @@
 session_start();
 $perfis = $_SESSION['perfis'] ?? [];
 
-require_once '../includes/funcoes.php';
+require_once 'funcoes.php';
 ?>
 
 <aside class="left-sidebar bg-sidebar">
