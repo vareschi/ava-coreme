@@ -389,7 +389,6 @@ foreach ($perfisStmt as $linha) {
         document.querySelector('#modal-add-contact input[name="imagem_perfil"]').value = '';
     }
 
-    $(document).ready(function(){
         // Máscara de telefone
         $('input[name="telefone"]').mask('(00) 0000-00009');
         $('input[name="telefone"]').blur(function() {
@@ -403,7 +402,7 @@ foreach ($perfisStmt as $linha) {
 
         // Máscara de CPF
         $('input[name="cpf"]').mask('000.000.000-00');
-    });
+    
 
 
 
