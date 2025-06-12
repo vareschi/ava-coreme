@@ -31,9 +31,14 @@ if ($usuario && password_verify($senha, $usuario['senha'])) {
     $_SESSION['perfis'] = $stmtPerfis->fetchAll(PDO::FETCH_COLUMN);
 
 
-    // 6. Redireciona para o painel
-    header("Location: users.php");
+    // 6. Redirecionamento com base no perfil
+    if ($_SESSION['perfis'] === ['4'] || $_SESSION['perfis'] === [4]) {
+        header("Location: avaliar.php");
+    } else {
+        header("Location: users.php");
+    }
     exit;
+
 
 } else {
     // Falha no login

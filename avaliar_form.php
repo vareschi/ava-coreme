@@ -6,7 +6,7 @@ session_start();
 require_once 'includes/config.php';
 require_once 'includes/funcoes.php';
 
-verificarAcessoRecurso('avaliacoes');
+verificarAcessoRecurso('avaliar');
 
 if (!isset($_GET['id'])) {
     die('Avaliação não especificada.');
