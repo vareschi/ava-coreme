@@ -90,6 +90,12 @@ $matriculas = $stmt->fetchAll();
                   <a href="actions/excluir_matricula.php?id=<?= $m['id'] ?>" onclick="return confirm('Remover esta matrícula?')" class="btn btn-sm btn-link text-danger">
                     <i class="mdi mdi-delete"></i>
                   </a>
+                  <a href="javascript:void(0)" 
+                    class="btn btn-sm btn-link text-primary" 
+                    onclick="editarMatricula(<?= htmlspecialchars(json_encode($m)) ?>)">
+                    <i class="mdi mdi-pencil"></i>
+                  </a>
+
                 </td>
               </tr>
             <?php endforeach; ?>
@@ -106,6 +112,7 @@ $matriculas = $stmt->fetchAll();
 <div class="modal fade" id="modalNovaMatricula" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <form class="modal-content" method="POST" action="actions/salvar_matricula.php">
+      <input type="hidden" name="matricula_id" id="matricula_id">
       <div class="modal-header">
         <h5 class="modal-title">Nova Matrícula</h5>
         <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
@@ -159,8 +166,28 @@ $matriculas = $stmt->fetchAll();
 
 <script>
     function abrirModalNovaMatricula() {
-    $('#modalNovaMatricula').modal('show');
+      document.querySelector('#matricula_id').value = '';
+      document.querySelector('#modalNovaMatricula form').reset();
+
+      document.querySelector('#modalNovaMatricula .modal-title').textContent = 'Nova Matrícula';
+      document.querySelector('#modalNovaMatricula button[type="submit"]').textContent = 'Salvar Matrícula';
+
+      $('#modalNovaMatricula').modal('show');
     }
+
+
+    function editarMatricula(matricula) {
+      $('#modalNovaMatricula').modal('show');
+
+      document.querySelector('#matricula_id').value = matricula.id;
+      document.querySelector('select[name="turma_id"]').value = matricula.nome_turma_id || '';
+      document.querySelector('select[name="usuario_id"]').value = matricula.usuario_id || '';
+      document.querySelector('select[name="edital_origem_id"]').value = matricula.edital_origem_id || '';
+
+      document.querySelector('#modalNovaMatricula .modal-title').textContent = 'Editar Matrícula';
+      document.querySelector('#modalNovaMatricula button[type="submit"]').textContent = 'Atualizar Matrícula';
+    }
+
 </script>
 
 <?php include 'includes/footer.php'; ?>
