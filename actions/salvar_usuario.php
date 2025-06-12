@@ -83,7 +83,7 @@ if ($usuario_id) {
     ");
     $stmt->execute([
         $usuario_id, $telefone, $data_nascimento, $cpf, $sexo,
-        $cep, $cidade, $estado, $endereco, $imagem_nome ?: 'u-xl-1.jpg'
+        $cep, $cidade, $estado, $endereco, $imagem_nome ?: 'user.png'
     ]);
 }
 

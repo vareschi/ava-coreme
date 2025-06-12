@@ -385,6 +385,9 @@ foreach ($perfisStmt as $linha) {
         document.querySelector('#modal-add-contact input[name="imagem_perfil"]').value = '';
     }
 
+    $(document).ready(function(){
+      $('input[name="telefone"]').mask('(00) 00000-0000');
+    });
 
 </script>
 
