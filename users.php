@@ -390,7 +390,7 @@ foreach ($perfisStmt as $linha) {
     }
 
         // Máscara de telefone
-        $('input[name="telefone"]').mask('(00) 0000-00009');
+        $('input[name="telefone"]').mask('(00) 00000-0000');
         $('input[name="telefone"]').blur(function() {
             var phone = $(this).val().replace(/\D/g, '');
             if (phone.length === 11) {
