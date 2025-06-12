@@ -186,13 +186,18 @@ $matriculas = $stmt->fetchAll();
 <script>
     function abrirModalNovaMatricula() {
       document.querySelector('#matricula_id').value = '';
+      
+      // ⚠ Desmarca required antes de resetar para evitar erro do browser
+      document.querySelector('select[name="usuario_id"]').required = false;
+
+      // Limpa o formulário
       document.querySelector('#modalNovaMatricula form').reset();
 
       // Mostra campo de seleção novamente
       document.getElementById('campoResidenteWrapper').style.display = 'block';
       document.getElementById('residenteLabelWrapper').style.display = 'none';
 
-      // Reativa o required
+      // Reativa o required (só se for novo)
       document.querySelector('select[name="usuario_id"]').required = true;
 
       document.querySelector('#modalNovaMatricula .modal-title').textContent = 'Nova Matrícula';
@@ -200,6 +205,7 @@ $matriculas = $stmt->fetchAll();
 
       $('#modalNovaMatricula').modal('show');
     }
+
 
 
 
