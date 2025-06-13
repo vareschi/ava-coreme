@@ -491,14 +491,14 @@ if ($usuario_id) {
                       <span class="d-none d-lg-inline-block"><?= htmlspecialchars($usuario['nome'] ?? 'Usuário') ?></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                      <!-- User image -->
+                      <!-- User image 
                       <li class="dropdown-header">
                         <img src="assets/img/user/<?= $usuario['imagem_perfil'] ?? 'user.png' ?>" class="img-circle" alt="User Image" />
                         <div class="d-inline-block">
                           <?= htmlspecialchars($usuario['nome'] ?? 'Usuário') ?>
                           <small class="pt-1"><?= htmlspecialchars($usuario['email'] ?? '') ?></small>
                         </div>
-                      </li>
+                      </li>-->
 
 
                       <li>
