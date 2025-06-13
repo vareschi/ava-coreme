@@ -63,17 +63,17 @@ if (isset($_SESSION['usuario_id'])) {
               <form method="POST" action="auth.php">
                 <div class="row">
                   <div class="form-group col-md-12 mb-4">
-                    <input type="email" name="email" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="Username">
+                    <input type="email" name="email" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="Email">
                   </div>
 
                   <div class="form-group col-md-12 ">
-                    <input type="password" name="senha" class="form-control input-lg" id="password" placeholder="Password">
+                    <input type="password" name="senha" class="form-control input-lg" id="password" placeholder="Senha">
                   </div>
 
                   <div class="col-md-12">
                     <div class="d-flex my-2 justify-content-between">
                       <div class="d-inline-block mr-3">
-                        <label class="control control-checkbox">Remember me
+                        <label class="control control-checkbox">Lembrar
                           <input type="checkbox" />
                           <div class="control-indicator"></div>
                         </label>

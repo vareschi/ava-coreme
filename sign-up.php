@@ -55,7 +55,7 @@
               <form action="register.php" method="POST">
                 <div class="row">
                   <div class="form-group col-md-12 mb-4">
-                    <input type="text" name="nome" class="form-control input-lg" id="name" aria-describedby="nameHelp" placeholder="Name">
+                    <input type="text" name="nome" class="form-control input-lg" id="name" aria-describedby="nameHelp" placeholder="Nome">
                   </div>
 
                   <div class="form-group col-md-12 mb-4">
@@ -63,11 +63,11 @@
                   </div>
 
                   <div class="form-group col-md-12 ">
-                    <input type="password" name="senha" class="form-control input-lg" id="password" placeholder="Password">
+                    <input type="password" name="senha" class="form-control input-lg" id="password" placeholder="Senha">
                   </div>
 
                   <div class="form-group col-md-12 ">
-                    <input type="password" name="confirmar" class="form-control input-lg" id="cpassword" placeholder="Confirm Password">
+                    <input type="password" name="confirmar" class="form-control input-lg" id="cpassword" placeholder="Confirmar Senha">
                   </div>
 
                   <div class="col-md-12">
