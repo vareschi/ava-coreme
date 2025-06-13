@@ -98,24 +98,18 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                             $perguntaId = (int) $p['id'];
                             $avaliacaoId = (int) $id;
                         ?>
-                        <button type="button"
-                                class="btn btn-sm btn-secondary"
-                                onclick="abrirModalNovoCriterio(<?= $perguntaId ?>, <?= $avaliacaoId ?>)">
-                        Novo Critério
-                        </button>
+                        <a href="javascript:void(0)" onclick="abrirModalNovoCriterio(<?= $perguntaId ?>, <?= $avaliacaoId ?>)" class="text-secondary me-2" title="Novo Critério">
+                          <i class="mdi mdi-playlist-plus mdi-18px"></i>
+                        </a>
 
 
-                        <button type="button"
-                                class="btn btn-sm btn-primary"
-                                onclick="abrirModalEditarPergunta(
-                                <?= $p['id'] ?>,
-                                '<?= str_replace("'", "\\'", htmlspecialchars($p['titulo'], ENT_QUOTES)) ?>',
-                                <?= $p['avaliacao_id'] ?>
-                                )">
-                        Editar Pergunta
-                        </button>
+                        <a href="javascript:void(0)" onclick="abrirModalEditarPergunta(<?= $p['id'] ?>, '<?= str_replace("'", "\\'", htmlspecialchars($p['titulo'], ENT_QUOTES)) ?>', <?= $p['avaliacao_id'] ?>)" class="text-primary me-2" title="Editar Pergunta">
+                          <i class="mdi mdi-pencil mdi-18px"></i>
+                        </a>
 
-                    <a href="actions/excluir_pergunta.php?id=<?= $p['id'] ?>&avaliacao_id=<?= $id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta pergunta?')">Excluir</a>
+                        <a href="actions/excluir_pergunta.php?id=<?= $p['id'] ?>&avaliacao_id=<?= $id ?>" class="text-danger" title="Excluir Pergunta" onclick="return confirm('Tem certeza que deseja excluir esta pergunta?')">
+                          <i class="mdi mdi-delete mdi-18px"></i>
+                        </a>
                     </td>
                 </tr>
 
@@ -142,18 +136,18 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
                             <tr>
                                 <td><?= htmlspecialchars($c['descricao']) ?></td>
                                 <td>
-                                <button type="button"
-                                        class="btn btn-sm btn-primary"
-                                        onclick="abrirModalEditarCriterio(
-                                            <?= $c['id'] ?>,
-                                            '<?= str_replace("'", "\\'", htmlspecialchars($c['descricao'], ENT_QUOTES)) ?>',
-                                            <?= $p['id'] ?>,
-                                            <?= $id ?>
-                                        )">
-                                Editar
-                                </button>
+                                  <a href="javascript:void(0)" onclick="abrirModalEditarCriterio(
+                                      <?= $c['id'] ?>,
+                                      '<?= str_replace("'", "\\'", htmlspecialchars($c['descricao'], ENT_QUOTES)) ?>',
+                                      <?= $p['id'] ?>,
+                                      <?= $id ?>
+                                    )" class="text-primary me-2" title="Editar Critério">
+                                    <i class="mdi mdi-pencil mdi-18px"></i>
+                                  </a>
 
-                                <a href="actions/excluir_criterio.php?id=<?= $c['id'] ?>&avaliacao_id=<?= $id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este critério?')">Excluir</a>
+                                  <a href="actions/excluir_criterio.php?id=<?= $c['id'] ?>&avaliacao_id=<?= $id ?>" class="text-danger" title="Excluir Critério" onclick="return confirm('Deseja excluir este critério?')">
+                                    <i class="mdi mdi-delete mdi-18px"></i>
+                                  </a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
