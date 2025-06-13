@@ -14,31 +14,37 @@ if (empty($email) || empty($senha)) {
 // 2. Conecta ao banco
 $pdo = getPDO();
 
-// 3. Busca o usuário pelo e-mail
-$stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ? AND ativo = 1");
+// 3. Busca o usuário pelo e-mail (sem filtrar ativo ainda)
+$stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
 $stmt->execute([$email]);
 $usuario = $stmt->fetch();
 
+// 4. Verifica se usuário existe e a senha confere
 if ($usuario && password_verify($senha, $usuario['senha'])) {
-    // 4. Autenticação bem-sucedida
+    // 5. Verifica se está ativo
+    if ($usuario['status'] == 0) {
+        // Usuário existe, senha ok, mas está inativo
+        header("Location: sign-in.php?erro=2"); // erro=2 = aguardando ativação
+        exit;
+    }
+
+    // 6. Autenticação bem-sucedida
     session_regenerate_id(true);
     $_SESSION['usuario_id'] = $usuario['id'];
     $_SESSION['usuario_nome'] = $usuario['nome'];
 
-    // 5. Carrega os IDs dos perfis do usuário
+    // 7. Carrega os perfis
     $stmtPerfis = $pdo->prepare("SELECT perfil_id FROM usuario_perfis WHERE usuario_id = ?");
     $stmtPerfis->execute([$usuario['id']]);
     $_SESSION['perfis'] = $stmtPerfis->fetchAll(PDO::FETCH_COLUMN);
 
-
-    // 6. Redirecionamento com base no perfil
+    // 8. Redirecionamento por perfil
     if ($_SESSION['perfis'] === ['4'] || $_SESSION['perfis'] === [4]) {
         header("Location: avaliar.php");
     } else {
         header("Location: users.php");
     }
     exit;
-
 
 } else {
     // Falha no login
