@@ -43,7 +43,7 @@ if (!empty($_FILES['anexos']['name'][0])) {
     $arquivos = $_FILES['anexos'];
     for ($i = 0; $i < count($arquivos['name']); $i++) {
         $nome_arquivo = basename($arquivos['name'][$i]);
-        $caminho_arquivo = 'uploads/' . time() . '_' . $nome_arquivo;
+        $caminho_arquivo = '../uploads/' . time() . '_' . $nome_arquivo;
 
         if (move_uploaded_file($arquivos['tmp_name'][$i], '../' . $caminho_arquivo)) {
             $stmt = $pdo->prepare("INSERT INTO edital_arquivos (edital_id, nome_arquivo, caminho_arquivo) VALUES (?, ?, ?)");
