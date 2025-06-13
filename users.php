@@ -226,6 +226,15 @@ foreach ($perfisStmt as $linha) {
               <input type="password" name="senha" class="form-control" required>
             </div>
 
+            <div class="col-lg-6 mt-3">
+              <label>Status</label>
+              <select name="status" class="form-control" required>
+                <option value="1">Ativo</option>
+                <option value="0">Inativo</option>
+              </select>
+            </div>
+
+
             <div class="col-lg-12 mt-3">
                 <label>Perfis</label>
                 <div class="form-check form-check-inline">
@@ -338,6 +347,8 @@ foreach ($perfisStmt as $linha) {
         document.querySelector('#modal-add-contact input[name=cidade]').value = usuario.cidade || '';
         document.querySelector('#modal-add-contact input[name=estado]').value = usuario.estado || '';
         document.querySelector('#modal-add-contact textarea[name=endereco]').value = usuario.endereco || '';
+        document.querySelector('#modal-add-contact select[name="status"]').value = usuario.status ?? '1';
+
 
         // limpa perfis marcados
         document.querySelectorAll('#modal-add-contact input[name="perfis[]"]').forEach(el => el.checked = false);
