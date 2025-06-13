@@ -4,7 +4,7 @@ require_once 'includes/config.php'; // ajuste o caminho se necessário
 
 $pdo = getPDO();
 
-$email = 'residenciamedica.hildasribeiro@gmail.com';
+$email = 'derick@vareschi.com.br';
 $senha = '123456';
 
 echo "<h3>Debug de login para: <code>$email</code></h3><hr>";
