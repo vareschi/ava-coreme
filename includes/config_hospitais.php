@@ -1,7 +1,7 @@
 <?php
 return [
     'dev.coremehub.com.br' => [
-        'host' => 'localhost',
+        'host' => '185.212.70.205',
         'dbname' => 'u835980051_ava',
         'user' => 'u835980051_ava',
         'password' => '|65wbm^+voU'
