@@ -54,7 +54,7 @@ if (isset($_SESSION['usuario_id'])) {
             </div>
 
             <div class="card-body p-5">
-              <h4 class="text-dark mb-5">Login</h4>
+              <!--<h4 class="text-dark mb-5">Entrar</h4>-->
 
               <?php if (isset($_GET['erro'])): ?>
                 <div class="alert alert-danger">E-mail ou senha inválidos.</div>
