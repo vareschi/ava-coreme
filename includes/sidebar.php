@@ -63,7 +63,7 @@ require_once 'funcoes.php';
           <ul class="collapse" id="avaliacoes" data-parent="#sidebar-menu">
             <div class="sub-menu">
               <?php if (temPerfil(1) || temPerfil(2)): ?>
-                <li><a class="sidenav-item-link" href="avaliacoes.php"><span class="nav-text">Modelos</span></a></li>
+                <li><a class="sidenav-item-link" href="avaliacoes_modelo.php"><span class="nav-text">Modelos</span></a></li>
                 <li><a class="sidenav-item-link" href="gerar_avaliacoes.php"><span class="nav-text">Gerar Avaliações</span></a></li>
               <?php endif; ?>
 

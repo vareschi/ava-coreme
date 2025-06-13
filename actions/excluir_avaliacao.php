@@ -24,5 +24,5 @@ if ($id) {
     $stmt->execute([$id]);
 }
 
-header("Location: ../avaliacoes.php");
+header("Location: ../avaliacoes_modelo.php");
 exit;
