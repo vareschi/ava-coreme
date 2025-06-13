@@ -20,11 +20,11 @@ if (!$usuario) {
 }
 
 echo "<p style='color:green;'>Usuário encontrado: <strong>{$usuario['nome']}</strong></p>";
-echo "<p>Status: {$usuario['status']}</p>";
+echo "<p>Status: {$usuario['ativo']}</p>";
 
 // Etapa 2: Verificar se está ativo
-if ($usuario['status'] != 1) {
-    echo "<p style='color:orange;'>Usuário encontrado, mas está <strong>inativo</strong> (status = {$usuario['status']}).</p>";
+if ($usuario['ativo'] != 1) {
+    echo "<p style='color:orange;'>Usuário encontrado, mas está <strong>inativo</strong> (status = {$usuario['ativo']}).</p>";
     exit;
 }
 
