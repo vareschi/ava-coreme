@@ -234,5 +234,12 @@ $matriculas = $stmt->fetchAll();
 
 </script>
 
+<script>
+  $(function() {
+    $('[data-toggle="dropdown"]').dropdown();
+  });
+</script>
+
+
 <?php include 'includes/footer.php'; ?>
 
