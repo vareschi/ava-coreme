@@ -17,26 +17,37 @@ if (!isset($_SESSION['usuario_id'])) {
 $titulo = trim($_POST['titulo'] ?? '');
 $descricao = trim($_POST['descricao'] ?? '');
 $especialidade_id = !empty($_POST['especialidade_id']) ? $_POST['especialidade_id'] : null;
+$id = $_POST['id'] ?? null;
 $data_criacao = date('Y-m-d H:i:s');
 
 // Validação básica
-if (empty($titulo) ) {
-    die('Campos obrigatórios não preenchidos.');
+if (empty($titulo)) {
+    die('Título é obrigatório.');
 }
 
 try {
-    $stmt = $pdo->prepare("INSERT INTO avaliacoes (titulo, descricao, especialidade_id, data_criacao) 
-                       VALUES (:titulo, :descricao, :especialidade_id, :data_criacao)");
+    if ($id) {
+        // Atualizar avaliação existente
+        $stmt = $pdo->prepare("UPDATE avaliacoes 
+                               SET titulo = :titulo, descricao = :descricao, especialidade_id = :especialidade_id 
+                               WHERE id = :id");
+        $stmt->bindValue(':titulo', $titulo);
+        $stmt->bindValue(':descricao', $descricao);
+        $stmt->bindValue(':especialidade_id', $especialidade_id, $especialidade_id ? PDO::PARAM_INT : PDO::PARAM_NULL);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+    } else {
+        // Inserir nova avaliação
+        $stmt = $pdo->prepare("INSERT INTO avaliacoes (titulo, descricao, especialidade_id, data_criacao, status) 
+                               VALUES (:titulo, :descricao, :especialidade_id, :data_criacao, 1)");
+        $stmt->bindValue(':titulo', $titulo);
+        $stmt->bindValue(':descricao', $descricao);
+        $stmt->bindValue(':especialidade_id', $especialidade_id, $especialidade_id ? PDO::PARAM_INT : PDO::PARAM_NULL);
+        $stmt->bindValue(':data_criacao', $data_criacao);
+        $stmt->execute();
+    }
 
-    $stmt->bindValue(':titulo', $titulo);
-    $stmt->bindValue(':descricao', $descricao);
-    $stmt->bindValue(':especialidade_id', $especialidade_id, $especialidade_id ? PDO::PARAM_INT : PDO::PARAM_NULL);
-    $stmt->bindValue(':data_criacao', $data_criacao);
-
-    $stmt->execute();
-
-
-    header("Location: ../avaliacoes.php?ok=1");
+    header("Location: ../avaliacoes_modelo.php?ok=1");
     exit;
 } catch (PDOException $e) {
     die("Erro ao salvar avaliação: " . $e->getMessage());
