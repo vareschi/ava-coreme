@@ -16,7 +16,7 @@ $nome = trim($_POST['nome'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $senha = $_POST['senha'] ?? '';
 $perfis = $_POST['perfis'] ?? [];
-$status = isset($_POST['status']) ? (int)$_POST['status'] : 1;
+$ativo = isset($_POST['ativo']) ? (int)$_POST['ativo'] : 1;
 
 $telefone = $_POST['telefone'] ?? null;
 $data_nascimento = $_POST['data_nascimento'] ?? null;
@@ -43,8 +43,8 @@ if (!$nome || !$email) {
 
 if ($usuario_id) {
     // Atualiza dados do usuário
-    $sql = "UPDATE usuarios SET nome = ?, email = ?, status = ?";
-    $params = [$nome, $email, $status];
+    $sql = "UPDATE usuarios SET nome = ?, email = ?, ativo = ?";
+    $params = [$nome, $email, $ativo];
 
     if ($senha) {
         $sql .= ", senha = ?";
@@ -83,8 +83,8 @@ if ($usuario_id) {
     }
 
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-    $stmt = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, status) VALUES (?, ?, ?, ?)");
-    $stmt->execute([$nome, $email, $senha_hash, $status]);
+    $stmt = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, ativo) VALUES (?, ?, ?, ?)");
+    $stmt->execute([$nome, $email, $senha_hash, $ativo]);
     $usuario_id = $pdo->lastInsertId();
 
     $stmt = $pdo->prepare("
