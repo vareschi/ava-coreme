@@ -70,6 +70,14 @@
     <script src="assets/js/sleek.js"></script>
   <link href="assets/options/optionswitch.css" rel="stylesheet">
 <script src="assets/options/optionswitcher.js"></script>
+
+<script>
+  $(function() {
+    $('[data-toggle="dropdown"]').dropdown();
+  });
+</script>
+
+
 </body>
 </html>
 
