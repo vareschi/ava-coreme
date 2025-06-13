@@ -1,32 +1,31 @@
 <?php
-// includes/config.php
 
-// 1) Defina as constantes de conexão
-define('DB_HOST',     'localhost');
-define('DB_NAME',     'u835980051_ava');
-define('DB_USER',     'u835980051_ava');
-define('DB_PASSWORD', '|65wbm^+voU');
-define('DB_CHARSET',  'utf8mb4');
+// Carrega lista de hospitais e dados
+$hospitais = require __DIR__ . '/config_hospitais.php';
 
-// 2) Função que retorna um objeto PDO conectado
-function getPDO()
-{
-    $dsn = sprintf(
-        'mysql:host=%s;dbname=%s;charset=%s',
-        DB_HOST,
-        DB_NAME,
-        DB_CHARSET
-    );
+// Detecta o host atual
+$host = $_SERVER['HTTP_HOST'] ?? '';
+
+// Verifica se o host é reconhecido
+if (!isset($hospitais[$host])) {
+    die("Hospedagem não configurada para o domínio: {$host}");
+}
+
+// Seleciona config do hospital atual
+$config = $hospitais[$host];
+
+// Cria conexão com PDO
+function getPDO() {
+    global $config;
 
     try {
-        $pdo = new PDO($dsn, DB_USER, DB_PASSWORD, [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        $dsn = "mysql:host={$config['host']};dbname={$config['dbname']};charset=utf8mb4";
+        $pdo = new PDO($dsn, $config['user'], $config['password'], [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false,
         ]);
         return $pdo;
     } catch (PDOException $e) {
-        // Em produção você poderia logar o erro e mostrar mensagem genérica
-        die("Erro na conexão com o banco: " . $e->getMessage());
+        die("Erro na conexão com o banco de dados: " . $e->getMessage());
     }
 }
