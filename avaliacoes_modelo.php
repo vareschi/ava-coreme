@@ -42,7 +42,7 @@ $avaliacoes = $pdo->query("SELECT a.*, e.nome AS especialidade
         </button>
       </h4>
       <hr>
-      <table id="hoverable-data-table" class="table table-hover nowrap" style="width:100%">
+      <table class="table table-hover nowrap" style="width:100%">
         <thead>
           <tr>
             <th>Título</th>
