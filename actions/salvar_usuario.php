@@ -26,15 +26,29 @@ $cep = $_POST['cep'] ?? null;
 $cidade = $_POST['cidade'] ?? null;
 $estado = $_POST['estado'] ?? null;
 $endereco = $_POST['endereco'] ?? null;
+$host = $_SERVER['HTTP_HOST'];
+$subdominio = explode('.', $host)[0]; // 'hilda' em 'hilda.coremehub.com.br'
+
 
 // Imagem de perfil
 $imagem_nome = null;
 if (!empty($_FILES['imagem_perfil']['name'])) {
     $ext = pathinfo($_FILES['imagem_perfil']['name'], PATHINFO_EXTENSION);
-    $imagem_nome = 'user_' . time() . '.' . $ext;
-    $destino = '../assets/img/user/' . $imagem_nome;
+    $nome_arquivo = 'user_' . time() . '.' . $ext;
+
+    // Pasta correta por subdomínio
+    $subpasta = "../assets/img/user/$subdominio/";
+    if (!is_dir($subpasta)) {
+        mkdir($subpasta, 0777, true); // Cria pasta do hospital
+    }
+
+    // Caminho relativo a ser salvo no banco
+    $imagem_nome = "$subdominio/$nome_arquivo";
+    $destino = $subpasta . $nome_arquivo;
+
     move_uploaded_file($_FILES['imagem_perfil']['tmp_name'], $destino);
 }
+
 
 if (!$nome || !$email) {
     header("Location: ../users.php?erro=Campos obrigatórios faltando");
