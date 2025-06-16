@@ -22,7 +22,7 @@ $usuario = $stmt->fetch();
 // 4. Verifica se usuário existe e a senha confere
 if ($usuario && password_verify($senha, $usuario['senha'])) {
     // 5. Verifica se está ativo
-    if ($usuario['ativo'] == 0) {
+    if ($usuario['ativo'] != 1) {
         // Usuário existe, senha ok, mas está inativo
         header("Location: sign-in.php?erro=2"); // erro=2 = aguardando ativação
         exit;
