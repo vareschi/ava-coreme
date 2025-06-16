@@ -38,19 +38,33 @@ foreach ($especialidades as $esp_id) {
     $stmt->execute([$id, $esp_id]);
 }
 
+// Obtém subdomínio
+$host = $_SERVER['HTTP_HOST'];
+$subdominio = explode('.', $host)[0]; // Ex: 'hilda'
+
 // Salva arquivos
 if (!empty($_FILES['anexos']['name'][0])) {
     $arquivos = $_FILES['anexos'];
-    for ($i = 0; $i < count($arquivos['name']); $i++) {
-        $nome_arquivo = basename($arquivos['name'][$i]);
-        $caminho_arquivo = '../uploads/' . time() . '_' . $nome_arquivo;
+    $pasta_destino = "../uploads/$subdominio/";
 
-        if (move_uploaded_file($arquivos['tmp_name'][$i], '../' . $caminho_arquivo)) {
+    // Garante que a pasta existe
+    if (!is_dir($pasta_destino)) {
+        mkdir($pasta_destino, 0777, true);
+    }
+
+    for ($i = 0; $i < count($arquivos['name']); $i++) {
+        $nome_original = basename($arquivos['name'][$i]);
+        $nome_arquivo = time() . '_' . $nome_original;
+        $caminho_relativo = "$subdominio/" . $nome_arquivo; // Caminho salvo no banco
+        $caminho_completo = $pasta_destino . $nome_arquivo;  // Caminho absoluto no servidor
+
+        if (move_uploaded_file($arquivos['tmp_name'][$i], $caminho_completo)) {
             $stmt = $pdo->prepare("INSERT INTO edital_arquivos (edital_id, nome_arquivo, caminho_arquivo) VALUES (?, ?, ?)");
-            $stmt->execute([$id, $nome_arquivo, $caminho_arquivo]);
+            $stmt->execute([$id, $nome_original, $caminho_relativo]);
         }
     }
 }
+
 
 header("Location: ../editais.php?ok=1");
 exit;
