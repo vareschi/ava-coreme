@@ -42,6 +42,15 @@ $stmt->execute([$nome, $email, $senha_hash]);
 
 $usuario_id = $pdo->lastInsertId();
 
+// Cria linha em usuarios_dados com valores vazios
+$stmt = $pdo->prepare("
+    INSERT INTO usuarios_dados (
+        usuario_id, telefone, data_nascimento, cpf, sexo, cep, cidade, estado, endereco, imagem_perfil
+    ) VALUES (?, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'user.png')
+");
+$stmt->execute([$usuario_id]);
+
+
 // Atribui perfil de residente
 $stmtPerfil = $pdo->prepare("SELECT id FROM perfis WHERE nome = 'residente'");
 $stmtPerfil->execute();
