@@ -57,8 +57,22 @@ if (isset($_SESSION['usuario_id'])) {
               <!--<h4 class="text-dark mb-5">Entrar</h4>-->
 
               <?php if (isset($_GET['erro'])): ?>
-                <div class="alert alert-danger">E-mail ou senha inválidos.</div>
+                <div class="alert alert-danger">
+                  <?php
+                    switch ($_GET['erro']) {
+                      case '1':
+                        echo 'E-mail ou senha inválidos.';
+                        break;
+                      case '2':
+                        echo 'Seu acesso está aguardando ativação.';
+                        break;
+                      default:
+                        echo 'Ocorreu um erro desconhecido.';
+                    }
+                  ?>
+                </div>
               <?php endif; ?>
+
               
               <form method="POST" action="auth.php">
                 <div class="row">
