@@ -60,7 +60,7 @@ if (!empty($_FILES['anexos']['name'][0])) {
 
         if (move_uploaded_file($arquivos['tmp_name'][$i], $caminho_completo)) {
             $stmt = $pdo->prepare("INSERT INTO edital_arquivos (edital_id, nome_arquivo, caminho_arquivo) VALUES (?, ?, ?)");
-            $stmt->execute([$id, $nome_original, $caminho_relativo]);
+            $stmt->execute([$id, $nome_original, $caminho_completo]);
         }
     }
 }
