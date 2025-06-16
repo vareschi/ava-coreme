@@ -34,7 +34,7 @@ require_once 'funcoes.php';
         </li>
 
         <!-- CADASTROS (somente Admin - perfil 1) -->
-        <?php if (temPerfil(1)): ?>
+        <?php if (temPerfil(1)|| temPerfil(2)): ?>
         <li class="has-sub">
           <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#cadastros" aria-expanded="false" aria-controls="cadastros">
             <i class="mdi mdi-pencil-box-multiple"></i>

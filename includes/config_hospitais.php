@@ -12,7 +12,7 @@ return [
         'user' => 'u682109971_coremehilda',
         'password' => 'KKhU?LP>m3'
     ],
-    'hompar.coremehub.com.br' => [
+    'honpar.coremehub.com.br' => [
         'host' => 'localhost',
         'dbname' => 'u682109971_coremehonpar',
         'user' => 'u682109971_coremehonpar',
