@@ -116,6 +116,7 @@ include 'includes/topbar.php';
                       <input type="email" class="form-control" id="email" value="albrecht.straub@gmail.com">
                     </div>
                   </div>
+                </div>
 
 
 
