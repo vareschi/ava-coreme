@@ -59,8 +59,7 @@ include 'includes/topbar.php';
           </div>
 
           <div class="card-body">
-            <h4 class="py-2 text-dark"><?= htmlspecialchars($usuario['nome']) ?></h4>
-            <p><?= htmlspecialchars($usuario['email']) ?></p>
+            <h5 class="py-2 text-dark"><?= htmlspecialchars($usuario['nome']) ?></h5>
             
           </div>
         </div>
