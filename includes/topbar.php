@@ -65,7 +65,7 @@ if ($usuario_id) {
 
 
                       <li>
-                        <a href="user-profile.php">
+                        <a href="perfil.php">
                           <i class="mdi mdi-account"></i> Perfil
                         </a>
                       </li>
