@@ -70,11 +70,11 @@ include 'includes/topbar.php';
         <div class="contact-info pt-4">
           <h5 class="text-dark mb-1">Informação de Contato</h5>
           <p class="text-dark font-weight-medium pt-4 mb-2">Email</p>
-          <p><?= htmlspecialchars($usuario['email']) ?></p>
+          <p><?= htmlspecialchars($usuario['email'] ?? '') ?></p>
           <p class="text-dark font-weight-medium pt-4 mb-2">Telefone</p>
-          <p><?= htmlspecialchars($usuario['telefone']) ?></p>
+          <p><?= htmlspecialchars($usuario['telefone'] ?? '') ?></p>
           <p class="text-dark font-weight-medium pt-4 mb-2">Nascimento</p>
-          <p><?= htmlspecialchars($usuario['data_nascimento']) ?></p>
+          <p><?= htmlspecialchars($usuario['data_nascimento'] ?? '') ?></p>
           <p class="text-dark font-weight-medium pt-4 mb-2">Social Profile</p>
         </div>
       </div>
