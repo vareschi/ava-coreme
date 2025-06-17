@@ -93,43 +93,45 @@ include 'includes/topbar.php';
         <div class="tab-content px-3 px-xl-5" id="myTabContent">
           <div class="tab-pane fade show active" id="settings" role="tabpanel" aria-labelledby="settings-tab">
             <div class="tab-pane-content mt-5">
-              <form>
+              <form action="actions/atualizar_perfil.php" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="usuario_id" value="<?= $usuario_id ?>">
+
                 <div class="form-group row mb-6">
                   <label for="coverImage" class="col-sm-4 col-lg-2 col-form-label">Imagem Perfil</label>
                   <div class="col-sm-8 col-lg-10">
                     <div class="custom-file mb-1">
-                      <input type="file" class="custom-file-input" id="coverImage" required>
+                      <input type="file" class="custom-file-input" name="imagem_perfil" id="coverImage">
                       <label class="custom-file-label" for="coverImage">Carregar Imagem...</label>
                       <div class="invalid-feedback">Imagem invalida</div>
                     </div>
                   </div>
                 </div>
 
-                <div class="form-group mb-4">
+                    <div class="form-group mb-4">
                       <label for="firstName">nome Completo</label>
-                      <input type="text" class="form-control" id="nome" value="João">
+                      <input type="text" class="form-control" name="nome" value="<?= htmlspecialchars($usuario['nome'] ?? '') ?>">
                     </div>
                     <div class="form-group mb-4">
                       <label for="email">Email</label>
-                      <input type="email" class="form-control" id="email" value="albrecht.straub@gmail.com">
+                      <input type="email" class="form-control" name="email" value="<?= htmlspecialchars($usuario['email'] ?? '') ?>">
                     </div>
 
                 <div class="row mb-2">
                   <div class="col-lg-6">
                     <div class="form-group mb-4">
-                  <label for="oldPassword">Senha Antiga</label>
-                  <input type="password" class="form-control" id="oldPassword">
-                </div>
+                      <label for="oldPassword">Senha Antiga</label>
+                      <input type="password" class="form-control" name="senha_atual">
+                    </div>
 
-                <div class="form-group mb-4">
-                  <label for="newPassword">Nova Senha</label>
-                  <input type="password" class="form-control" id="newPassword">
-                </div>
+                    <div class="form-group mb-4">
+                      <label for="newPassword">Nova Senha</label>
+                      <input type="password" class="form-control" name="nova_senha">
+                    </div>
 
-                <div class="form-group mb-4">
-                  <label for="conPassword">Confirme a Nova Senha</label>
-                  <input type="password" class="form-control" id="conPassword">
-                </div>
+                    <div class="form-group mb-4">
+                      <label for="conPassword">Confirme a Nova Senha</label>
+                      <input type="password" class="form-control" name="confirmar_senha">
+                    </div>
                   </div>
                 </div>
 
