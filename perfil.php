@@ -86,7 +86,7 @@ include 'includes/topbar.php';
           </li>-->
 
           <li class="nav-item">
-            <a class="nav-link active" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
+            <a class="nav-link active" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Usuário</a>
           </li>
         </ul>
 
@@ -540,12 +540,12 @@ include 'includes/topbar.php';
             <div class="tab-pane-content mt-5">
               <form>
                 <div class="form-group row mb-6">
-                  <label for="coverImage" class="col-sm-4 col-lg-2 col-form-label">User Image</label>
+                  <label for="coverImage" class="col-sm-4 col-lg-2 col-form-label">Imagem Perfil</label>
                   <div class="col-sm-8 col-lg-10">
                     <div class="custom-file mb-1">
                       <input type="file" class="custom-file-input" id="coverImage" required>
-                      <label class="custom-file-label" for="coverImage">Choose file...</label>
-                      <div class="invalid-feedback">Example invalid custom file feedback</div>
+                      <label class="custom-file-label" for="coverImage">Carregar Imagem...</label>
+                      <div class="invalid-feedback">Imagem invalida</div>
                     </div>
                   </div>
                 </div>
