@@ -81,13 +81,9 @@ include 'includes/topbar.php';
     <div class="col-lg-8 col-xl-9">
       <div class="profile-content-right profile-right-spacing py-5">
         <ul class="nav nav-tabs px-3 px-xl-5 nav-style-border" id="myTab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link" id="timeline-tab" data-toggle="tab" href="#timeline" role="tab" aria-controls="timeline" aria-selected="true">Timeline</a>
-          </li>
-
-          <li class="nav-item">
+          <!--<li class="nav-item">
             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-          </li>
+          </li>-->
 
           <li class="nav-item">
             <a class="nav-link active" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
@@ -95,88 +91,6 @@ include 'includes/topbar.php';
         </ul>
 
         <div class="tab-content px-3 px-xl-5" id="myTabContent">
-          <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="timeline-tab">
-            <div class="media mt-5 profile-timeline-media timeline-media-spacing">
-              <div class="align-self-start iconbox-45 overflow-hidden mr-3">
-                <img  src="assets/img/user/u3.jpg" alt="Generic placeholder image">
-              </div>
-
-              <div class="media-body">
-                <h6 class="mt-0 text-dark">Larissa Gebhardt</h6>
-                <span>Designer</span>
-                <span class="float-right">5 mins ago</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua. ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-
-                <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
-                  <img src="assets/img/products/pa1.jpg" alt="Product">
-                </div>
-
-                <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
-                  <img src="assets/img/products/pa2.jpg" alt="Product">
-                </div>
-
-                <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
-                  <img src="assets/img/products/pa3.jpg" alt="Product">
-                </div>
-              </div>
-            </div>
-
-            <div class="media mt-5 profile-timeline-media">
-              <div class="align-self-start iconbox-45 overflow-hidden mr-3">
-                <img  src="assets/img/user/u4.jpg" alt="Generic placeholder image">
-              </div>
-
-              <div class="media-body">
-                <h6 class="mt-0 text-dark">Walter Reuter</h6>
-                <span>Designer</span>
-                <span class="float-right">2 hrs ago</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua. ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-              </div>
-            </div>
-
-            <div class="media mt-5 profile-timeline-media">
-              <div class="align-self-start iconbox-45 overflow-hidden mr-3">
-                <img  src="assets/img/user/u7.jpg" alt="Generic placeholder image">
-              </div>
-
-              <div class="media-body">
-                <h6 class="mt-0 text-dark">Albrecht Straub</h6>
-                <span>Designer</span>
-                <span class="float-right">5 days ago</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua. ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-
-                <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
-                  <img src="assets/img/products/pa4.jpg" alt="Product">
-                </div>
-              </div>
-            </div>
-
-            <div class="media mt-5 profile-timeline-media">
-              <div class="align-self-start iconbox-45 overflow-hidden mr-3">
-                <img  src="assets/img/user/u8.jpg" alt="Generic placeholder image">
-              </div>
-
-              <div class="media-body">
-                <h6 class="mt-0 text-dark">Selena Wagner</h6>
-                <span>Designer</span>
-                <span class="float-right">Mar 05, 2018</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua. ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-
-                <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
-                  <img src="assets/img/products/pa5.jpg" alt="Product">
-                </div>
-
-                <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
-                  <img src="assets/img/products/pa6.jpg" alt="Product">
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div class="tab-widget mt-5">
               <div class="row">
