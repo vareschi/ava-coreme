@@ -84,5 +84,5 @@ $params_dados[] = $usuario_id;
 $stmt = $pdo->prepare($sql_dados);
 $stmt->execute($params_dados);
 
-header("Location: ../user-profile.php?ok=1");
+header("Location: ../perfil.php?ok=1");
 exit;
