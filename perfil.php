@@ -75,7 +75,6 @@ include 'includes/topbar.php';
           <p><?= htmlspecialchars($usuario['telefone'] ?? '') ?></p>
           <p class="text-dark font-weight-medium pt-4 mb-2">Nascimento</p>
           <p><?= htmlspecialchars($usuario['data_nascimento'] ?? '') ?></p>
-          <p class="text-dark font-weight-medium pt-4 mb-2">Social Profile</p>
         </div>
       </div>
     </div>
