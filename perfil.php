@@ -55,7 +55,7 @@ include 'includes/topbar.php';
       <div class="profile-content-left profile-left-spacing pt-5 pb-3 px-3 px-xl-5">
         <div class="card text-center widget-profile px-0 border-0">
           <div class="card-img mx-auto rounded-circle">
-            <img src="<?= $imagem ?>" alt="user image">
+            <img src="<?= $imagem ?>" alt="user image" style="width: 150px; height: 150px; object-fit: cover;">
           </div>
 
           <div class="card-body">
