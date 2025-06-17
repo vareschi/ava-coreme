@@ -11,6 +11,26 @@ if (!isset($_SESSION['usuario_id'])) {
     exit;
 }
 
+$pdo = getPDO();
+
+// Busca dados do usuário logado
+$usuario_id = $_SESSION['usuario_id'];
+$stmt = $pdo->prepare("
+    SELECT u.nome, u.email, d.telefone, d.data_nascimento, d.imagem_perfil 
+    FROM usuarios u 
+    LEFT JOIN usuarios_dados d ON d.usuario_id = u.id 
+    WHERE u.id = ?
+");
+$stmt->execute([$usuario_id]);
+$usuario = $stmt->fetch();
+
+// Caminho da imagem
+$imagem = !empty($usuario['imagem_perfil']) 
+    ? "assets/img/user/" . $usuario['imagem_perfil'] 
+    : "assets/img/user/u-default.jpg";
+
+
+
 require_once 'includes/config.php';
 require_once 'includes/funcoes.php';
 
@@ -36,13 +56,13 @@ include 'includes/topbar.php';
       <div class="profile-content-left profile-left-spacing pt-5 pb-3 px-3 px-xl-5">
         <div class="card text-center widget-profile px-0 border-0">
           <div class="card-img mx-auto rounded-circle">
-            <img src="assets/img/user/u6.jpg" alt="user image">
+            <img src="<?= $imagem ?>" alt="user image">
           </div>
 
           <div class="card-body">
-            <h4 class="py-2 text-dark">Albrecht Straub</h4>
-            <p>Albrecht.straub@gmail.com</p>
-            <a class="btn btn-primary btn-pill btn-lg my-4" href="#">Follow</a>
+            <h4 class="py-2 text-dark"><?= htmlspecialchars($usuario['nome']) ?></h4>
+            <p><?= htmlspecialchars($usuario['email']) ?></p>
+            
           </div>
         </div>
 
