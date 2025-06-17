@@ -4,6 +4,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+
+require_once 'includes/config.php';
+require_once 'includes/funcoes.php';
+
+
 session_start();
 
 if (!isset($_SESSION['usuario_id'])) {
@@ -28,11 +33,6 @@ $usuario = $stmt->fetch();
 $imagem = !empty($usuario['imagem_perfil']) 
     ? "assets/img/user/" . $usuario['imagem_perfil'] 
     : "assets/img/user/u-default.jpg";
-
-
-
-require_once 'includes/config.php';
-require_once 'includes/funcoes.php';
 
 include 'includes/header.php';
 include 'includes/sidebar.php';
