@@ -1,0 +1,1260 @@
+<?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: sign-in.php");
+    exit;
+}
+
+require_once 'includes/config.php';
+require_once 'includes/funcoes.php';
+
+include 'includes/header.php';
+include 'includes/sidebar.php';
+include 'includes/topbar.php';
+
+?>
+
+          <!-- ====================================
+        ——— PAGE WRAPPER
+        ===================================== -->
+        <div class="page-wrapper">
+          
+          <!-- Header -->
+          <header class="main-header " id="header">
+            <nav class="navbar navbar-static-top navbar-expand-lg">
+              <!-- Sidebar toggle button -->
+              <button id="sidebar-toggler" class="sidebar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+              </button>
+              <!-- search form -->
+              <div class="search-form d-none d-lg-inline-block">
+                <div class="input-group">
+                  <button type="button" name="search" id="search-btn" class="btn btn-flat">
+                    <i class="mdi mdi-magnify"></i>
+                  </button>
+                  <input type="text" name="query" id="search-input" class="form-control" placeholder="'button', 'chart' etc."
+                    autofocus autocomplete="off" />
+                </div>
+                <div id="search-results-container">
+                  <ul id="search-results"></ul>
+                </div>
+              </div>
+
+              <div class="navbar-right ">
+                <ul class="nav navbar-nav">
+                  <li class="dropdown notifications-menu custom-dropdown">
+                    <button class="dropdown-toggle notify-toggler custom-dropdown-toggler">
+                      <i class="mdi mdi-bell-outline"></i>
+                    </button>
+
+                    <div class="card card-default dropdown-notify dropdown-menu-right mb-0">
+                      <div class="card-header card-header-border-bottom px-3">
+                        <h2>Notifications</h2>
+                      </div>
+
+                      <div class="card-body px-0 py-3">
+                        <ul class="nav nav-tabs nav-style-border p-0 justify-content-between" id="myTab" role="tablist">
+                          <li class="nav-item mx-3 my-0 py-0">
+                            <a class="nav-link active pb-3" id="home2-tab" data-toggle="tab" href="#home2" role="tab" aria-controls="home2" aria-selected="true">All (11)</a>
+                          </li>
+
+                          <li class="nav-item mx-3 my-0 py-0">
+                            <a class="nav-link pb-3" id="profile2-tab" data-toggle="tab" href="#profile2" role="tab" aria-controls="profile2" aria-selected="false">Msgs (6)</a>
+                          </li>
+
+                          <li class="nav-item mx-3 my-0 py-0">
+                            <a class="nav-link pb-3" id="contact2-tab" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact2" aria-selected="false">Others (5)</a>
+                          </li>
+                        </ul>
+
+                        <div class="tab-content" id="myTabContent3">
+                          <div class="tab-pane fade show active" id="home2" role="tabpanel" aria-labelledby="home2-tab">
+                            <ul class="list-unstyled" data-simplebar style="height: 360px">
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+                                  <div class="position-relative mr-3">
+                                    <img class="rounded-circle" src="assets/img/user/u2.jpg" alt="Image">
+                                    <span class="status away"></span>
+                                  </div>
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Aaren</h4>
+                                      <p class="last-msg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam itaque doloremque odio, eligendi delectus vitae.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 30 min ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification media-active">
+                                  <div class="position-relative mr-3">
+                                    <img class="rounded-circle" src="assets/img/user/u1.jpg" alt="Image">
+                                    <span class="status active"></span>
+                                  </div>
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Abril</h4>
+                                      <p class="last-msg">Donec mattis augue a nisl consequat, nec imperdiet ex rutrum. Fusce et vehicula enim. Sed in enim eu odio vehic.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-white">
+                                        <i class="mdi mdi-clock-outline"></i> Just now...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+                                  <div class="position-relative mr-3">
+                                    <img class="rounded-circle" src="assets/img/user/u5.jpg" alt="Image">
+                                    <span class="status away"></span>
+                                  </div>
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Emma</h4>
+                                      <p class="last-msg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam itaque doloremque odio, eligendi delectus vitae.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 1 hrs ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification event-active">
+
+                                  <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-info text-white">
+                                    <i class="mdi mdi-calendar-check font-size-20"></i>
+                                  </div>
+
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">New event added</h4>
+                                      <p class="last-msg font-size-14">03/Jan/2020 (1pm - 2pm)</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 10 min ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+
+                                  <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-warning text-white">
+                                    <i class="mdi mdi-chart-areaspline font-size-20"></i>
+                                  </div>
+
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Sales report</h4>
+                                      <p class="last-msg font-size-14">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam itaque doloremque odio, eligendi delectus vitae.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 1 hrs ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+
+                                  <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-primary text-white">
+                                    <i class="mdi mdi-account-multiple-check font-size-20"></i>
+                                  </div>
+
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Add request</h4>
+                                      <p class="last-msg font-size-14">Add Dany Jones as your contact consequat nec imperdiet ex rutrum. Fusce et vehicula enim. Sed in enim.</p>
+
+                                      <button type="button" class="my-1 btn btn-sm btn-success">Accept</button>
+                                      <button type="button" class="my-1 btn btn-sm btn-secondary">Delete</button>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary d-block">
+                                        <i class="mdi mdi-clock-outline"></i> 5 min ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+
+                                  <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-danger text-white">
+                                    <i class="mdi mdi-server-network-off font-size-20"></i>
+                                  </div>
+
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Server overloaded</h4>
+                                      <p class="last-msg font-size-14">Donec mattis augue a nisl consequat, nec imperdiet ex rutrum. Fusce et vehicula enim. Sed in enim eu odio vehic.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 30 min ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+
+                                  <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-purple text-white">
+                                    <i class="mdi mdi-playlist-check font-size-20"></i>
+                                  </div>
+
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Task complete</h4>
+                                      <p class="last-msg font-size-14">Nam ut nisi erat. Ut quis tortor varius, hendrerit arcu quis, congue nisl. In scelerisque, sem ut ve.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 2 hrs ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                            </ul>
+                          </div>
+
+                          <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile2-tab">
+                            <ul class="list-unstyled" data-simplebar style="height: 360px">
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+                                  <div class="position-relative mr-3">
+                                    <img class="rounded-circle" src="assets/img/user/u6.jpg" alt="Image">
+                                    <span class="status away"></span>
+                                  </div>
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">William</h4>
+                                      <p class="last-msg">Donec mattis augue a nisl consequat, nec imperdiet ex rutrum. Fusce et vehicula enim. Sed in enim eu odio vehic.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 1 hrs ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+                                  <div class="position-relative mr-3">
+                                    <img class="rounded-circle" src="assets/img/user/u7.jpg" alt="Image">
+                                    <span class="status away"></span>
+                                  </div>
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Camble</h4>
+                                      <p class="last-msg">Nam ut nisi erat. Ut quis tortor varius, hendrerit arcu quis, congue nisl. In scelerisque, sem ut ve.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 1 hrs ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification media-active">
+                                  <div class="position-relative mr-3">
+                                    <img class="rounded-circle" src="assets/img/user/u1.jpg" alt="Image">
+                                    <span class="status active"></span>
+                                  </div>
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Abril</h4>
+                                      <p class="last-msg">Donec mattis augue a nisl consequat, nec imperdiet ex rutrum. Fusce et vehicula enim. Sed in enim eu odio vehic.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-white">
+                                        <i class="mdi mdi-clock-outline"></i> Just now...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+                                  <div class="position-relative mr-3">
+                                    <img class="rounded-circle" src="assets/img/user/u2.jpg" alt="Image">
+                                    <span class="status away"></span>
+                                  </div>
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Aaren</h4>
+                                      <p class="last-msg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam itaque doloremque odio, eligendi delectus vitae.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 1 hrs ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+                                  <div class="position-relative mr-3">
+                                    <img class="rounded-circle" src="assets/img/user/u5.jpg" alt="Image">
+                                    <span class="status away"></span>
+                                  </div>
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Emma</h4>
+                                      <p class="last-msg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam itaque doloremque odio, eligendi delectus vitae.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 1 hrs ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                            </ul>
+                          </div>
+
+                          <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact2-tab">
+                            <ul class="list-unstyled" data-simplebar style="height: 360px">
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification event-active">
+
+                                  <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-info text-white">
+                                    <i class="mdi mdi-calendar-check font-size-20"></i>
+                                  </div>
+
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">New event added</h4>
+                                      <p class="last-msg font-size-14">03/Jan/2020 (1pm - 2pm)</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 10 min ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+
+                                  <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-warning text-white">
+                                    <i class="mdi mdi-chart-areaspline font-size-20"></i>
+                                  </div>
+
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Sales report</h4>
+                                      <p class="last-msg font-size-14">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam itaque doloremque odio, eligendi delectus vitae.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 1 hrs ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+
+                                  <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-primary text-white">
+                                    <i class="mdi mdi-account-multiple-check font-size-20"></i>
+                                  </div>
+
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Add request</h4>
+                                      <p class="last-msg font-size-14">Add Dany Jones as your contact consequat nec imperdiet ex rutrum. Fusce et vehicula enim. Sed in enim.</p>
+
+                                      <button type="button" class="my-1 btn btn-sm btn-success">Accept</button>
+                                      <button type="button" class="my-1 btn btn-sm btn-secondary">Delete</button>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary d-block">
+                                        <i class="mdi mdi-clock-outline"></i> 5 min ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+
+                                  <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-danger text-white">
+                                    <i class="mdi mdi-server-network-off font-size-20"></i>
+                                  </div>
+
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Server overloaded</h4>
+                                      <p class="last-msg font-size-14">Donec mattis augue a nisl consequat, nec imperdiet ex rutrum. Fusce et vehicula enim. Sed in enim eu odio vehic.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 30 min ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+
+                              <li>
+                                <a href="javscript:void(0)" class="media media-message media-notification">
+
+                                  <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-purple text-white">
+                                    <i class="mdi mdi-playlist-check font-size-20"></i>
+                                  </div>
+
+                                  <div class="media-body d-flex justify-content-between">
+                                    <div class="message-contents">
+                                      <h4 class="title">Task complete</h4>
+                                      <p class="last-msg font-size-14">Nam ut nisi erat. Ut quis tortor varius, hendrerit arcu quis, congue nisl. In scelerisque, sem ut ve.</p>
+
+                                      <span class="font-size-12 font-weight-medium text-secondary">
+                                        <i class="mdi mdi-clock-outline"></i> 2 hrs ago...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <ul class="dropdown-menu dropdown-menu-right d-none">
+                      <li class="dropdown-header">You have 5 notifications</li>
+                      <li>
+                        <a href="#">
+                          <i class="mdi mdi-account-plus"></i> New user registered
+                          <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 10 AM</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="mdi mdi-account-remove"></i> User deleted
+                          <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 07 AM</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="mdi mdi-chart-areaspline"></i> Sales report is ready
+                          <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 12 PM</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="mdi mdi-account-supervisor"></i> New client
+                          <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 10 AM</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="mdi mdi-server-network-off"></i> Server overloaded
+                          <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 05 AM</span>
+                        </a>
+                      </li>
+                      <li class="dropdown-footer">
+                        <a class="text-center" href="#"> View All </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="right-sidebar-in right-sidebar-2-menu">
+                    <i class="mdi mdi-settings mdi-spin"></i>
+                  </li>
+                  <!-- User Account -->
+                  <li class="dropdown user-menu">
+                    <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                      <img src="assets/img/user/user.png" class="user-image" alt="User Image" />
+                      <span class="d-none d-lg-inline-block">Abdus Salam</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                      <!-- User image -->
+                      <li class="dropdown-header">
+                        <img src="assets/img/user/user.png" class="img-circle" alt="User Image" />
+                        <div class="d-inline-block">
+                          Abdus Salam <small class="pt-1">iamabdus@gmail.com</small>
+                        </div>
+                      </li>
+
+                      <li>
+                        <a href="user-profile.html">
+                          <i class="mdi mdi-account"></i> My Profile
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="mdi mdi-email"></i> Message
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#"> <i class="mdi mdi-diamond-stone"></i> Projects </a>
+                      </li>
+                      <li class="right-sidebar-in">
+                        <a href="javascript:0"> <i class="mdi mdi-settings"></i> Setting </a>
+                      </li>
+
+                      <li class="dropdown-footer">
+                        <a href="index.html"> <i class="mdi mdi-logout"></i> Log Out </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </header>
+
+          
+          <!-- ====================================
+          ——— CONTENT WRAPPER
+          ===================================== -->
+          <div class="content-wrapper">
+            <div class="content">
+
+
+
+
+
+<div class="bg-white border rounded">
+  <div class="row no-gutters">
+    <div class="col-lg-4 col-xl-3">
+      <div class="profile-content-left profile-left-spacing pt-5 pb-3 px-3 px-xl-5">
+        <div class="card text-center widget-profile px-0 border-0">
+          <div class="card-img mx-auto rounded-circle">
+            <img src="assets/img/user/u6.jpg" alt="user image">
+          </div>
+
+          <div class="card-body">
+            <h4 class="py-2 text-dark">Albrecht Straub</h4>
+            <p>Albrecht.straub@gmail.com</p>
+            <a class="btn btn-primary btn-pill btn-lg my-4" href="#">Follow</a>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between ">
+          <div class="text-center pb-4">
+            <h6 class="text-dark pb-2">1503</h6>
+            <p>Friends</p>
+          </div>
+
+          <div class="text-center pb-4">
+            <h6 class="text-dark pb-2">2905</h6>
+            <p>Followers</p>
+          </div>
+
+          <div class="text-center pb-4">
+            <h6 class="text-dark pb-2">1200</h6>
+            <p>Following</p>
+          </div>
+        </div>
+
+        <hr class="w-100">
+
+        <div class="contact-info pt-4">
+          <h5 class="text-dark mb-1">Contact Information</h5>
+          <p class="text-dark font-weight-medium pt-4 mb-2">Email address</p>
+          <p>Albrecht.straub@gmail.com</p>
+          <p class="text-dark font-weight-medium pt-4 mb-2">Phone Number</p>
+          <p>+99 9539 2641 31</p>
+          <p class="text-dark font-weight-medium pt-4 mb-2">Birthday</p>
+          <p>Nov 15, 1990</p>
+          <p class="text-dark font-weight-medium pt-4 mb-2">Social Profile</p>
+          <p class="pb-3 social-button">
+            <a href="#" class="mb-1 btn btn-outline btn-twitter rounded-circle">
+              <i class="mdi mdi-twitter"></i>
+            </a>
+
+            <a href="#" class="mb-1 btn btn-outline btn-linkedin rounded-circle">
+              <i class="mdi mdi-linkedin"></i>
+            </a>
+
+            <a href="#" class="mb-1 btn btn-outline btn-facebook rounded-circle">
+              <i class="mdi mdi-facebook"></i>
+            </a>
+
+            <a href="#" class="mb-1 btn btn-outline btn-skype rounded-circle">
+              <i class="mdi mdi-skype"></i>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8 col-xl-9">
+      <div class="profile-content-right profile-right-spacing py-5">
+        <ul class="nav nav-tabs px-3 px-xl-5 nav-style-border" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link" id="timeline-tab" data-toggle="tab" href="#timeline" role="tab" aria-controls="timeline" aria-selected="true">Timeline</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
+          </li>
+        </ul>
+
+        <div class="tab-content px-3 px-xl-5" id="myTabContent">
+          <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="timeline-tab">
+            <div class="media mt-5 profile-timeline-media timeline-media-spacing">
+              <div class="align-self-start iconbox-45 overflow-hidden mr-3">
+                <img  src="assets/img/user/u3.jpg" alt="Generic placeholder image">
+              </div>
+
+              <div class="media-body">
+                <h6 class="mt-0 text-dark">Larissa Gebhardt</h6>
+                <span>Designer</span>
+                <span class="float-right">5 mins ago</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  magna aliqua. ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+
+                <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
+                  <img src="assets/img/products/pa1.jpg" alt="Product">
+                </div>
+
+                <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
+                  <img src="assets/img/products/pa2.jpg" alt="Product">
+                </div>
+
+                <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
+                  <img src="assets/img/products/pa3.jpg" alt="Product">
+                </div>
+              </div>
+            </div>
+
+            <div class="media mt-5 profile-timeline-media">
+              <div class="align-self-start iconbox-45 overflow-hidden mr-3">
+                <img  src="assets/img/user/u4.jpg" alt="Generic placeholder image">
+              </div>
+
+              <div class="media-body">
+                <h6 class="mt-0 text-dark">Walter Reuter</h6>
+                <span>Designer</span>
+                <span class="float-right">2 hrs ago</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  magna aliqua. ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+              </div>
+            </div>
+
+            <div class="media mt-5 profile-timeline-media">
+              <div class="align-self-start iconbox-45 overflow-hidden mr-3">
+                <img  src="assets/img/user/u7.jpg" alt="Generic placeholder image">
+              </div>
+
+              <div class="media-body">
+                <h6 class="mt-0 text-dark">Albrecht Straub</h6>
+                <span>Designer</span>
+                <span class="float-right">5 days ago</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  magna aliqua. ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+
+                <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
+                  <img src="assets/img/products/pa4.jpg" alt="Product">
+                </div>
+              </div>
+            </div>
+
+            <div class="media mt-5 profile-timeline-media">
+              <div class="align-self-start iconbox-45 overflow-hidden mr-3">
+                <img  src="assets/img/user/u8.jpg" alt="Generic placeholder image">
+              </div>
+
+              <div class="media-body">
+                <h6 class="mt-0 text-dark">Selena Wagner</h6>
+                <span>Designer</span>
+                <span class="float-right">Mar 05, 2018</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  magna aliqua. ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+
+                <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
+                  <img src="assets/img/products/pa5.jpg" alt="Product">
+                </div>
+
+                <div class="d-inline-block rounded overflow-hidden mt-4 mr-0 mr-lg-4">
+                  <img src="assets/img/products/pa6.jpg" alt="Product">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-widget mt-5">
+              <div class="row">
+                <div class="col-xl-4">
+                  <div class="media widget-media p-4 bg-white border">
+                    <div class="icon rounded-circle mr-4 bg-primary">
+                      <i class="mdi mdi-account-outline text-white "></i>
+                    </div>
+
+                    <div class="media-body align-self-center">
+                      <h4 class="text-primary mb-2">5300</h4>
+                      <p>New Users</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4">
+                  <div class="media widget-media p-4 bg-white border">
+                    <div class="icon rounded-circle bg-warning mr-4">
+                      <i class="mdi mdi-cart-outline text-white "></i>
+                    </div>
+
+                    <div class="media-body align-self-center">
+                      <h4 class="text-primary mb-2">1953</h4>
+                      <p>Order Placed</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4">
+                  <div class="media widget-media p-4 bg-white border">
+                    <div class="icon rounded-circle mr-4 bg-danger">
+                      <i class="mdi mdi-cart-outline text-white "></i>
+                    </div>
+
+                    <div class="media-body align-self-center">
+                      <h4 class="text-primary mb-2">1450</h4>
+                      <p>Total Sales</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-6">
+                  
+                        <!-- Notification Table -->
+                        <div class="card card-default">
+                          <div class="card-header justify-content-between mb-1">
+                            <h2>Latest Notifications</h2>
+                            <div>
+                                <button class="text-black-50 mr-2 font-size-20"><i class="mdi mdi-cached"></i></button>
+                                <div class="dropdown show d-inline-block widget-dropdown">
+                                    <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdown-notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static"></a>
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-notification">
+                                      <li class="dropdown-item"><a  href="#">Action</a></li>
+                                      <li class="dropdown-item"><a  href="#">Another action</a></li>
+                                      <li class="dropdown-item"><a  href="#">Something else here</a></li>
+                                    </ul>
+                                  </div>
+                            </div>
+
+                          </div>
+                          <div class="card-body compact-notifications" data-simplebar style="height: 434px;">
+                            <div class="media pb-3 align-items-center justify-content-between">
+                              <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-primary text-white">
+                                <i class="mdi mdi-cart-outline font-size-20"></i>
+                              </div>
+                              <div class="media-body pr-3 ">
+                                <a class="mt-0 mb-1 font-size-15 text-dark" href="#">New Order</a>
+                                <p >Selena has placed an new order</p>
+                              </div>
+                              <span class=" font-size-12 d-inline-block"><i class="mdi mdi-clock-outline"></i> 10 AM</span>
+                            </div>
+
+                            <div class="media py-3 align-items-center justify-content-between">
+                              <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-success text-white">
+                                <i class="mdi mdi-email-outline font-size-20"></i>
+                              </div>
+                              <div class="media-body pr-3">
+                                <a class="mt-0 mb-1 font-size-15 text-dark" href="#">New Enquiry</a>
+                                <p >Phileine has placed an new order</p>
+                              </div>
+                              <span class=" font-size-12 d-inline-block"><i class="mdi mdi-clock-outline"></i> 9 AM</span>
+                            </div>
+
+
+                            <div class="media py-3 align-items-center justify-content-between">
+                              <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-warning text-white">
+                                <i class="mdi mdi-stack-exchange font-size-20"></i>
+                              </div>
+                              <div class="media-body pr-3">
+                                <a class="mt-0 mb-1 font-size-15 text-dark" href="#">Support Ticket</a>
+                                <p >Emma has placed an new order</p>
+                              </div>
+                              <span class=" font-size-12 d-inline-block"><i class="mdi mdi-clock-outline"></i> 10 AM</span>
+                            </div>
+
+                            <div class="media py-3 align-items-center justify-content-between">
+                              <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-primary text-white">
+                                <i class="mdi mdi-cart-outline font-size-20"></i>
+                              </div>
+                              <div class="media-body pr-3">
+                                <a class="mt-0 mb-1 font-size-15 text-dark" href="#">New order</a>
+                                <p >Ryan has placed an new order</p>
+                              </div>
+                              <span class=" font-size-12 d-inline-block"><i class="mdi mdi-clock-outline"></i> 10 AM</span>
+                            </div>
+
+                            <div class="media py-3 align-items-center justify-content-between">
+                              <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-info text-white">
+                                <i class="mdi mdi-calendar-blank font-size-20"></i>
+                              </div>
+                              <div class="media-body pr-3">
+                                <a class="mt-0 mb-1 font-size-15 text-dark" href="">Comapny Meetup</a>
+                                <p >Phileine has placed an new order</p>
+                              </div>
+                              <span class=" font-size-12 d-inline-block"><i class="mdi mdi-clock-outline"></i> 10 AM</span>
+                            </div>
+
+                            <div class="media py-3 align-items-center justify-content-between">
+                              <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-warning text-white">
+                                <i class="mdi mdi-stack-exchange font-size-20"></i>
+                              </div>
+                              <div class="media-body pr-3">
+                                <a class="mt-0 mb-1 font-size-15 text-dark" href="#">Support Ticket</a>
+                                <p >Emma has placed an new order</p>
+                              </div>
+                              <span class=" font-size-12 d-inline-block"><i class="mdi mdi-clock-outline"></i> 10 AM</span>
+                            </div>
+
+                            <div class="media py-3 align-items-center justify-content-between">
+                              <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-success text-white">
+                                <i class="mdi mdi-email-outline font-size-20"></i>
+                              </div>
+                              <div class="media-body pr-3">
+                                <a class="mt-0 mb-1 font-size-15 text-dark" href="#">New Enquiry</a>
+                                <p >Phileine has placed an new order</p>
+                              </div>
+                              <span class=" font-size-12 d-inline-block"><i class="mdi mdi-clock-outline"></i> 9 AM</span>
+                            </div>
+
+                          </div>
+                          <div class="mt-3"></div>
+                        </div>
+
+                </div>
+
+                <div class="col-xl-6">
+                  
+                  <!-- To Do list -->
+                  <div class="card card-default todo-table" id="todo">
+                    <div class="card-header d-block pb-0 ">
+                      <div class="todo-single-item mb-0" id="todo-input">
+                        <form class="todo-form">
+                          <div class="input-group mb-0">
+                            <input type="text" class="form-control border-right-0" placeholder="Add Todo" required="" autofocus>
+                            <div class="input-group-append ml-0">
+                              <button class="input-group-text border-0 btn bg-primary" type="submit">
+                                <?xml version="1.0"?>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 448 448" width="18" class="">
+                                  <g><path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0" data-original="#000000" class="active-path" data-old_color="#000000" fill="#FFFFFF"/>
+                                  </g>
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+
+                    <div class="card-body compact-to-do-list" data-simplebar style="height: 450px;">
+                      <div class="todo-list" id="todo-list" >
+                        <div id="item" class="todo-single-item todo-item d-flex flex-row justify-content-between finished alert alert-dismissible fade show" role="alert">
+                          <i class="mdi"></i>
+                          <span>Finish Dashboard UI Kit update</span>
+
+                          <div class="task-content">
+                            <span data-dismiss="alert" aria-label="Close">
+                              <svg class="remove-task" id="Capa_1" enable-background="new 0 0 515.556 515.556" height="16" viewBox="0 0 515.556 515.556" width="16" xmlns="http://www.w3.org/2000/svg"><path class="" d="m64.444 451.111c0 35.526 28.902 64.444 64.444 64.444h257.778c35.542 0 64.444-28.918 64.444-64.444v-322.222h-386.666z"/><path d="m322.222 32.222v-32.222h-128.889v32.222h-161.111v64.444h451.111v-64.444z"/></svg>
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="todo-single-item d-flex flex-row justify-content-between current alert alert-dismissible fade show" role="alert">
+                          <i class="mdi"></i>
+                          <span>Create new prototype for the landing page</span>
+
+                          <div class="task-content">
+                            <span data-dismiss="alert" aria-label="Close">
+                              <svg class="remove-task" id="Capa_1" enable-background="new 0 0 515.556 515.556" height="16" viewBox="0 0 515.556 515.556" width="16" xmlns="http://www.w3.org/2000/svg"><path class="" d="m64.444 451.111c0 35.526 28.902 64.444 64.444 64.444h257.778c35.542 0 64.444-28.918 64.444-64.444v-322.222h-386.666z"/><path d="m322.222 32.222v-32.222h-128.889v32.222h-161.111v64.444h451.111v-64.444z"/></svg>
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="todo-single-item d-flex flex-row justify-content-between alert alert-dismissible fade show" role="alert">
+                          <i class="mdi"></i>
+                          <span>Add new Google Analytics code to all main files sed auctor lacus in sem interdum, ac gravida tortor elementum. Cras magna enim.</span>
+
+                          <div class="task-content">
+                            <span data-dismiss="alert" aria-label="Close">
+                              <svg class="remove-task" id="Capa_1" enable-background="new 0 0 515.556 515.556" height="16" viewBox="0 0 515.556 515.556" width="16" xmlns="http://www.w3.org/2000/svg"><path class="" d="m64.444 451.111c0 35.526 28.902 64.444 64.444 64.444h257.778c35.542 0 64.444-28.918 64.444-64.444v-322.222h-386.666z"/><path d="m322.222 32.222v-32.222h-128.889v32.222h-161.111v64.444h451.111v-64.444z"/></svg>
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="todo-single-item d-flex flex-row justify-content-between alert alert-dismissible fade show" role="alert">
+                          <i class="mdi"></i>
+                          <span>Update parallax scroll on team page</span>
+
+                          <div class="task-content">
+                            <span data-dismiss="alert" aria-label="Close">
+                              <svg class="remove-task" id="Capa_1" enable-background="new 0 0 515.556 515.556" height="16" viewBox="0 0 515.556 515.556" width="16" xmlns="http://www.w3.org/2000/svg"><path class="" d="m64.444 451.111c0 35.526 28.902 64.444 64.444 64.444h257.778c35.542 0 64.444-28.918 64.444-64.444v-322.222h-386.666z"/><path d="m322.222 32.222v-32.222h-128.889v32.222h-161.111v64.444h451.111v-64.444z"/></svg>
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="todo-single-item d-flex flex-row justify-content-between alert alert-dismissible fade show" role="alert">
+                          <i class="mdi"></i>
+                          <span>Integer et porta odio, pulvinar pretium eros. Curabitur vel tellus erat.</span>
+
+                          <div class="task-content">
+                            <span data-dismiss="alert" aria-label="Close">
+                              <svg class="remove-task" id="Capa_1" enable-background="new 0 0 515.556 515.556" height="16" viewBox="0 0 515.556 515.556" width="16" xmlns="http://www.w3.org/2000/svg"><path class="" d="m64.444 451.111c0 35.526 28.902 64.444 64.444 64.444h257.778c35.542 0 64.444-28.918 64.444-64.444v-322.222h-386.666z"/><path d="m322.222 32.222v-32.222h-128.889v32.222h-161.111v64.444h451.111v-64.444z"/></svg>
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="todo-single-item d-flex flex-row justify-content-between alert alert-dismissible fade show" role="alert">
+                          <i class="mdi"></i>
+                          <span>Pellentesque blandit ut eros sed vehicula.</span>
+
+                          <div class="task-content">
+                            <span data-dismiss="alert" aria-label="Close">
+                              <svg class="remove-task" id="Capa_1" enable-background="new 0 0 515.556 515.556" height="16" viewBox="0 0 515.556 515.556" width="16" xmlns="http://www.w3.org/2000/svg"><path class="" d="m64.444 451.111c0 35.526 28.902 64.444 64.444 64.444h257.778c35.542 0 64.444-28.918 64.444-64.444v-322.222h-386.666z"/><path d="m322.222 32.222v-32.222h-128.889v32.222h-161.111v64.444h451.111v-64.444z"/></svg>
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="todo-single-item d-flex flex-row justify-content-between alert alert-dismissible fade show" role="alert">
+                          <i class="mdi"></i>
+                          <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis ligula, fringilla in volutpat sit amet, viverra nec mi. Donec at dui dolor.</span>
+
+                          <div class="task-content">
+                            <span data-dismiss="alert" aria-label="Close">
+                              <svg class="remove-task" id="Capa_1" enable-background="new 0 0 515.556 515.556" height="16" viewBox="0 0 515.556 515.556" width="16" xmlns="http://www.w3.org/2000/svg"><path class="" d="m64.444 451.111c0 35.526 28.902 64.444 64.444 64.444h257.778c35.542 0 64.444-28.918 64.444-64.444v-322.222h-386.666z"/><path d="m322.222 32.222v-32.222h-128.889v32.222h-161.111v64.444h451.111v-64.444z"/></svg>
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="todo-single-item d-flex flex-row justify-content-between mb-1 alert alert-dismissible fade show" role="alert">
+                          <i class="mdi"></i>
+                          <span>Update parallax scroll on team page</span>
+
+                          <div class="task-content">
+                            <span data-dismiss="alert" aria-label="Close">
+                              <svg class="remove-task" id="Capa_1" enable-background="new 0 0 515.556 515.556" height="16" viewBox="0 0 515.556 515.556" width="16" xmlns="http://www.w3.org/2000/svg"><path class="" d="m64.444 451.111c0 35.526 28.902 64.444 64.444 64.444h257.778c35.542 0 64.444-28.918 64.444-64.444v-322.222h-386.666z"/><path d="m322.222 32.222v-32.222h-128.889v32.222h-161.111v64.444h451.111v-64.444z"/></svg>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mt-3"></div>
+                  </div>
+
+                </div>
+
+                <div class="col-12">
+                  <!-- Recent Order Table -->
+                  <div class="card card-table-border-none" id="recent-orders">
+                    <div class="card-header justify-content-between">
+                      <h2>Recent Orders</h2>
+
+                      <div class="date-range-report">
+                        <span></span>
+                      </div>
+                    </div>
+
+                    <div class="card-body pt-0 pb-5">
+                      <table class="table card-table table-responsive table-responsive-large" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th>Order ID</th>
+                            <th>Product Name</th>
+                            <th class="d-none d-xl-table-cell">Units</th>
+                            <th class="d-none d-xl-table-cell">Order Date</th>
+                            <th class="d-none d-xl-table-cell">Order Cost</th>
+                            <th>Status</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr>
+                            <td>24541</td>
+                            <td>
+                              <a class="text-dark" href=""> Coach Swagger</a>
+                            </td>
+                            <td class="d-none d-xl-table-cell">1 Unit</td>
+                            <td class="d-none d-xl-table-cell">Oct 20, 2018</td>
+                            <td class="d-none d-xl-table-cell">$230</td>
+                            <td>
+                              <span class="badge badge-success">Completed</span>
+                            </td>
+                            <td class="text-right">
+                              <div class="dropdown show d-inline-block widget-dropdown">
+                                <a class="dropdown-toggle icon-burger-mini" href="" role="button" id="dropdown-recent-order1"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static"></a>
+
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-recent-order1">
+                                  <li class="dropdown-item">
+                                    <a href="#">View</a>
+                                  </li>
+
+                                  <li class="dropdown-item">
+                                    <a href="#">Remove</a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td>24541</td>
+                            <td>
+                              <a class="text-dark" href=""> Toddler Shoes, Gucci Watch</a>
+                            </td>
+                            <td class="d-none d-xl-table-cell">2 Units</td>
+                            <td class="d-none d-xl-table-cell">Nov 15, 2018</td>
+                            <td class="d-none d-xl-table-cell">$550</td>
+                            <td>
+                              <span class="badge badge-warning">Delayed</span>
+                            </td>
+                            <td class="text-right">
+                              <div class="dropdown show d-inline-block widget-dropdown">
+                                <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdown-recent-order2"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static"></a>
+
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-recent-order2">
+                                  <li class="dropdown-item">
+                                    <a href="#">View</a>
+                                  </li>
+
+                                  <li class="dropdown-item">
+                                    <a href="#">Remove</a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td>24541</td>
+                            <td>
+                              <a class="text-dark" href=""> Hat Black Suits</a>
+                            </td>
+                            <td class="d-none d-xl-table-cell">1 Unit</td>
+                            <td class="d-none d-xl-table-cell">Nov 18, 2018</td>
+                            <td class="d-none d-xl-table-cell">$325</td>
+                            <td>
+                              <span class="badge badge-warning">On Hold</span>
+                            </td>
+                            <td class="text-right">
+                              <div class="dropdown show d-inline-block widget-dropdown">
+                                <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdown-recent-order3"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static"></a>
+
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-recent-order3">
+                                  <li class="dropdown-item">
+                                    <a href="#">View</a>
+                                  </li>
+
+                                  <li class="dropdown-item">
+                                    <a href="#">Remove</a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td>24541</td>
+                            <td>
+                              <a class="text-dark" href=""> Backpack Gents, Swimming Cap Slin</a>
+                            </td>
+                            <td class="d-none d-xl-table-cell">5 Units</td>
+                            <td class="d-none d-xl-table-cell">Dec 13, 2018</td>
+                            <td class="d-none d-xl-table-cell">$200</td>
+                            <td>
+                              <span class="badge badge-success">Completed</span>
+                            </td>
+                            <td class="text-right">
+                              <div class="dropdown show d-inline-block widget-dropdown">
+                                <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdown-recent-order4"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static"></a>
+
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-recent-order4">
+                                  <li class="dropdown-item">
+                                    <a href="#">View</a>
+                                  </li>
+
+                                  <li class="dropdown-item">
+                                    <a href="#">Remove</a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td>24541</td>
+                            <td>
+                              <a class="text-dark" href=""> Speed 500 Ignite</a>
+                            </td>
+                            <td class="d-none d-xl-table-cell">1 Unit</td>
+                            <td class="d-none d-xl-table-cell">Dec 23, 2018</td>
+                            <td class="d-none d-xl-table-cell">$150</td>
+                            <td>
+                              <span class="badge badge-danger">Cancelled</span>
+                            </td>
+                            <td class="text-right">
+                              <div class="dropdown show d-inline-block widget-dropdown">
+                                <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdown-recent-order5"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static"></a>
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-recent-order5">
+                                  <li class="dropdown-item">
+                                    <a href="#">View</a>
+                                  </li>
+
+                                  <li class="dropdown-item">
+                                    <a href="#">Remove</a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade show active" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+            <div class="tab-pane-content mt-5">
+              <form>
+                <div class="form-group row mb-6">
+                  <label for="coverImage" class="col-sm-4 col-lg-2 col-form-label">User Image</label>
+                  <div class="col-sm-8 col-lg-10">
+                    <div class="custom-file mb-1">
+                      <input type="file" class="custom-file-input" id="coverImage" required>
+                      <label class="custom-file-label" for="coverImage">Choose file...</label>
+                      <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-2">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="firstName">First name</label>
+                      <input type="text" class="form-control" id="firstName" value="Albrecht">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="lastName">Last name</label>
+                      <input type="text" class="form-control" id="lastName" value="Straub">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group mb-4">
+                  <label for="userName">User name</label>
+                  <input type="text" class="form-control" id="userName" value="Straub">
+                  <span class="d-block mt-1">Accusamus nobis at omnis consequuntur culpa tempore saepe animi.</span>
+                </div>
+
+                <div class="form-group mb-4">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" id="email" value="albrecht.straub@gmail.com">
+                </div>
+
+                <div class="form-group mb-4">
+                  <label for="oldPassword">Old password</label>
+                  <input type="password" class="form-control" id="oldPassword">
+                </div>
+
+                <div class="form-group mb-4">
+                  <label for="newPassword">New password</label>
+                  <input type="password" class="form-control" id="newPassword">
+                </div>
+
+                <div class="form-group mb-4">
+                  <label for="conPassword">Confirm password</label>
+                  <input type="password" class="form-control" id="conPassword">
+                </div>
+
+                <div class="d-flex justify-content-end mt-5">
+                  <button type="submit" class="btn btn-primary mb-2 btn-pill">Update Profile</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+    <!-- Javascript -->
+    <script src="assets/plugins/jquery/jquery.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/plugins/simplebar/simplebar.min.js"></script>
+    <script src='assets/plugins/daterangepicker/moment.min.js'></script>
+    <script src='assets/plugins/daterangepicker/daterangepicker.js'></script>
+    <script src='assets/js/date-range.js'></script>
+
+    
+
+    
+    
+    
+    
+
+    
+
+    
+
+    
+    
+    
+
+    
+    
+
+    
+
+    <script src="assets/js/sleek.js"></script>
+  <link href="assets/options/optionswitch.css" rel="stylesheet">
+<script src="assets/options/optionswitcher.js"></script>
+
+
+<?php include 'includes/footer.php'; ?>
+
