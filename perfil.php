@@ -106,12 +106,10 @@ include 'includes/topbar.php';
                 </div>
 
                 <div class="row mb-2">
-                  <div class="col-lg-6">
                     <div class="form-group mb-4">
                       <label for="firstName">nome Completo</label>
                       <input type="text" class="form-control" id="nome" value="João">
                     </div>
-                  </div>
 
                 <div class="form-group mb-4">
                   <label for="email">Email</label>
