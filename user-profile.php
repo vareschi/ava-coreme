@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 
 require_once 'includes/config.php';
 require_once 'includes/funcoes.php';
+var_dump(function_exists('getPDO')); // Deve retornar true
 
 
 session_start();
