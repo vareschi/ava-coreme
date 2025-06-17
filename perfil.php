@@ -105,9 +105,7 @@ include 'includes/topbar.php';
                   </div>
                 </div>
 
-                
-                  <div class="col-lg-6">
-                    <div class="form-group mb-4">
+                <div class="form-group mb-4">
                       <label for="firstName">nome Completo</label>
                       <input type="text" class="form-control" id="nome" value="João">
                     </div>
@@ -115,12 +113,10 @@ include 'includes/topbar.php';
                       <label for="email">Email</label>
                       <input type="email" class="form-control" id="email" value="albrecht.straub@gmail.com">
                     </div>
-                  </div>
-              
 
-
-
-                <div class="form-group mb-4">
+                <div class="row mb-2">
+                  <div class="col-lg-6">
+                    <div class="form-group mb-4">
                   <label for="oldPassword">Senha Antiga</label>
                   <input type="password" class="form-control" id="oldPassword">
                 </div>
@@ -134,6 +130,12 @@ include 'includes/topbar.php';
                   <label for="conPassword">Confirme a Nova Senha</label>
                   <input type="password" class="form-control" id="conPassword">
                 </div>
+                  </div>
+                </div>
+
+
+
+                
 
                 <div class="d-flex justify-content-end mt-5">
                   <button type="submit" class="btn btn-primary mb-2 btn-pill">Atualizar</button>
