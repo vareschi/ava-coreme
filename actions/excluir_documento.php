@@ -10,5 +10,5 @@ if ($documento_id) {
     $stmt->execute([$documento_id]);
 }
 
-header("Location: ../residentes.php?usuario_id=$usuario_id");
+header("Location: ../residente.php?usuario_id=$usuario_id");
 exit;

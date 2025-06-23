@@ -37,5 +37,5 @@ if (move_uploaded_file($arquivo['tmp_name'], $caminhoCompleto)) {
     $stmt->execute([$usuario_id, $id_tipo, $caminhoBanco]);
 }
 
-header("Location: ../residentes.php?usuario_id=$usuario_id");
+header("Location: ../residente.php?usuario_id=$usuario_id");
 exit;
