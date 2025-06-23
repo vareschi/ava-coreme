@@ -191,6 +191,71 @@ if ($usuario_id) {
       </div>
     </div>
 
+    <?php
+      // Buscar tipos de documento
+      $tipos = $pdo->query("SELECT * FROM documentos_tipo WHERE perfil_id = 0")->fetchAll(PDO::FETCH_ASSOC);
+
+      // Buscar documentos já enviados
+      $documentos = $pdo->prepare("
+          SELECT d.id, dt.nome AS tipo, d.caminho_arquivo, d.data_inclusao 
+          FROM documentos d
+          JOIN documentos_tipo dt ON dt.id = d.tipo_documento_id
+          WHERE d.residente_id = ? AND d.data_exclusao IS NULL
+      ");
+      $documentos->execute([$usuario_id]);
+      $documentos = $documentos->fetchAll(PDO::FETCH_ASSOC);
+      ?>
+
+      <div class="card mb-3">
+        <div class="card-header">Documentos Enviados</div>
+        <div class="card-body">
+          
+          <!-- Upload de novo documento -->
+          <form action="actions/upload_documento.php" method="POST" enctype="multipart/form-data" class="row g-3">
+            <input type="hidden" name="usuario_id" value="<?= htmlspecialchars($usuario_id) ?>">
+
+            <div class="col-md-6">
+              <label class="form-label">Tipo de Documento</label>
+              <select name="id_tipo_documento" class="form-select" required>
+                <option value="">Selecione</option>
+                <?php foreach ($tipos as $tipo): ?>
+                  <option value="<?= $tipo['id'] ?>"><?= htmlspecialchars($tipo['nome']) ?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Arquivo</label>
+              <input type="file" name="arquivo" class="form-control" required>
+            </div>
+
+            <div class="col-12 d-grid">
+              <button type="submit" class="btn btn-primary">Enviar Documento</button>
+            </div>
+          </form>
+
+          <!-- Lista de arquivos já enviados -->
+          <hr>
+          <h6 class="mt-4">Arquivos Enviados</h6>
+          <ul class="list-group">
+            <?php foreach ($documentos as $doc): ?>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>
+                  <?= htmlspecialchars($doc['tipo']) ?> - 
+                  <a href="<?= htmlspecialchars($doc['caminho_arquivo']) ?>" target="_blank">Ver documento</a>
+                </span>
+                <form method="POST" action="actions/excluir_documento.php" style="margin: 0;">
+                  <input type="hidden" name="documento_id" value="<?= $doc['id'] ?>">
+                  <input type="hidden" name="usuario_id" value="<?= $usuario_id ?>">
+                  <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                </form>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      </div>
+
+
     <input type="hidden" name="usuario_id" value="<?= htmlspecialchars($usuario_id) ?>">
 
 

@@ -81,9 +81,9 @@ include 'includes/topbar.php';
     <div class="col-lg-8 col-xl-9">
       <div class="profile-content-right profile-right-spacing py-5">
         <ul class="nav nav-tabs px-3 px-xl-5 nav-style-border" id="myTab" role="tablist">
-          <!--<li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-          </li>-->
+          <li class="nav-item">
+            <a class="nav-link" id="arquivos-tab" data-toggle="tab" href="#arquivos" role="tab" aria-controls="arquivos" aria-selected="false">Arquivos</a>
+          </li>
 
           <li class="nav-item">
             <a class="nav-link active" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Usuário</a>
