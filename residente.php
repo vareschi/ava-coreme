@@ -11,6 +11,11 @@ $pdo = getPDO();
 $usuario_id = $_GET['usuario_id'] ?? null;
 $residente = [];
 
+function formatDateInput($data) {
+    if (!$data || $data == '0000-00-00') return '';
+    return date('Y-m-d', strtotime($data)); // formato para campo input[type="date"]
+}
+
 if ($usuario_id) {
     $stmt = $pdo->prepare("SELECT * FROM residentes WHERE usuario_id = ?");
     $stmt->execute([$usuario_id]);
@@ -272,10 +277,6 @@ if ($usuario_id) {
       });
     });
   });
-
-  function formatDateInput($data) {
-    return ($data && $data !== '0000-00-00') ? $data : '';
-  }
 
 </script>
 
