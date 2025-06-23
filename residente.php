@@ -17,6 +17,19 @@ if ($usuario_id) {
     $residente = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+      // Buscar tipos de documento
+      $tipos = $pdo->query("SELECT * FROM documentos_tipo WHERE perfil_id = 0")->fetchAll(PDO::FETCH_ASSOC);
+
+      // Buscar documentos já enviados
+      $documentos = $pdo->prepare("
+          SELECT d.id, dt.nome AS tipo, d.caminho_arquivo, d.data_inclusao 
+          FROM documentos d
+          JOIN documentos_tipo dt ON dt.id = d.tipo_documento_id
+          WHERE d.residente_id = ? AND d.data_exclusao IS NULL
+      ");
+      $documentos->execute([$usuario_id]);
+      $documentos = $documentos->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <div class="container mt-4">
@@ -95,7 +108,7 @@ if ($usuario_id) {
           </div>
           <div class="col-md-4">
             <label class="form-label">Data Expedição RG</label>
-            <input type="date" name="data_expedicao_rg" class="form-control" value="<?= htmlspecialchars($residente['data_expedicao'] ?? '') ?>">
+            <input type="date" name="data_expedicao_rg" class="form-control" value="<?= formatDateInput($residente['data_expedicao'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">PIS/PASEP/NIT</label>
@@ -173,11 +186,11 @@ if ($usuario_id) {
           </div>
           <div class="col-md-6">
             <label class="form-label">Data Início</label>
-            <input type="date" name="data_inicio" class="form-control" value="<?= htmlspecialchars($residente['data_inicio'] ?? '') ?>">
+            <input type="date" name="data_inicio" class="form-control" value="<?= formatDateInput($residente['data_inicio'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">Data Término</label>
-            <input type="date" name="data_termino" class="form-control" value="<?= htmlspecialchars($residente['data_termino'] ?? '') ?>">
+            <input type="date" name="data_termino" class="form-control" value="<?= formatDateInput($residente['data_termino'] ?? '') ?>">
           </div>
           <div class="col-md-3">
             <label class="form-label">Peso (kg)</label>
@@ -190,21 +203,6 @@ if ($usuario_id) {
         </div>
       </div>
     </div>
-
-    <?php
-      // Buscar tipos de documento
-      $tipos = $pdo->query("SELECT * FROM documentos_tipo WHERE perfil_id = 0")->fetchAll(PDO::FETCH_ASSOC);
-
-      // Buscar documentos já enviados
-      $documentos = $pdo->prepare("
-          SELECT d.id, dt.nome AS tipo, d.caminho_arquivo, d.data_inclusao 
-          FROM documentos d
-          JOIN documentos_tipo dt ON dt.id = d.tipo_documento_id
-          WHERE d.residente_id = ? AND d.data_exclusao IS NULL
-      ");
-      $documentos->execute([$usuario_id]);
-      $documentos = $documentos->fetchAll(PDO::FETCH_ASSOC);
-      ?>
 
       <div class="card mb-3">
         <div class="card-header">Documentos Enviados</div>
@@ -274,6 +272,11 @@ if ($usuario_id) {
       });
     });
   });
+
+  function formatDateInput($data) {
+    return ($data && $data !== '0000-00-00') ? $data : '';
+  }
+
 </script>
 
 <?php require_once 'includes/footer.php'; ?>
