@@ -279,13 +279,6 @@ if ($usuario_id) {
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
 <script>
-  $(document).ready(function() {
-    $('[data-mask]').each(function() {
-      $(this).mask($(this).attr('data-mask'), {
-        reverse: $(this).data('mask-reverse') === true
-      });
-    });
-  });
 
 </script>
 
