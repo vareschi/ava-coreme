@@ -219,7 +219,18 @@ if ($usuario_id) {
       </div>
     </div>
 
-      <div class="card mb-3">
+      
+
+
+    <input type="hidden" name="usuario_id" value="<?= htmlspecialchars($usuario_id) ?>">
+
+
+    <div class="d-grid">
+      <button type="submit" class="btn btn-success">Salvar Residente</button>
+    </div>
+  </form>
+
+  <div class="card mb-3">
         <div class="card-header">Documentos Enviados</div>
         <div class="card-body">
           
@@ -267,15 +278,7 @@ if ($usuario_id) {
           </ul>
         </div>
       </div>
-
-
-    <input type="hidden" name="usuario_id" value="<?= htmlspecialchars($usuario_id) ?>">
-
-
-    <div class="d-grid">
-      <button type="submit" class="btn btn-success">Salvar Residente</button>
-    </div>
-  </form>
+      
 </div>
 
  <!-- Javascript -->
