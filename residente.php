@@ -39,7 +39,7 @@ $tipos = $pdo->query("SELECT * FROM documentos_tipo WHERE perfil_id = 0")->fetch
 
 // Buscar documentos já enviados
 $documentos = $pdo->prepare("
-          SELECT d.id, dt.nome AS tipo, d.caminho_arquivo, d.data_inclusao 
+          SELECT d.id, d.tipo_documento_id, dt.nome AS tipo, d.caminho_arquivo, d.data_inclusao
           FROM documentos d
           JOIN documentos_tipo dt ON dt.id = d.tipo_documento_id
           WHERE d.residente_id = ? AND d.data_exclusao IS NULL
