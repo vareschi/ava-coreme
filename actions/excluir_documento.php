@@ -16,7 +16,7 @@ if ($documento_id) {
 if ($origem === 'perfil') {
     header("Location: ../perfil.php");
 } else {
-    header("Location: ../residentes.php?usuario_id=$usuario_id");
+    header("Location: ../residente.php?usuario_id=$usuario_id");
 }
 exit;
 

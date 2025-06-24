@@ -44,6 +44,6 @@ if (move_uploaded_file($arquivo['tmp_name'], $caminhoCompleto)) {
 if ($origem === 'perfil') {
     header("Location: ../perfil.php");
 } else {
-    header("Location: ../residentes.php?usuario_id=$usuario_id");
+    header("Location: ../residente.php?usuario_id=$usuario_id");
 }
 exit;
