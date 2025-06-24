@@ -46,6 +46,8 @@ try {
     $stmt = $pdo->prepare("DELETE FROM avaliacoes_respostas WHERE avaliacao_gerada_id = ?");
     $stmt->execute([$avaliacao_gerada_id]);
 
+    echo 'Pergunta ID: ' . $pergunta_id;
+
     // Insere as novas respostas
     $stmt = $pdo->prepare("INSERT INTO avaliacoes_respostas (avaliacao_gerada_id, criterio_id, nota_atribuida,usuario_id) VALUES (?,?, ?, ?)");
 
