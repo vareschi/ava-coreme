@@ -37,9 +37,13 @@ ORDER BY ag.inicio_avaliacao;");
 
 $stmt->execute([$usuario_id]);
 $avaliacoes = $stmt->fetchAll();
+
+include 'includes/header.php';
+include 'includes/sidebar.php';
+include 'includes/topbar.php';
 ?>
 
-<?php include 'includes/header.php'; ?>
+
 <div class="container mt-4">
   <h2>Fechamento de Avaliações</h2>
   <p><strong>Residente ID:</strong> <?= htmlspecialchars($usuario_id) ?></p>
@@ -67,6 +71,6 @@ $avaliacoes = $stmt->fetchAll();
     </tbody>
   </table>
 
-  <a href="residentes.php" class="btn btn-secondary mt-3">Voltar</a>
+  <a href="residente.php" class="btn btn-secondary mt-3">Voltar</a>
 </div>
 <?php include 'includes/footer.php'; ?>
