@@ -39,7 +39,7 @@ $stmt->execute([$usuario_id]);
 $avaliacoes = $stmt->fetchAll();
 ?>
 
-<?php include '../includes/header.php'; ?>
+<?php include 'includes/header.php'; ?>
 <div class="container mt-4">
   <h2>Fechamento de Avaliações</h2>
   <p><strong>Residente ID:</strong> <?= htmlspecialchars($usuario_id) ?></p>
