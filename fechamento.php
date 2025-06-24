@@ -4,8 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require_once '../includes/config.php';
-require_once '../includes/funcoes.php';
+require_once 'includes/config.php';
+require_once 'includes/funcoes.php';
 
 session_start();
 verificarAcessoRecurso('avaliacoes');
@@ -69,4 +69,4 @@ $avaliacoes = $stmt->fetchAll();
 
   <a href="residentes.php" class="btn btn-secondary mt-3">Voltar</a>
 </div>
-<?php include '../includes/footer.php'; ?>
+<?php include 'includes/footer.php'; ?>
