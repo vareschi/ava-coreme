@@ -169,6 +169,7 @@ include 'includes/topbar.php';
                     <!-- Upload de novo documento -->
                     <form action="actions/upload_documento.php" method="POST" enctype="multipart/form-data" class="row g-3">
                       <input type="hidden" name="usuario_id" value="<?= htmlspecialchars($usuario_id) ?>">
+                      <input type="hidden" name="origem" value="perfil"> <!-- <-- campo para identificar a origem -->
 
                       <div class="col-md-6">
                         <label class="form-label">Tipo de Documento</label>

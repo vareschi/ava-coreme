@@ -6,6 +6,8 @@ $pdo = getPDO();
 $usuario_id = $_POST['usuario_id'] ?? null;
 $id_tipo = $_POST['id_tipo_documento'] ?? null;
 $arquivo = $_FILES['arquivo'] ?? null;
+$origem = $_POST['origem'] ?? 'residente'; // valor padrão
+
 
 if (!$usuario_id || !$id_tipo || !$arquivo) {
     die("Dados incompletos");
@@ -37,5 +39,11 @@ if (move_uploaded_file($arquivo['tmp_name'], $caminhoCompleto)) {
     $stmt->execute([$usuario_id, $id_tipo, $caminhoBanco]);
 }
 
-header("Location: ../residente.php?usuario_id=$usuario_id");
+
+// Após salvar no banco
+if ($origem === 'perfil') {
+    header("Location: ../perfil.php");
+} else {
+    header("Location: ../residentes.php?usuario_id=$usuario_id");
+}
 exit;
