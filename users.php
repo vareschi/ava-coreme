@@ -90,7 +90,7 @@ $sql = "
 if (!empty($_GET['perfil'])) {
     $sql .= "
       JOIN usuario_perfis up ON up.usuario_id = u.id
-      JOIN perfis p ON p.id = up.perfil_id
+      JOIN perfis p ON p.id = up.perfil_id AND p.id !=1
     ";
     $condicoes[] = "p.nome = ?";
     $params[] = $_GET['perfil'];
