@@ -36,6 +36,7 @@ $campos = $pdo->query("SELECT * FROM campos_estagio WHERE status = 1 ORDER BY no
           <tr>
             <th>ID</th>
             <th>Campo de Estágio</th>
+            <th>Cor</th>
             <th class="text-right">Ações</th>
           </tr>
         </thead>
@@ -44,7 +45,13 @@ $campos = $pdo->query("SELECT * FROM campos_estagio WHERE status = 1 ORDER BY no
             <tr>
               <td><?= $c['id'] ?></td>
               <td><?= htmlspecialchars($c['nome']) ?></td>
+              <td>
+                <div style="width: 20px; height: 20px; border-radius: 50%; background-color: <?= htmlspecialchars($c['cor']) ?>; border: 1px solid #ccc;"></div>
+              </td>
               <td class="text-right">
+                <a href="#" class="btn btn-sm btn-link text-info" onclick="abrirModalEditarCampo(<?= $c['id'] ?>, '<?= htmlspecialchars($c['nome'], ENT_QUOTES) ?>', '<?= $c['cor'] ?>')">
+                  <i class="mdi mdi-pencil"></i>
+                </a>
                 <a href="actions/excluir_campo_estagio.php?id=<?= $c['id'] ?>" onclick="return confirm('Excluir este campo?')" class="btn btn-sm btn-link text-danger">
                   <i class="mdi mdi-delete"></i>
                 </a>
@@ -52,22 +59,24 @@ $campos = $pdo->query("SELECT * FROM campos_estagio WHERE status = 1 ORDER BY no
             </tr>
           <?php endforeach; ?>
         </tbody>
+
       </table>
     </div>
   </div>
 </div>
 
-<!-- Modal Novo Campo -->
+<!-- Modal Novo/Editar Campo -->
 <div class="modal fade" id="modalNovoCampo" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <form class="modal-content" method="POST" action="actions/salvar_campo_estagio.php">
+      <input type="hidden" name="id" id="campo_id">
       <div class="modal-header">
-        <h5 class="modal-title">Novo Campo de Estágio</h5>
+        <h5 class="modal-title" id="modalCampoTitulo">Novo Campo de Estágio</h5>
         <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="campo">Nome do Campo</label>
+          <label for="nome">Nome do Campo</label>
           <input type="text" name="nome" id="nome" class="form-control" required>
         </div>
         <div class="form-group">
@@ -83,11 +92,24 @@ $campos = $pdo->query("SELECT * FROM campos_estagio WHERE status = 1 ORDER BY no
   </div>
 </div>
 
+
 <script>
 function abrirModalNovoCampo() {
+  document.getElementById('campo_id').value = '';
   document.getElementById('nome').value = '';
+  document.getElementById('cor').value = '#2196f3';
+  document.getElementById('modalCampoTitulo').innerText = 'Novo Campo de Estágio';
+  $('#modalNovoCampo').modal('show');
+}
+
+function abrirModalEditarCampo(id, nome, cor) {
+  document.getElementById('campo_id').value = id;
+  document.getElementById('nome').value = nome;
+  document.getElementById('cor').value = cor || '#2196f3';
+  document.getElementById('modalCampoTitulo').innerText = 'Editar Campo de Estágio';
   $('#modalNovoCampo').modal('show');
 }
 </script>
+
 
 <?php include 'includes/footer.php'; ?>
