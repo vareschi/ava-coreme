@@ -90,17 +90,21 @@ $sql = "
 if (!empty($_GET['perfil'])) {
     $sql .= "
       JOIN usuario_perfis up ON up.usuario_id = u.id
-      JOIN perfis p ON p.id = up.perfil_id AND p.id !=1
+      JOIN perfis p ON p.id = up.perfil_id
     ";
     $condicoes[] = "p.nome = ?";
     $params[] = $_GET['perfil'];
 }
+
+// sempre excluir admins (perfil_id = 1)
+$condicoes[] = "u.id NOT IN (SELECT usuario_id FROM usuario_perfis WHERE perfil_id = 1)";
 
 if ($condicoes) {
     $sql .= " WHERE " . implode(" AND ", $condicoes);
 }
 
 $sql .= " ORDER BY u.nome ASC";
+
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
