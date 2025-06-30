@@ -1,6 +1,6 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 $perfis = $_SESSION['perfis'] ?? [];
 $usuario_id = $_SESSION['usuario_id'] ?? 0;
@@ -31,7 +31,7 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // Agrupar por grupo
 $menuAgrupado = [];
 foreach ($rows as $row) {
-    $menuAgrupado[$row['grupo_nome']][] = $row;
+  $menuAgrupado[$row['grupo_nome']][] = $row;
 }
 ?>
 
@@ -41,12 +41,8 @@ foreach ($rows as $row) {
     <!-- Marca da aplicação -->
     <div class="app-brand">
       <a href="index.php" title="COREME">
-        <img 
-          src="assets/img/logo-coremehub.png" 
-          alt="Logo COREME" 
-          class="brand-logo" 
-          style="max-height:40px; width:auto;"
-        />
+        <img src="assets/img/logo-coremehub.png" alt="Logo COREME" class="brand-logo"
+          style="max-height:40px; width:auto;" />
       </a>
     </div>
 
@@ -61,13 +57,24 @@ foreach ($rows as $row) {
           </a>
         </li>
 
-        <?php foreach ($menuAgrupado as $grupo => $menus): ?>
-          <li class="has-sub">
-            <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#<?= md5($grupo) ?>" aria-expanded="false" aria-controls="<?= md5($grupo) ?>">
+        <?php foreach ($menuAgrupado as $grupo => $menus):
+          $grupoId = 'grupo_' . md5($grupo);
+          $paginaAtual = basename($_SERVER['PHP_SELF']);
+          $isAtivo = false;
+          foreach ($menus as $menu) {
+            if (basename($menu['link']) === $paginaAtual) {
+              $isAtivo = true;
+              break;
+            }
+          }
+          ?>
+          <li class="has-sub <?= $isAtivo ? 'expand' : '' ?>">
+            <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#<?= $grupoId ?>"
+              aria-expanded="<?= $isAtivo ? 'true' : 'false' ?>" aria-controls="<?= $grupoId ?>">
               <i class="mdi mdi-menu"></i>
               <span class="nav-text"><?= htmlspecialchars($grupo) ?></span> <b class="caret"></b>
             </a>
-            <ul class="collapse" id="<?= md5($grupo) ?>" data-parent="#sidebar-menu">
+            <ul class="collapse <?= $isAtivo ? 'show' : '' ?>" id="<?= $grupoId ?>" data-parent="#sidebar-menu">
               <div class="sub-menu">
                 <?php foreach ($menus as $menu): ?>
                   <li>
@@ -80,6 +87,8 @@ foreach ($rows as $row) {
             </ul>
           </li>
         <?php endforeach; ?>
+
+
 
       </ul>
     </div>
