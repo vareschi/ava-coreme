@@ -70,6 +70,10 @@ $campos = $pdo->query("SELECT * FROM campos_estagio WHERE status = 1 ORDER BY no
           <label for="campo">Nome do Campo</label>
           <input type="text" name="nome" id="nome" class="form-control" required>
         </div>
+        <div class="form-group">
+          <label for="cor">Cor</label>
+          <input type="color" name="cor" id="cor" class="form-control" value="#2196f3">
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

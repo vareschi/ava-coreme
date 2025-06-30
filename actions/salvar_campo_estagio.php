@@ -18,6 +18,7 @@ verificarAcessoRecurso('campos_estagio');
 $pdo = getPDO();
 
 $nome = trim($_POST['nome'] ?? '');
+$cor = $_POST['cor'] ?? '#2196f3'; 
 
 if (empty($nome)) {
     header("Location: ../campos_estagio.php?erro=nome_obrigatorio");
@@ -25,8 +26,8 @@ if (empty($nome)) {
 }
 
 try {
-    $stmt = $pdo->prepare("INSERT INTO campos_estagio (nome) VALUES (?)");
-    $stmt->execute([$nome]);
+    $stmt = $pdo->prepare("INSERT INTO campos_estagio (nome,cor) VALUES (?,?)");
+    $stmt->execute([$nome, $cor]);
 
     header("Location: ../campos_estagio.php?sucesso=1");
     exit;

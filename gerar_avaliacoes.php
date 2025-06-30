@@ -23,7 +23,7 @@ $pdo = getPDO();
 
 $turmas = $pdo->query("SELECT id, nome FROM turmas WHERE status = 1 ORDER BY nome")->fetchAll();
 $residentes = $pdo->query("SELECT u.id, u.nome FROM usuarios u JOIN usuario_perfis up ON u.id = up.usuario_id WHERE up.perfil_id = 3 ORDER BY u.nome")->fetchAll();
-$modelos = $pdo->query("SELECT id, titulo FROM avaliacoes ORDER BY titulo")->fetchAll();
+$modelos = $pdo->query("SELECT id, titulo FROM avaliacoes WHERE status=1 ORDER BY titulo")->fetchAll();
 $campos_estagio = $pdo->query("SELECT id, nome FROM campos_estagio WHERE data_exclusao IS NULL ORDER BY nome")->fetchAll();
 ?>
 
