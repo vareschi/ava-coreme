@@ -23,13 +23,24 @@ $pdo = getPDO();
 $perfis = $pdo->query("SELECT id, nome FROM perfis ORDER BY nome")->fetchAll();
 $usuarios = $pdo->query("SELECT id, nome FROM usuarios ORDER BY nome")->fetchAll();
 
-$menus = $pdo->query("
+$menusRows = $pdo->query("
   SELECT m.id, m.nome, mg.nome AS grupo_nome
   FROM menus m
   LEFT JOIN menus_grupo mg ON m.grupo_id = mg.id
   WHERE m.ativo = 1
   ORDER BY mg.ordem, m.ordem, m.nome
-")->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_ASSOC);
+")->fetchAll();
+
+$menus = [];
+foreach ($menusRows as $row) {
+  $grupo = $row['grupo_nome'] ?? 'Sem Grupo';
+  $menus[$grupo][] = [
+    'id' => $row['id'],
+    'nome' => $row['nome']
+  ];
+}
+
+
 
 
 // Identificar se perfil ou usuário foi selecionado
