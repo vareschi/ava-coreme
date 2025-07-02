@@ -22,6 +22,7 @@ $data_inicio      = $_POST['data_inicio'] ?? null;
 $especialidade_id = $_POST['especialidade_id'] ?? null;
 $coordenador      = $_POST['coordenador'] ?? null;
 $campos_estagio   = $_POST['campos_estagio'] ?? [];
+$crm = trim($_POST['crm'] ?? '');
 
 if (!$usuario_id) {
     die('Usuário não informado.');
@@ -44,6 +45,9 @@ try {
         $stmt = $pdo->prepare("DELETE FROM preceptor_campoestagio WHERE preceptor_id = ?");
         $stmt->execute([$preceptor['id']]);
         $preceptor_id = $preceptor['id'];
+
+        $stmt = $pdo->prepare("UPDATE usuarios_dados SET crm = ? WHERE usuario_id = ?");
+        $stmt->execute([$crm, $usuario_id]);
     } else {
         // Insere novo preceptor
         $stmt = $pdo->prepare("INSERT INTO preceptores (usuario_id, data_inicio, especialidade_id, coordenador) VALUES (?, ?, ?, ?)");

@@ -28,9 +28,14 @@ $campos_estagio = $pdo->query("SELECT id, nome FROM campos_estagio WHERE data_ex
 // Buscar especialidades disponíveis
 $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll();
 
-
+$dados_usuario = [];
 
 if ($usuario_id) {
+
+    $stmtDados = $pdo->prepare("SELECT crm FROM usuarios_dados WHERE usuario_id = ?");
+    $stmtDados->execute([$usuario_id]);
+    $dados_usuario = $stmtDados->fetch(PDO::FETCH_ASSOC) ?: [];
+
     $stmt = $pdo->prepare("SELECT * FROM preceptores WHERE usuario_id = ?");
     $stmt->execute([$usuario_id]);
     $preceptor = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -99,6 +104,19 @@ if ($usuario_id) {
         </div>
       </div>
     </div>
+
+    <div class="card mb-3">
+      <div class="card-header">Informações do Usuário</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <label class="form-label">CRM</label>
+            <input type="text" name="crm" class="form-control" value="<?= htmlspecialchars($dados_usuario['crm'] ?? '') ?>">
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <input type="hidden" name="usuario_id" value="<?= htmlspecialchars($usuario_id) ?>">
 
