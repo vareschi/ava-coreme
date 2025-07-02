@@ -99,7 +99,7 @@ if ($alvo_id) {
                         <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="menus[]" value="<?= $menu['id'] ?>"
                             <?= in_array($menu['id'], $acessosMarcados) ? 'checked' : '' ?>>
-                        <label class="form-check-label"><?= htmlspecialchars($menu['nome']) ?></label>
+                        <label class="form-check-label"><?= htmlspecialchars($menu['nome'] ?? '') ?></label>
                         </div>
                     </div>
                     <?php endforeach; ?>
