@@ -31,15 +31,16 @@ $menusRows = $pdo->query("
   ORDER BY mg.ordem, m.ordem, m.nome
 ")->fetchAll(PDO::FETCH_ASSOC);
 
-
 $menus = [];
+
 foreach ($menusRows as $row) {
-  $grupo = $row['grupo_nome'] ?? 'Sem Grupo';
-  $menus[$grupo][] = [
-    'id' => $row['id'],
-    'nome' => $row['nome']
-  ];
+    $grupo = $row['grupo_nome'] ?? 'Sem Grupo';
+    $menus[$grupo][] = [
+        'id' => $row['id'],
+        'nome' => $row['nome']
+    ];
 }
+
 
 
 
@@ -91,19 +92,20 @@ if ($alvo_id) {
             <div class="form-group">
                 <label>Menus Permitidos:</label>
                 <?php foreach ($menus as $grupoNome => $itens): ?>
-                    <h5 class="mt-4 mb-2"><?= htmlspecialchars($grupoNome ?: 'Sem Grupo') ?></h5>
-                    <div class="row">
-                        <?php foreach ($itens as $menu): ?>
-                            <div class="col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="menus[]" value="<?= $menu['id'] ?>"
-                                        <?= in_array($menu['id'], $acessosMarcados) ? 'checked' : '' ?>>
-                                    <label class="form-check-label"><?= htmlspecialchars($menu['nome'] ?? '') ?></label>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
+                <h5 class="mt-4 mb-2"><?= htmlspecialchars($grupoNome ?: 'Sem Grupo') ?></h5>
+                <div class="row">
+                    <?php foreach ($itens as $menu): ?>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="menus[]" value="<?= $menu['id'] ?>"
+                            <?= in_array($menu['id'], $acessosMarcados) ? 'checked' : '' ?>>
+                        <label class="form-check-label"><?= htmlspecialchars($menu['nome']) ?></label>
+                        </div>
                     </div>
+                    <?php endforeach; ?>
+                </div>
                 <?php endforeach; ?>
+
 
             </div>
 
