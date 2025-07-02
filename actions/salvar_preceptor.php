@@ -53,6 +53,9 @@ try {
         $stmt = $pdo->prepare("INSERT INTO preceptores (usuario_id, data_inicio, especialidade_id, coordenador) VALUES (?, ?, ?, ?)");
         $stmt->execute([$usuario_id, $data_inicio, $especialidade_id, $coordenador]);
         $preceptor_id = $pdo->lastInsertId();
+
+        $stmt = $pdo->prepare("UPDATE usuarios_dados SET crm = ? WHERE usuario_id = ?");
+        $stmt->execute([$crm, $usuario_id]);
     }
 
     // Insere os novos campos de estágio
