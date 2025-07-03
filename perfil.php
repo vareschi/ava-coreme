@@ -263,21 +263,6 @@ include 'includes/topbar.php';
                           <div class="card mb-3">
                             <div class="card-header">Status e Identificação</div>
                             <div class="card-body">
-                              <div class="mb-3">
-                                <label class="form-label">Situação</label><br>
-                                <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="status" value="Em análise" checked>
-                                  <label class="form-check-label">Em análise</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="status" value="Documentação pendente">
-                                  <label class="form-check-label">Documentação pendente</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="status" value="Ativo">
-                                  <label class="form-check-label">Ativo</label>
-                                </div>
-                              </div>
 
                               <div class="row g-3">
                                 <div class="col-md-6">
