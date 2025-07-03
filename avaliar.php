@@ -47,9 +47,9 @@ $sql = "SELECT
         ";
 
 // Aplicar permissões por perfil
-if ($perfil_id == 3) {
+if (temPerfil(3)) {
     $sql .= " AND ag.residente_id = $usuario_id";
-} elseif ($_SESSION['perfis'] === ['4'] || $_SESSION['perfis'] === [4]) {
+} elseif (temPerfil(4)) {
     $sql .= " AND ag.preceptor_id = $usuario_id";
 }
 
