@@ -41,10 +41,13 @@ if ($usuario && password_verify($senha, $usuario['senha'])) {
     // 8. Redirecionamento por perfil
     if ($_SESSION['perfis'] === ['4'] || $_SESSION['perfis'] === [4]) {
         header("Location: avaliar.php");
+    } elseif ($_SESSION['perfis'] === ['3'] || $_SESSION['perfis'] === [3]) {
+        header("Location: perfil.php");
     } else {
         header("Location: users.php");
     }
     exit;
+
 
 } else {
     // Falha no login
