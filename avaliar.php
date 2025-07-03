@@ -200,15 +200,21 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
     </tbody>
   </table>
 
-  <nav>
-    <ul class="pagination">
-      <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-        <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
-          <a class="page-link" href="?pagina=<?= $i ?>&<?= http_build_query($_GET) ?>"><?= $i ?></a>
-        </li>
-      <?php endfor; ?>
-    </ul>
-  </nav>
+    <?php
+      $queryParams = $_GET;
+      unset($queryParams['pagina']);
+      $queryString = http_build_query($queryParams);
+    ?>
+
+    <nav>
+      <ul class="pagination">
+        <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+          <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
+            <a class="page-link" href="?pagina=<?= $i ?>&<?= $queryString ?>"><?= $i ?></a>
+          </li>
+        <?php endfor; ?>
+      </ul>
+    </nav>
 </div>
 
 <?php include 'includes/footer.php'; ?>
