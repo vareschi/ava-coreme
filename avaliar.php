@@ -42,11 +42,11 @@ $sql = "SELECT
         JOIN matriculas m ON m.usuario_id = ag.residente_id AND m.status = 1
         JOIN turmas t ON t.id = m.turma_id
         JOIN especialidades esp ON esp.id = t.especialidade_id
+        WHERE 1=1
         ";
 
 // Aplicar permissões por perfil
 if (temPerfil(4)) {
-  $sql .= " WHERE ag.inicio_avaliacao <= CURDATE()";
   $sql .= " AND ag.fim_avaliacao >= CURDATE()";
   $sql .= " AND ag.preceptor_id = $usuario_id";
 }
@@ -207,13 +207,13 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
     ?>
 
     <?php
-  $queryParams = $_GET;
-  unset($queryParams['pagina']);
-  $queryString = http_build_query($queryParams);
+      $queryParams = $_GET;
+      unset($queryParams['pagina']);
+      $queryString = http_build_query($queryParams);
 
-  $paginaAnterior = max(1, $pagina - 1);
-  $paginaProxima = min($totalPaginas, $pagina + 1);
-?>
+      $paginaAnterior = max(1, $pagina - 1);
+      $paginaProxima = min($totalPaginas, $pagina + 1);
+    ?>
 
 
   <nav aria-label="Navegação de páginas">
