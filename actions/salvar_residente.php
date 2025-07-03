@@ -48,6 +48,8 @@ $data_termino       = $_POST['data_termino'] ?? null;
 $peso               = $_POST['peso'] ?? '';
 $altura             = $_POST['altura'] ?? '';
 
+$origem = $_POST['origem'] ?? '';
+
 try {
     // Verifica se já existe registro para o usuario_id
     $stmtVerifica = $pdo->prepare("SELECT COUNT(*) FROM residentes WHERE usuario_id = ?");
@@ -140,7 +142,12 @@ try {
 
     $stmt->execute($params);
 
-    header("Location: ../residente.php?usuario_id={$usuario_id}&ok=1");
+    
+    if ($origem === 'perfil') {
+        header("Location: ../perfil.php?aba=complemento&ok=1");
+    } else {
+        header("Location: ../residente.php?usuario_id={$usuario_id}&ok=1");
+    }
     exit;
 
 } catch (PDOException $e) {

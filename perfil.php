@@ -259,7 +259,8 @@ include 'includes/topbar.php';
                   <div class="card mb-3">
                     <div class="card-header">Dados Complementares</div>
                       <div class="card-body">
-                        <form action="actions/salvar_residente_perfil.php" method="POST" enctype="multipart/form-data">
+                        <form action="actions/salvar_residente.php" method="POST" enctype="multipart/form-data">
+                          <input type="hidden" name="origem" value="perfil">
                           <div class="card mb-3">
                             <div class="card-header">Status e Identificação</div>
                             <div class="card-body">
