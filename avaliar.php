@@ -215,6 +215,7 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
   $paginaProxima = min($totalPaginas, $pagina + 1);
 ?>
 
+
   <nav aria-label="Navegação de páginas">
     <ul class="pagination justify-content-center">
       <li class="page-item <?= $pagina <= 1 ? 'disabled' : '' ?>">
