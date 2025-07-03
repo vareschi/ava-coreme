@@ -21,10 +21,31 @@ include 'includes/topbar.php';
 verificarAcessoRecurso('turmas');
 
 $pdo = getPDO();
-$turmas = $pdo->query("SELECT t.*, e.nome AS nome_especialidade FROM turmas t
-                       LEFT JOIN especialidades e ON t.especialidade_id = e.id
-                       WHERE t.status = 1
-                       ORDER BY t.data_abertura DESC")->fetchAll();
+$condicoes = ["t.status = 1"];
+$params = [];
+
+if (!empty($_GET['nome'])) {
+    $condicoes[] = "t.nome LIKE ?";
+    $params[] = '%' . $_GET['nome'] . '%';
+}
+
+if (!empty($_GET['ano'])) {
+    $condicoes[] = "YEAR(t.data_abertura) = ?";
+    $params[] = $_GET['ano'];
+}
+
+$sql = "
+  SELECT t.*, e.nome AS nome_especialidade
+  FROM turmas t
+  LEFT JOIN especialidades e ON t.especialidade_id = e.id
+  WHERE " . implode(" AND ", $condicoes) . "
+  ORDER BY t.nome
+";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$turmas = $stmt->fetchAll();
+
 $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome")->fetchAll();
 $preceptores = $pdo->query("SELECT u.id, u.nome from usuarios u, usuario_perfis p WHERE p.usuario_id = u.id AND p.perfil_id = 4 ORDER BY u.nome")->fetchAll();
 ?>
@@ -41,6 +62,24 @@ $preceptores = $pdo->query("SELECT u.id, u.nome from usuarios u, usuario_perfis 
 
   <div class="card">
     <div class="card-body">
+      <form method="GET" class="form-inline mb-3">
+        <input type="text" name="nome" class="form-control mr-2" placeholder="Nome da Turma" value="<?= htmlspecialchars($_GET['nome'] ?? '') ?>">
+
+        <select name="ano" class="form-control mr-2">
+          <option value="">Todos os Anos</option>
+          <?php
+            $anos = $pdo->query("SELECT DISTINCT YEAR(data_abertura) AS ano FROM turmas WHERE status = 1 ORDER BY ano DESC")->fetchAll();
+            foreach ($anos as $a):
+          ?>
+            <option value="<?= $a['ano'] ?>" <?= ($_GET['ano'] ?? '') == $a['ano'] ? 'selected' : '' ?>>
+              <?= $a['ano'] ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+
+        <button type="submit" class="btn btn-outline-primary">Filtrar</button>
+      </form>
+
       <table class="table table-hover nowrap" style="width:100%">
         <thead>
           <tr>
