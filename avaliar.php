@@ -206,15 +206,33 @@ $especialidades = $pdo->query("SELECT id, nome FROM especialidades ORDER BY nome
       $queryString = http_build_query($queryParams);
     ?>
 
-    <nav>
-      <ul class="pagination">
-        <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-          <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
-            <a class="page-link" href="?pagina=<?= $i ?>&<?= $queryString ?>"><?= $i ?></a>
-          </li>
-        <?php endfor; ?>
-      </ul>
-    </nav>
+    <?php
+  $queryParams = $_GET;
+  unset($queryParams['pagina']);
+  $queryString = http_build_query($queryParams);
+
+  $paginaAnterior = max(1, $pagina - 1);
+  $paginaProxima = min($totalPaginas, $pagina + 1);
+?>
+
+  <nav aria-label="Navegação de páginas">
+    <ul class="pagination justify-content-center">
+      <li class="page-item <?= $pagina <= 1 ? 'disabled' : '' ?>">
+        <a class="page-link" href="?pagina=<?= $paginaAnterior ?>&<?= $queryString ?>" tabindex="-1">Anterior</a>
+      </li>
+
+      <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+        <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
+          <a class="page-link" href="?pagina=<?= $i ?>&<?= $queryString ?>"><?= $i ?></a>
+        </li>
+      <?php endfor; ?>
+
+      <li class="page-item <?= $pagina >= $totalPaginas ? 'disabled' : '' ?>">
+        <a class="page-link" href="?pagina=<?= $paginaProxima ?>&<?= $queryString ?>">Próxima</a>
+      </li>
+    </ul>
+  </nav>
+
 </div>
 
 <?php include 'includes/footer.php'; ?>
