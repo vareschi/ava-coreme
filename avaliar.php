@@ -47,6 +47,7 @@ $sql = "SELECT
 
 // Aplicar permissões por perfil
 if (temPerfil(4)) {
+  $sql .= " AND ag.inicio_avaliacao <= CURDATE()";
   $sql .= " AND ag.fim_avaliacao >= CURDATE()";
   $sql .= " AND ag.preceptor_id = $usuario_id";
 }
@@ -78,16 +79,16 @@ $sqlTotal = "
     JOIN matriculas m ON m.usuario_id = ag.residente_id AND m.status = 1
     JOIN turmas t ON t.id = m.turma_id
     JOIN especialidades esp ON esp.id = t.especialidade_id
-    WHERE ag.inicio_avaliacao <= CURDATE()
-      AND ag.fim_avaliacao >= CURDATE()
+    WHERE 1=1
 ";
 
 // Reaplicar os mesmos filtros
-if ($perfil_id == 3) {
-    $sqlTotal .= " AND ag.residente_id = $usuario_id";
-} elseif ($perfil_id == 4) {
-    $sqlTotal .= " AND ag.preceptor_id = $usuario_id";
+if (temPerfil(4)) {
+  $sql .= " AND ag.inicio_avaliacao <= CURDATE()";
+  $sql .= " AND ag.fim_avaliacao >= CURDATE()";
+  $sql .= " AND ag.preceptor_id = $usuario_id";
 }
+
 if ($campo_estagio_id) $sqlTotal .= " AND ag.campo_estagio_id = " . (int)$campo_estagio_id;
 if ($especialidade_id) $sqlTotal .= " AND t.especialidade_id = " . (int)$especialidade_id;
 if ($status !== '') $sqlTotal .= " AND ag.status = " . (int)$status;
