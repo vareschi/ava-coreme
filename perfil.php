@@ -56,6 +56,13 @@ include 'includes/header.php';
 include 'includes/sidebar.php';
 include 'includes/topbar.php';
 
+function formatDateInput($data)
+{
+  if (!$data || $data == '0000-00-00')
+    return '';
+  return date('Y-m-d', strtotime($data)); // formato para campo input[type="date"]
+}
+
 ?>
 
 <!-- ====================================
