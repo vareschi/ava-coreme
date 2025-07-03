@@ -47,9 +47,7 @@ $sql = "SELECT
         ";
 
 // Aplicar permissões por perfil
-if (temPerfil(3)) {
-    $sql .= " AND ag.residente_id = $usuario_id";
-} elseif (temPerfil(4)) {
+if (temPerfil(4)) {
     $sql .= " AND ag.preceptor_id = $usuario_id";
 }
 
