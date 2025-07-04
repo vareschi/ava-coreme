@@ -143,7 +143,17 @@ $campos_estagio = $pdo->query("SELECT id, nome FROM campos_estagio WHERE data_ex
   
 </div>
 
+    <link href='assets/plugins/select2/css/select2.min.css' rel='stylesheet'>
+    <script src='assets/plugins/select2/js/select2.min.js'></script>
+
 <script>
+
+    $(document).ready(function() {
+      $('.js-example-basic-multiple').select2({
+        placeholder: "Selecione os preceptores",
+        allowClear: true
+      });
+    });
 
 document.getElementById('tipo_geracao').addEventListener('change', function () {
   const tipo = this.value;
