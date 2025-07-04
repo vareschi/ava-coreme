@@ -19,7 +19,7 @@ try {
     $nivel = $_POST['nivel_especialidade'];
     $ano = $_POST['ano_letivo'];
     $mes = $_POST['mes_referencia'];
-    $preceptor_especifico = $_POST['preceptor_id'] ?? null;
+    $preceptoresSelecionados = $_POST['preceptores'] ?? []; // agora é um array
 
     $residentes = [];
 
@@ -43,17 +43,21 @@ try {
     foreach ($residentes as $residente_id) {
         $preceptores = [];
 
-        if ($preceptor_especifico) {
-            // Usa apenas o preceptor selecionado
-            $preceptores = [$preceptor_especifico];
+        if (!empty($preceptoresSelecionados)) {
+            // Usar os preceptores escolhidos manualmente
+            $preceptores = array_map('intval', $preceptoresSelecionados);
         } else {
-            // Busca todos os preceptores do campo
-            $stmtPrec = $pdo->prepare("SELECT p.usuario_id AS preceptor_id FROM preceptor_campoestagio pc
+            // Busca todos os preceptores vinculados ao campo
+            $stmtPrec = $pdo->prepare("
+                SELECT p.usuario_id AS preceptor_id 
+                FROM preceptor_campoestagio pc
                 JOIN preceptores p ON pc.preceptor_id = p.id
-                WHERE pc.campo_estagio_id = ?");
+                WHERE pc.campo_estagio_id = ?
+            ");
             $stmtPrec->execute([$campo_estagio_id]);
             $preceptores = $stmtPrec->fetchAll(PDO::FETCH_COLUMN);
         }
+
 
         foreach ($preceptores as $preceptor_id) {
             $stmtInsert->execute([
