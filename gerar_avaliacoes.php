@@ -85,9 +85,7 @@ $campos_estagio = $pdo->query("SELECT id, nome FROM campos_estagio WHERE data_ex
 
         <div class="col-md-6 mb-3">
           <label for="preceptor_id">Preceptor (opcional)</label>
-          <select name="preceptor_id" id="preceptor_id" class="form-control">
-            <option value="">Todos os preceptores do campo</option>
-          </select>
+          <select name="preceptores[]" id="preceptor_id" class="form-control js-example-basic-multiple" multiple="multiple"></select>
         </div>
 
         <div class="col-md-3 mb-3">
